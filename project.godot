@@ -11,10 +11,18 @@ config_version=5
 [application]
 
 config/name="GodotPlatform2D"
+run/main_scene="res://src/scenes/level_01.tscn"
 config/features=PackedStringArray("4.2", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[display]
+
+window/size/viewport_width=576
+window/size/viewport_height=324
+window/stretch/mode="canvas_items"
+
 [rendering]
 
+textures/canvas_textures/default_texture_filter=0
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
