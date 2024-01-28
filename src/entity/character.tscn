@@ -1,8 +1,8 @@
 [gd_scene load_steps=24 format=3 uid="uid://ir1eugbdnrkn"]
 
-[ext_resource type="Texture2D" uid="uid://dd28gk2sytn4y" path="res://assets/textures/main_characters/Mask Dude/Idle (32x32).png" id="1_cmjuy"]
-[ext_resource type="Script" path="res://src/characters/mask_dude.gd" id="1_mc47t"]
-[ext_resource type="AnimationLibrary" uid="uid://d2xtwkoev3qif" path="res://assets/animations/animation_mask_dude.tres" id="3_hx7pq"]
+[ext_resource type="Script" path="res://src/entity/character.gd" id="1_dr6pd"]
+[ext_resource type="Texture2D" uid="uid://dd28gk2sytn4y" path="res://assets/textures/main_characters/Mask Dude/Idle (32x32).png" id="2_cyuim"]
+[ext_resource type="AnimationLibrary" uid="uid://d2xtwkoev3qif" path="res://assets/animations/animation_mask_dude.tres" id="3_o70do"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_e67oh"]
 
@@ -73,7 +73,6 @@ graph_offset = Vector2(0, -80)
 [sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_jnjld"]
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_dytdh"]
-graph_offset = Vector2(-394.723, 80.3181)
 nodes/StateMachine/node = SubResource("AnimationNodeStateMachine_ebpgm")
 nodes/StateMachine/position = Vector2(-120, 140)
 nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_jnjld")
@@ -83,12 +82,12 @@ node_connections = [&"TimeScale", 0, &"StateMachine", &"output", 0, &"TimeScale"
 [node name="mask_dude" type="CharacterBody2D"]
 collision_mask = 2
 platform_wall_layers = 2
-script = ExtResource("1_mc47t")
+script = ExtResource("1_dr6pd")
 SPEED = 100.0
 JUMP_VELOCITY = -300.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_cmjuy")
+texture = ExtResource("2_cyuim")
 hframes = 11
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -96,12 +95,12 @@ shape = SubResource("CapsuleShape2D_e67oh")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": ExtResource("3_hx7pq")
+"": ExtResource("3_o70do")
 }
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
 libraries = {
-"": ExtResource("3_hx7pq")
+"": ExtResource("3_o70do")
 }
 tree_root = SubResource("AnimationNodeBlendTree_dytdh")
 anim_player = NodePath("../AnimationPlayer")

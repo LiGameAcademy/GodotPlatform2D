@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://b7eguvb4gjfa5"]
+
+[ext_resource type="PackedScene" uid="uid://ir1eugbdnrkn" path="res://src/entity/character.tscn" id="1_iho58"]
+
+[node name="mask_dude" instance=ExtResource("1_iho58")]

@@ -1,12 +1,12 @@
-[gd_resource type="AnimationLibrary" load_steps=16 format=3 uid="uid://d2xtwkoev3qif"]
+[gd_resource type="AnimationLibrary" load_steps=16 format=3 uid="uid://1i816fyvj7j8"]
 
-[ext_resource type="Texture2D" uid="uid://dd28gk2sytn4y" path="res://assets/textures/main_characters/Mask Dude/Idle (32x32).png" id="1_612lb"]
-[ext_resource type="Texture2D" uid="uid://duovt6noa84oe" path="res://assets/textures/main_characters/Mask Dude/Double Jump (32x32).png" id="2_as1io"]
-[ext_resource type="Texture2D" uid="uid://6oihgq0xo8le" path="res://assets/textures/main_characters/Mask Dude/Fall (32x32).png" id="3_fe1my"]
-[ext_resource type="Texture2D" uid="uid://cp3uv3agi35jt" path="res://assets/textures/main_characters/Mask Dude/Hit (32x32).png" id="4_3pl1s"]
-[ext_resource type="Texture2D" uid="uid://d22jynckwovhj" path="res://assets/textures/main_characters/Mask Dude/Jump (32x32).png" id="5_i08o4"]
-[ext_resource type="Texture2D" uid="uid://smf03ifoyxji" path="res://assets/textures/main_characters/Mask Dude/Run (32x32).png" id="6_5jv2p"]
-[ext_resource type="Texture2D" uid="uid://dlempb4dgd2cw" path="res://assets/textures/main_characters/Mask Dude/Wall Jump (32x32).png" id="7_ue758"]
+[ext_resource type="Texture2D" uid="uid://ds8b3fpakegtk" path="res://assets/textures/main_characters/Ninja Frog/Idle (32x32).png" id="1_3dp8e"]
+[ext_resource type="Texture2D" uid="uid://b78x1ebs30qld" path="res://assets/textures/main_characters/Ninja Frog/Double Jump (32x32).png" id="1_x36ws"]
+[ext_resource type="Texture2D" uid="uid://mh5uofaerc18" path="res://assets/textures/main_characters/Ninja Frog/Fall (32x32).png" id="3_bah2v"]
+[ext_resource type="Texture2D" uid="uid://luee1mjryyj7" path="res://assets/textures/main_characters/Ninja Frog/Hit (32x32).png" id="4_a3sx4"]
+[ext_resource type="Texture2D" uid="uid://bosy55vqohl0b" path="res://assets/textures/main_characters/Ninja Frog/Jump (32x32).png" id="5_fvpt7"]
+[ext_resource type="Texture2D" uid="uid://cy7mckdbgyo13" path="res://assets/textures/main_characters/Ninja Frog/Run (32x32).png" id="6_l7sl8"]
+[ext_resource type="Texture2D" uid="uid://byhd6usrxwaub" path="res://assets/textures/main_characters/Ninja Frog/Wall Jump (32x32).png" id="7_a4mq3"]
 
 [sub_resource type="Animation" id="Animation_m3dyd"]
 length = 0.001
@@ -20,7 +20,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("1_612lb")]
+"values": [ExtResource("1_3dp8e")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -60,7 +60,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("2_as1io")]
+"values": [ExtResource("1_x36ws")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -99,7 +99,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("3_fe1my")]
+"values": [ExtResource("3_bah2v")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -139,7 +139,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("4_3pl1s")]
+"values": [ExtResource("4_a3sx4")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -180,7 +180,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("1_612lb")]
+"values": [ExtResource("1_3dp8e")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -219,7 +219,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("5_i08o4")]
+"values": [ExtResource("5_fvpt7")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -260,7 +260,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("6_5jv2p")]
+"values": [ExtResource("6_l7sl8")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -301,7 +301,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("7_ue758")]
+"values": [ExtResource("7_a4mq3")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false

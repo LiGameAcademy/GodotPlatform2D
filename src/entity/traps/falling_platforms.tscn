@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://d1h3moni1v52m"]
 
-[ext_resource type="Texture2D" uid="uid://dkakwewj5umrv" path="res://assets/textures/traps/Falling Platforms/On (32x10).png" id="1_m56ol"]
+[ext_resource type="Texture2D" uid="uid://dkakwewj5umrv" path="res://assets/textures/traps/Falling Platforms/On (32x10).png" id="1_xfj68"]
 
 [sub_resource type="Animation" id="Animation_ny8fc"]
 length = 0.001
@@ -47,7 +47,7 @@ size = Vector2(32, 5)
 collision_layer = 2
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_m56ol")
+texture = ExtResource("1_xfj68")
 hframes = 4
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

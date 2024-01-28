@@ -1,13 +1,14 @@
-[gd_scene load_steps=14 format=3 uid="uid://brysy5j5sdv4w"]
+[gd_scene load_steps=16 format=3 uid="uid://brysy5j5sdv4w"]
 
 [ext_resource type="Texture2D" uid="uid://clutf557twwdw" path="res://assets/textures/background/Brown.png" id="1_l6vgb"]
 [ext_resource type="Script" path="res://src/scenes/level.gd" id="1_nu6e1"]
 [ext_resource type="Texture2D" uid="uid://bfxgfeisw58ax" path="res://assets/textures/terrain/Terrain (16x16).png" id="2_k7htw"]
-[ext_resource type="PackedScene" uid="uid://ir1eugbdnrkn" path="res://src/characters/mask_dude.tscn" id="4_6peek"]
-[ext_resource type="PackedScene" uid="uid://b083n53vcsaeg" path="res://src/items/fruit.tscn" id="5_uqofo"]
-[ext_resource type="PackedScene" uid="uid://d1h3moni1v52m" path="res://src/traps/falling_platforms.tscn" id="6_ee6y2"]
-[ext_resource type="PackedScene" uid="uid://bioj1fnrblhon" path="res://src/checkpoints/start.tscn" id="7_73j2j"]
-[ext_resource type="PackedScene" uid="uid://5kd2sfvt0xgd" path="res://src/checkpoints/end.tscn" id="8_s2bqh"]
+[ext_resource type="PackedScene" uid="uid://ir1eugbdnrkn" path="res://src/entity/character.tscn" id="4_6peek"]
+[ext_resource type="PackedScene" uid="uid://b083n53vcsaeg" path="res://src/entity/items/fruit.tscn" id="5_uqofo"]
+[ext_resource type="PackedScene" uid="uid://d1h3moni1v52m" path="res://src/entity/traps/falling_platforms.tscn" id="6_ee6y2"]
+[ext_resource type="PackedScene" uid="uid://bioj1fnrblhon" path="res://src/entity/checkpoint/start.tscn" id="7_73j2j"]
+[ext_resource type="PackedScene" uid="uid://5kd2sfvt0xgd" path="res://src/entity/checkpoint/end.tscn" id="8_s2bqh"]
+[ext_resource type="Shader" path="res://src/scenes/level_01.gdshader" id="9_ks7r7"]
 
 [sub_resource type="Animation" id="Animation_6dbak"]
 length = 0.001
@@ -575,6 +576,13 @@ terrain_set_0/terrain_0/name = "Terrain 0"
 terrain_set_0/terrain_0/color = Color(0.25098, 0.435294, 0.27451, 1)
 sources/1 = SubResource("TileSetAtlasSource_lryhs")
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_eq6xt"]
+render_priority = 0
+shader = ExtResource("9_ks7r7")
+shader_parameter/character_position = null
+shader_parameter/fade_distance = null
+shader_parameter/color = Color(0.94, 0.54, 0.15, 1)
+
 [node name="level_01" type="Node2D"]
 script = ExtResource("1_nu6e1")
 speed = 30.0
@@ -662,3 +670,14 @@ position = Vector2(368, 160)
 
 [node name="end" parent="." instance=ExtResource("8_s2bqh")]
 position = Vector2(512, 128)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+material = SubResource("ShaderMaterial_eq6xt")
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
