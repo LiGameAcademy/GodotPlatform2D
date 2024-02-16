@@ -1,10 +1,14 @@
-[gd_scene load_steps=24 format=3 uid="uid://ir1eugbdnrkn"]
+[gd_scene load_steps=26 format=3 uid="uid://ir1eugbdnrkn"]
 
 [ext_resource type="Script" path="res://src/entity/character.gd" id="1_dr6pd"]
 [ext_resource type="Texture2D" uid="uid://dd28gk2sytn4y" path="res://assets/textures/main_characters/Mask Dude/Idle (32x32).png" id="2_cyuim"]
 [ext_resource type="AnimationLibrary" uid="uid://d2xtwkoev3qif" path="res://assets/animations/animation_mask_dude.tres" id="3_o70do"]
+[ext_resource type="Script" path="res://src/entity/CharacterAnimationTree.gd" id="4_10bjh"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_e67oh"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_p7iwm"]
+animation = &"RESET"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_h73p7"]
 animation = &"double_jump"
@@ -14,9 +18,6 @@ animation = &"fall"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_lmya7"]
 animation = &"hit"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_7lqgb"]
-animation = &"jump"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_iiaeg"]
 animation = &"idle"
@@ -30,8 +31,12 @@ blend_point_0/pos = 0.0
 blend_point_1/node = SubResource("AnimationNodeAnimation_a4rg4")
 blend_point_1/pos = 1.0
 min_space = 0.0
+max_space = 100.0
 value_label = "speed"
 blend_mode = 2
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_7lqgb"]
+animation = &"jump"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ff5uc"]
 animation = &"wall_jump"
@@ -47,39 +52,44 @@ advance_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_as6pn"]
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_fa3dv"]
-switch_mode = 2
-
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_qohyj"]
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_wtji0"]
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_o8mp4"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_mamhj"]
+advance_mode = 2
 
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_ebpgm"]
+states/RESET/node = SubResource("AnimationNodeAnimation_p7iwm")
+states/RESET/position = Vector2(612, 57)
 states/double_jump/node = SubResource("AnimationNodeAnimation_h73p7")
-states/double_jump/position = Vector2(667, 75)
+states/double_jump/position = Vector2(768, 72)
 states/fall/node = SubResource("AnimationNodeAnimation_wu6rr")
 states/fall/position = Vector2(667, -36)
 states/hit/node = SubResource("AnimationNodeAnimation_lmya7")
 states/hit/position = Vector2(497, 217)
+states/idle_run/node = SubResource("AnimationNodeBlendSpace1D_gw7lw")
+states/idle_run/position = Vector2(368, -36)
 states/jump/node = SubResource("AnimationNodeAnimation_7lqgb")
 states/jump/position = Vector2(497, 30)
-states/run/node = SubResource("AnimationNodeBlendSpace1D_gw7lw")
-states/run/position = Vector2(368, -36)
 states/wall_jump/node = SubResource("AnimationNodeAnimation_ff5uc")
 states/wall_jump/position = Vector2(497, 128)
-transitions = ["Start", "run", SubResource("AnimationNodeStateMachineTransition_sjpjs"), "run", "jump", SubResource("AnimationNodeStateMachineTransition_tiage"), "jump", "fall", SubResource("AnimationNodeStateMachineTransition_jc4y8"), "fall", "double_jump", SubResource("AnimationNodeStateMachineTransition_d158w"), "fall", "run", SubResource("AnimationNodeStateMachineTransition_as6pn"), "double_jump", "fall", SubResource("AnimationNodeStateMachineTransition_fa3dv"), "jump", "wall_jump", SubResource("AnimationNodeStateMachineTransition_qohyj"), "double_jump", "wall_jump", SubResource("AnimationNodeStateMachineTransition_wtji0")]
-graph_offset = Vector2(0, -80)
+transitions = ["Start", "idle_run", SubResource("AnimationNodeStateMachineTransition_sjpjs"), "idle_run", "jump", SubResource("AnimationNodeStateMachineTransition_tiage"), "jump", "fall", SubResource("AnimationNodeStateMachineTransition_jc4y8"), "fall", "double_jump", SubResource("AnimationNodeStateMachineTransition_d158w"), "fall", "idle_run", SubResource("AnimationNodeStateMachineTransition_as6pn"), "jump", "wall_jump", SubResource("AnimationNodeStateMachineTransition_qohyj"), "double_jump", "RESET", SubResource("AnimationNodeStateMachineTransition_o8mp4"), "RESET", "jump", SubResource("AnimationNodeStateMachineTransition_mamhj")]
+graph_offset = Vector2(-268, -98)
 
 [sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_jnjld"]
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_dytdh"]
+graph_offset = Vector2(-661, 25)
 nodes/StateMachine/node = SubResource("AnimationNodeStateMachine_ebpgm")
 nodes/StateMachine/position = Vector2(-120, 140)
 nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_jnjld")
 nodes/TimeScale/position = Vector2(100, 140)
 node_connections = [&"TimeScale", 0, &"StateMachine", &"output", 0, &"TimeScale"]
 
-[node name="mask_dude" type="CharacterBody2D"]
+[node name="character" type="CharacterBody2D"]
 collision_mask = 2
 platform_wall_layers = 2
 script = ExtResource("1_dr6pd")
@@ -104,5 +114,6 @@ libraries = {
 }
 tree_root = SubResource("AnimationNodeBlendTree_dytdh")
 anim_player = NodePath("../AnimationPlayer")
-parameters/StateMachine/run/blend_position = 0.0
-parameters/TimeScale/scale = 1.0
+parameters/StateMachine/idle_run/blend_position = 0.0972554
+parameters/TimeScale/scale = 2.0
+script = ExtResource("4_10bjh")
