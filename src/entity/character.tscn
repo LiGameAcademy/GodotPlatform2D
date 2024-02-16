@@ -90,7 +90,7 @@ nodes/TimeScale/position = Vector2(100, 140)
 node_connections = [&"TimeScale", 0, &"StateMachine", &"output", 0, &"TimeScale"]
 
 [node name="character" type="CharacterBody2D"]
-collision_mask = 2
+collision_mask = 6
 platform_wall_layers = 2
 script = ExtResource("1_dr6pd")
 SPEED = 100.0

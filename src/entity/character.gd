@@ -12,6 +12,11 @@ var gravity: int = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 var can_double_jump = true
 
+# 玩家正常时应与层2和层3碰撞（二进制110，十进制6）
+var normal_mask = (1 << 1) | (1 << 2)
+# 按下"下"键时，玩家应与层2碰撞，忽略层3（二进制100，十进制4）
+var pass_through_mask = 1 << 1
+
 func _process(delta: float) -> void:
 	if velocity.x != 0:
 		sprite_2d.flip_h = velocity.x < 0
@@ -40,5 +45,11 @@ func _physics_process(delta: float) -> void:
 		velocity.x = direction * SPEED
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
-
+	
+	if Input.is_action_just_pressed("ui_down"):
+		# 允许通过单向平台
+		collision_mask = pass_through_mask
+		await get_tree().create_timer(0.5).timeout # 使用yield延迟恢复
+		collision_mask = normal_mask
+	
 	move_and_slide()
