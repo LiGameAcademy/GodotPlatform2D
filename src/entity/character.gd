@@ -6,6 +6,7 @@ extends CharacterBody2D
 
 @export var SPEED = 300.0
 @export var JUMP_VELOCITY = -400.0
+@export var wall_slide_speed = 50 # 定义墙滑行时的最大下落速度
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity: int = ProjectSettings.get_setting("physics/2d/default_gravity")
@@ -20,6 +21,16 @@ var pass_through_mask = 1 << 1
 func _process(delta: float) -> void:
 	if velocity.x != 0:
 		sprite_2d.flip_h = velocity.x < 0
+	var speed : float = abs(velocity.x)
+	animation_tree.set("parameters/StateMachine/idle_run/blend_position", speed)
+
+	# 根据垂直速度切换动画状态
+	if velocity.y < 0:
+		state_machine.travel("jump")
+	elif velocity.y > 0 and not is_on_floor():
+		state_machine.travel("fall")
+	elif is_on_floor():
+		state_machine.travel("idle_run") # 如果有idle状态的话
 
 func _physics_process(delta: float) -> void:
 
@@ -51,5 +62,7 @@ func _physics_process(delta: float) -> void:
 		collision_mask = pass_through_mask
 		await get_tree().create_timer(0.5).timeout # 使用yield延迟恢复
 		collision_mask = normal_mask
-	
+	if is_on_wall() and velocity.y > 0:
+		velocity.y = min(velocity.y, wall_slide_speed) # 限制下落速度以模拟滑行
+		state_machine.travel("wall_jump") # 切换到二段跳动画
 	move_and_slide()
