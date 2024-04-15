@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://dsep62yv7oxt3"]
+
+[ext_resource type="PackedScene" uid="uid://ir1eugbdnrkn" path="res://source/entity/character.tscn" id="1_46dr8"]
+[ext_resource type="Texture2D" uid="uid://ds8b3fpakegtk" path="res://assets/textures/main_characters/Ninja Frog/Idle (32x32).png" id="2_5n6ff"]
+[ext_resource type="AnimationLibrary" uid="uid://dy0kh1emunj4o" path="res://assets/animations/animation_virtual_guy.tres" id="3_o71yl"]
+
+[node name="virtual_guy" instance=ExtResource("1_46dr8")]
+
+[node name="Sprite2D" parent="." index="0"]
+texture = ExtResource("2_5n6ff")
+
+[node name="AnimationPlayer" parent="." index="2"]
+libraries = {
+"": ExtResource("3_o71yl")
+}
+
+[node name="AnimationTree" parent="." index="3"]
+libraries = {
+"": ExtResource("3_o71yl")
+}

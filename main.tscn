@@ -1,0 +1,48 @@
+[gd_scene load_steps=6 format=3 uid="uid://clruydec1lcxh"]
+
+[ext_resource type="Script" path="res://main.gd" id="1_ua3dm"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="2_kn7vx"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="4_6pnsq"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="4_x55fk"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="5_3agbu"]
+
+[node name="main" type="CanvasLayer"]
+script = ExtResource("1_ua3dm")
+
+[node name="UILayer" type="CanvasLayer" parent="."]
+unique_name_in_owner = true
+
+[node name="StateChart" type="Node" parent="."]
+script = ExtResource("2_kn7vx")
+
+[node name="CompoundState" type="Node" parent="StateChart"]
+script = ExtResource("4_x55fk")
+initial_state = NodePath("MenuState")
+
+[node name="MenuState" type="Node" parent="StateChart/CompoundState"]
+script = ExtResource("5_3agbu")
+
+[node name="ToSelect" type="Node" parent="StateChart/CompoundState/MenuState"]
+script = ExtResource("4_6pnsq")
+to = NodePath("../../SelectState")
+event = &"to_select"
+
+[node name="SelectState" type="Node" parent="StateChart/CompoundState"]
+script = ExtResource("5_3agbu")
+
+[node name="ToGame" type="Node" parent="StateChart/CompoundState/SelectState"]
+script = ExtResource("4_6pnsq")
+to = NodePath("../../GameState")
+event = &"to_game"
+
+[node name="ToMenu" type="Node" parent="StateChart/CompoundState/SelectState"]
+script = ExtResource("4_6pnsq")
+to = NodePath("../../MenuState")
+event = &"to_menu"
+
+[node name="GameState" type="Node" parent="StateChart/CompoundState"]
+script = ExtResource("5_3agbu")
+
+[connection signal="state_entered" from="StateChart/CompoundState/MenuState" to="." method="_on_menu_state_state_entered"]
+[connection signal="state_entered" from="StateChart/CompoundState/SelectState" to="." method="_on_select_state_state_entered"]
+[connection signal="state_entered" from="StateChart/CompoundState/GameState" to="." method="_on_game_state_state_entered"]

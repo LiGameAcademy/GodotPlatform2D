@@ -1,0 +1,77 @@
+[gd_scene load_steps=3 format=3 uid="uid://bx4se2atxek3l"]
+
+[ext_resource type="Script" path="res://source/UI/menu_form.gd" id="1_sujad"]
+[ext_resource type="FontFile" uid="uid://bj4wlflwm0lq7" path="res://assets/fonts/SourceHanSansSC-Regular-2.otf" id="2_n1l4k"]
+
+[node name="menu_form" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_sujad")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/MarginContainer"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("2_n1l4k")
+theme_override_font_sizes/font_size = 35
+text = "老李的像素平台冒险"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="btn_new_game" type="Button" parent="VBoxContainer/VBoxContainer/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("2_n1l4k")
+text = "新游戏"
+
+[node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="btn_settings" type="Button" parent="VBoxContainer/VBoxContainer/MarginContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("2_n1l4k")
+disabled = true
+text = "设置"
+
+[node name="MarginContainer3" type="MarginContainer" parent="VBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="btn_quit" type="Button" parent="VBoxContainer/VBoxContainer/MarginContainer3"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("2_n1l4k")
+text = "退出"

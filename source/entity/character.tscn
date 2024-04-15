@@ -1,0 +1,114 @@
+[gd_scene load_steps=25 format=3 uid="uid://ir1eugbdnrkn"]
+
+[ext_resource type="Script" path="res://source/entity/character.gd" id="1_dr6pd"]
+[ext_resource type="Texture2D" uid="uid://dd28gk2sytn4y" path="res://assets/textures/main_characters/Mask Dude/Idle (32x32).png" id="2_cyuim"]
+[ext_resource type="AnimationLibrary" uid="uid://d2xtwkoev3qif" path="res://assets/animations/animation_mask_dude.tres" id="3_o70do"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_e67oh"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_h73p7"]
+animation = &"double_jump"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_wu6rr"]
+animation = &"fall"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_lmya7"]
+animation = &"hit"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_iiaeg"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_a4rg4"]
+animation = &"run"
+
+[sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_gw7lw"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_iiaeg")
+blend_point_0/pos = 0.0
+blend_point_1/node = SubResource("AnimationNodeAnimation_a4rg4")
+blend_point_1/pos = 1.0
+min_space = 0.0
+max_space = 100.0
+value_label = "speed"
+blend_mode = 2
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_7lqgb"]
+animation = &"jump"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ff5uc"]
+animation = &"wall_jump"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_sjpjs"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_tiage"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_jc4y8"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_d158w"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_as6pn"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_qohyj"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_7ima8"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_3dqt0"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_oytos"]
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_ebpgm"]
+states/End/position = Vector2(783, 100)
+states/double_jump/node = SubResource("AnimationNodeAnimation_h73p7")
+states/double_jump/position = Vector2(631, -45)
+states/fall/node = SubResource("AnimationNodeAnimation_wu6rr")
+states/fall/position = Vector2(631, 66)
+states/hit/node = SubResource("AnimationNodeAnimation_lmya7")
+states/hit/position = Vector2(631, 153)
+states/idle_run/node = SubResource("AnimationNodeBlendSpace1D_gw7lw")
+states/idle_run/position = Vector2(392, -45)
+states/jump/node = SubResource("AnimationNodeAnimation_7lqgb")
+states/jump/position = Vector2(392, 66)
+states/wall_jump/node = SubResource("AnimationNodeAnimation_ff5uc")
+states/wall_jump/position = Vector2(392, 153)
+transitions = ["Start", "idle_run", SubResource("AnimationNodeStateMachineTransition_sjpjs"), "idle_run", "jump", SubResource("AnimationNodeStateMachineTransition_tiage"), "jump", "fall", SubResource("AnimationNodeStateMachineTransition_jc4y8"), "fall", "double_jump", SubResource("AnimationNodeStateMachineTransition_d158w"), "fall", "idle_run", SubResource("AnimationNodeStateMachineTransition_as6pn"), "jump", "wall_jump", SubResource("AnimationNodeStateMachineTransition_qohyj"), "double_jump", "jump", SubResource("AnimationNodeStateMachineTransition_7ima8"), "jump", "double_jump", SubResource("AnimationNodeStateMachineTransition_3dqt0"), "fall", "wall_jump", SubResource("AnimationNodeStateMachineTransition_oytos")]
+graph_offset = Vector2(-140, -119)
+
+[sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_jnjld"]
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_dytdh"]
+graph_offset = Vector2(-235, -1)
+nodes/StateMachine/node = SubResource("AnimationNodeStateMachine_ebpgm")
+nodes/StateMachine/position = Vector2(-120, 140)
+nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_jnjld")
+nodes/TimeScale/position = Vector2(100, 140)
+node_connections = [&"TimeScale", 0, &"StateMachine", &"output", 0, &"TimeScale"]
+
+[node name="character" type="CharacterBody2D"]
+collision_mask = 6
+platform_wall_layers = 2
+script = ExtResource("1_dr6pd")
+SPEED = 100.0
+JUMP_VELOCITY = -300.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_cyuim")
+hframes = 11
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_e67oh")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": ExtResource("3_o70do")
+}
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+libraries = {
+"": ExtResource("3_o70do")
+}
+tree_root = SubResource("AnimationNodeBlendTree_dytdh")
+anim_player = NodePath("../AnimationPlayer")
+parameters/StateMachine/idle_run/blend_position = 0.0972554
+parameters/TimeScale/scale = 2.0

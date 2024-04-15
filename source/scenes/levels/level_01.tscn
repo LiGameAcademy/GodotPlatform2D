@@ -1,0 +1,49 @@
+[gd_scene load_steps=4 format=3 uid="uid://bj1lsk7xufy68"]
+
+[ext_resource type="PackedScene" uid="uid://brysy5j5sdv4w" path="res://source/scenes/level.tscn" id="1_5jbp0"]
+[ext_resource type="PackedScene" uid="uid://b083n53vcsaeg" path="res://source/entity/items/fruit.tscn" id="2_n5iar"]
+[ext_resource type="PackedScene" uid="uid://d1h3moni1v52m" path="res://source/entity/traps/falling_platforms.tscn" id="3_w6us5"]
+
+[node name="level_01" instance=ExtResource("1_5jbp0")]
+
+[node name="fruits" parent="fruits" index="0" instance=ExtResource("2_n5iar")]
+position = Vector2(192, 80)
+
+[node name="fruits2" parent="fruits" index="1" instance=ExtResource("2_n5iar")]
+position = Vector2(256, 80)
+
+[node name="fruits3" parent="fruits" index="2" instance=ExtResource("2_n5iar")]
+position = Vector2(320, 80)
+
+[node name="fruits4" parent="fruits" index="3" instance=ExtResource("2_n5iar")]
+position = Vector2(384, 80)
+
+[node name="fruits5" parent="fruits" index="4" instance=ExtResource("2_n5iar")]
+position = Vector2(448, 80)
+
+[node name="fruits6" parent="fruits" index="5" instance=ExtResource("2_n5iar")]
+position = Vector2(160, 112)
+
+[node name="fruits7" parent="fruits" index="6" instance=ExtResource("2_n5iar")]
+position = Vector2(224, 112)
+
+[node name="fruits8" parent="fruits" index="7" instance=ExtResource("2_n5iar")]
+position = Vector2(288, 112)
+
+[node name="fruits9" parent="fruits" index="8" instance=ExtResource("2_n5iar")]
+position = Vector2(352, 112)
+
+[node name="fruits10" parent="fruits" index="9" instance=ExtResource("2_n5iar")]
+position = Vector2(416, 112)
+
+[node name="falling_platforms5" parent="traps" index="0" instance=ExtResource("3_w6us5")]
+position = Vector2(176, 168)
+
+[node name="falling_platforms6" parent="traps" index="1" instance=ExtResource("3_w6us5")]
+position = Vector2(240, 160)
+
+[node name="falling_platforms7" parent="traps" index="2" instance=ExtResource("3_w6us5")]
+position = Vector2(304, 168)
+
+[node name="falling_platforms8" parent="traps" index="3" instance=ExtResource("3_w6us5")]
+position = Vector2(368, 160)
