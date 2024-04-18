@@ -9,7 +9,7 @@ extends AtomicState
 	set(value):
 		animation_tree = value
 		update_configuration_warnings()
-
+@export var state_machine_path : String = ""
 ## The name of the state that should be activated in the animation tree
 ## when this state is entered. If this is empty, the name of this state
 ## will be used.
@@ -28,7 +28,7 @@ func _ready():
 	var the_tree = get_node_or_null(animation_tree)
 
 	if is_instance_valid(the_tree):
-		var state_machine = the_tree.get("parameters/playback") 
+		var state_machine = the_tree.get("parameters/playback") if state_machine_path.is_empty() else the_tree.get(state_machine_path)
 		if state_machine is AnimationNodeStateMachinePlayback:
 			_animation_tree_state_machine = state_machine
 		else:

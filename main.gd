@@ -2,7 +2,7 @@ extends CanvasLayer
 class_name main
 
 const MENU = preload("res://source/scenes/menu.tscn")
-
+const GAME_FORM = preload("res://source/UI/game_form.tscn")
 const MENU_FORM = preload("res://source/UI/menu_form.tscn")
 const SELECT_FORM = preload("res://source/UI/select_form.tscn")
 
@@ -45,6 +45,6 @@ func _on_select_state_state_entered() -> void:
 	)
 
 func _on_game_state_state_entered() -> void:
-	_current_form = null
+	_current_form = GAME_FORM.instantiate()
 	_current_scene = state_chart.get_meta("level").instantiate()
 	_current_scene.initialize()

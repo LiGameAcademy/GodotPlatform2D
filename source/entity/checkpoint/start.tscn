@@ -1,5 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://bioj1fnrblhon"]
+[gd_scene load_steps=13 format=3 uid="uid://bioj1fnrblhon"]
 
+[ext_resource type="Script" path="res://source/entity/checkpoint/start.gd" id="1_a4yfg"]
 [ext_resource type="Texture2D" uid="uid://bd6j2pso77jju" path="res://assets/textures/items/Checkpoints/Start/Start (Moving) (64x64).png" id="1_b0fcu"]
 
 [sub_resource type="Animation" id="Animation_js3sw"]
@@ -43,7 +44,34 @@ _data = {
 "move": SubResource("Animation_tx2df")
 }
 
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_guw3b"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_b6uxa"]
+animation = &"move"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_y7kie"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_wr6q7"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_7k84r"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_bnpq7"]
+states/End/position = Vector2(505, 122)
+states/Start/position = Vector2(222, 47)
+states/idle/node = SubResource("AnimationNodeAnimation_guw3b")
+states/idle/position = Vector2(361, 122)
+states/move/node = SubResource("AnimationNodeAnimation_b6uxa")
+states/move/position = Vector2(361, 47)
+transitions = ["move", "idle", SubResource("AnimationNodeStateMachineTransition_y7kie"), "idle", "End", SubResource("AnimationNodeStateMachineTransition_wr6q7"), "Start", "move", SubResource("AnimationNodeStateMachineTransition_7k84r")]
+graph_offset = Vector2(-62, -48)
+
 [node name="start" type="Node2D"]
+script = ExtResource("1_a4yfg")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_b0fcu")
@@ -54,3 +82,10 @@ libraries = {
 "": SubResource("AnimationLibrary_cwlk7")
 }
 autoplay = "move"
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_cwlk7")
+}
+tree_root = SubResource("AnimationNodeStateMachine_bnpq7")
+anim_player = NodePath("../AnimationPlayer")

@@ -24,27 +24,28 @@ func _ready() -> void:
 	#update_ball_position(deg_to_rad(clamp_rotation.x))
 
 func _process(delta: float) -> void:
-	var current_angle = position.angle_to_point(ball.position)  # 获取当前角度
+	var current_angle = global_position.angle_to_point(ball.global_position)  # 获取当前角度
 	current_angle += rotation_speed * delta  # 更新角度
 	#if current_angle >= deg_to_rad(clamp_rotation.y) :
 	#current_angle = deg_to_rad(clamp_rotation.x)
-	print(current_angle)
+	#print(current_angle)
 	# 计算新的位置
-	var new_x = radius * cos(current_angle)
-	var new_y = radius * sin(current_angle)
- 	# 更新CharacterBody2D的位置
-	ball.position = Vector2(new_x, new_y)
+	#var new_x = radius * cos(current_angle)
+	#var new_y = radius * sin(current_angle)
+ 	## 更新CharacterBody2D的位置
+	#ball.global_position = Vector2(new_x, new_y)
+	update_ball_position(current_angle)
 
 func update_ball_position(angle : float) -> void:
 	# 计算新的位置
 	var new_x = radius * cos(angle)
 	var new_y = radius * sin(angle)
  	# 更新CharacterBody2D的位置
-	ball.position = Vector2(new_x, new_y)
-	#update_chain_display()
+	ball.global_position = Vector2(new_x, new_y)
+	update_chain_display()
 
 func update_chain_display() -> void:
 	var index : int = 1
 	for chain in _chains:
-		chain.position = index * chain_width * global_position.direction_to(ball.global_position)
+		chain.global_position = index * chain_width * global_position.direction_to(ball.global_position)
 		index += 1

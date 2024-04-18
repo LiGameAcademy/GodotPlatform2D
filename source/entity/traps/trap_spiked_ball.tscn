@@ -6,12 +6,11 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_peuck"]
 
 [node name="trap_spiked_ball" type="Node2D"]
-position = Vector2(224, 112)
 script = ExtResource("1_0yk6o")
 rotation_speed = 2.0
 
 [node name="ball" type="CharacterBody2D" parent="."]
-position = Vector2(0, 64)
+position = Vector2(-56.2911, 30.4519)
 
 [node name="Sprite2D" type="Sprite2D" parent="ball"]
 z_index = 1

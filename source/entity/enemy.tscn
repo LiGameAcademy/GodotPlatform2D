@@ -1,5 +1,6 @@
-[gd_scene load_steps=15 format=3 uid="uid://wq1movb8oaf4"]
+[gd_scene load_steps=16 format=3 uid="uid://wq1movb8oaf4"]
 
+[ext_resource type="Script" path="res://source/entity/enemy.gd" id="1_o0urp"]
 [ext_resource type="Texture2D" uid="uid://blkf0o28l1ykk" path="res://assets/textures/enemies/AngryPig/Idle (36x30).png" id="1_ofh00"]
 [ext_resource type="Texture2D" uid="uid://m8iw1lficibn" path="res://assets/textures/enemies/AngryPig/Hit 1 (36x30).png" id="2_1fu54"]
 [ext_resource type="Texture2D" uid="uid://cy6gi1kt7t0py" path="res://assets/textures/enemies/AngryPig/Hit 2 (36x30).png" id="3_pxgux"]
@@ -264,6 +265,7 @@ _data = {
 graph_offset = Vector2(-279, 3)
 
 [node name="Enemy" type="CharacterBody2D"]
+script = ExtResource("1_o0urp")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_ofh00")

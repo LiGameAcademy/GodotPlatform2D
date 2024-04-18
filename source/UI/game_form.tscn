@@ -1,0 +1,54 @@
+[gd_scene load_steps=6 format=3 uid="uid://dabbj8o71fouq"]
+
+[ext_resource type="Texture2D" uid="uid://pivkhmyarpgb" path="res://assets/textures/menu_icon/Buttons/Previous.png" id="1_32rat"]
+[ext_resource type="Script" path="res://source/UI/game_form.gd" id="1_bgwvb"]
+[ext_resource type="Texture2D" uid="uid://c6pyud61bnf7f" path="res://assets/textures/menu_icon/Buttons/Restart.png" id="2_7642x"]
+[ext_resource type="Texture2D" uid="uid://b6bxq8yvxs6xo" path="res://assets/textures/menu_icon/Buttons/Next.png" id="3_v18rl"]
+[ext_resource type="Texture2D" uid="uid://cbb5hg2wpmuke" path="res://assets/textures/menu_icon/Buttons/Settings.png" id="4_uiy3i"]
+
+[node name="game_form" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_bgwvb")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+alignment = 2
+
+[node name="btn_previous" type="Button" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+focus_mode = 0
+icon = ExtResource("1_32rat")
+flat = true
+
+[node name="btn_restart" type="Button" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+focus_mode = 0
+icon = ExtResource("2_7642x")
+flat = true
+
+[node name="btn_next" type="Button" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+focus_mode = 0
+icon = ExtResource("3_v18rl")
+flat = true
+
+[node name="btn_settings" type="Button" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+focus_mode = 0
+disabled = true
+icon = ExtResource("4_uiy3i")
+flat = true
