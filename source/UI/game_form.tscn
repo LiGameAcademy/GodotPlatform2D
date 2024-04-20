@@ -31,18 +31,21 @@ alignment = 2
 [node name="btn_previous" type="Button" parent="MarginContainer/HBoxContainer"]
 layout_mode = 2
 focus_mode = 0
+disabled = true
 icon = ExtResource("1_32rat")
 flat = true
 
 [node name="btn_restart" type="Button" parent="MarginContainer/HBoxContainer"]
 layout_mode = 2
 focus_mode = 0
+disabled = true
 icon = ExtResource("2_7642x")
 flat = true
 
 [node name="btn_next" type="Button" parent="MarginContainer/HBoxContainer"]
 layout_mode = 2
 focus_mode = 0
+disabled = true
 icon = ExtResource("3_v18rl")
 flat = true
 

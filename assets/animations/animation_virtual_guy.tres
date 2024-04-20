@@ -1,6 +1,5 @@
-[gd_resource type="AnimationLibrary" load_steps=17 format=3 uid="uid://dy0kh1emunj4o"]
+[gd_resource type="AnimationLibrary" load_steps=16 format=3 uid="uid://dy0kh1emunj4o"]
 
-[ext_resource type="Texture2D" uid="uid://ds8b3fpakegtk" path="res://assets/textures/main_characters/Ninja Frog/Idle (32x32).png" id="1_0c5wt"]
 [ext_resource type="Texture2D" uid="uid://cyv30cq45ebx6" path="res://assets/textures/main_characters/Virtual Guy/Double Jump (32x32).png" id="2_x1mwn"]
 [ext_resource type="Texture2D" uid="uid://s47pwfftcod2" path="res://assets/textures/main_characters/Virtual Guy/Fall (32x32).png" id="3_d0iwg"]
 [ext_resource type="Texture2D" uid="uid://d1amhg28a24kj" path="res://assets/textures/main_characters/Virtual Guy/Hit (32x32).png" id="4_g1h53"]
@@ -21,7 +20,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("1_0c5wt")]
+"values": [ExtResource("5_itjwh")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false

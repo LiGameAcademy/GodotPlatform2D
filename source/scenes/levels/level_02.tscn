@@ -25,6 +25,7 @@ _data = {
 point_count = 2
 
 [node name="level" instance=ExtResource("1_j4pgn")]
+level_index = 2
 
 [node name="Sprite2D" parent="ParallaxBackground/ParallaxLayer" index="0"]
 texture = ExtResource("2_st5h2")
@@ -102,23 +103,19 @@ progress = 144.0
 
 [node name="trap_saw_chain2" parent="traps" index="1" instance=ExtResource("4_mqpaj")]
 curve = SubResource("Curve2D_rg315")
-show_chain = true
 
 [node name="trap_saw" parent="traps/trap_saw_chain2" index="0" instance=ExtResource("4_enefv")]
 position = Vector2(192, -96)
 rotation = 1.5708
+loop = false
 
 [node name="trap_saw_chain3" parent="traps" index="2" instance=ExtResource("4_mqpaj")]
 curve = SubResource("Curve2D_et3xg")
-show_chain = true
 
 [node name="trap_saw" parent="traps/trap_saw_chain3" index="0" instance=ExtResource("4_enefv")]
 position = Vector2(400, 32)
 progress = 160.0
+loop = false
 
 [node name="end" parent="." index="5"]
 position = Vector2(528, 256)
-
-[node name="game_form" parent="CanvasLayer" index="0"]
-offset_top = 32.0
-offset_bottom = 32.0

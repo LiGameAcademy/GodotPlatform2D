@@ -1,5 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://d1h3moni1v52m"]
+[gd_scene load_steps=7 format=3 uid="uid://d1h3moni1v52m"]
 
+[ext_resource type="Script" path="res://source/entity/traps/falling_platforms.gd" id="1_wuida"]
 [ext_resource type="Texture2D" uid="uid://dkakwewj5umrv" path="res://assets/textures/traps/Falling Platforms/On (32x10).png" id="1_xfj68"]
 
 [sub_resource type="Animation" id="Animation_ny8fc"]
@@ -43,8 +44,11 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lbtjk"]
 size = Vector2(32, 5)
 
-[node name="falling_platforms" type="CharacterBody2D"]
+[node name="falling_platforms" type="RigidBody2D"]
 collision_layer = 2
+freeze = true
+freeze_mode = 1
+script = ExtResource("1_wuida")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_xfj68")
@@ -59,3 +63,13 @@ autoplay = "idle"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -2.5)
 shape = SubResource("RectangleShape2D_lbtjk")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, -3)
+shape = SubResource("RectangleShape2D_lbtjk")
+debug_color = Color(0.815191, 0.26876, 0.765647, 0.42)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_body_entered"]

@@ -1,10 +1,12 @@
-[gd_scene load_steps=4 format=3 uid="uid://jtq7wdq85mqx"]
+[gd_scene load_steps=5 format=3 uid="uid://jtq7wdq85mqx"]
 
 [ext_resource type="PackedScene" uid="uid://brysy5j5sdv4w" path="res://source/scenes/level.tscn" id="1_igwkn"]
 [ext_resource type="Texture2D" uid="uid://dimy50pf5xb8i" path="res://assets/textures/background/Pink.png" id="2_fnoxj"]
+[ext_resource type="PackedScene" uid="uid://b083n53vcsaeg" path="res://source/entity/items/fruit.tscn" id="3_0ariw"]
 [ext_resource type="PackedScene" uid="uid://d1thrwmgwlcge" path="res://source/entity/traps/trap_spiked_ball.tscn" id="3_14sev"]
 
 [node name="level" instance=ExtResource("1_igwkn")]
+level_index = 4
 
 [node name="Sprite2D" parent="ParallaxBackground/ParallaxLayer" index="0"]
 texture = ExtResource("2_fnoxj")
@@ -17,29 +19,108 @@ layer_0/tile_data = PackedInt32Array(0, 65537, 5, 65536, 65537, 5, 131072, 65537
 position = Vector2(496, 240)
 scale = Vector2(-1, 1)
 
+[node name="fruit" parent="fruits" index="0" instance=ExtResource("3_0ariw")]
+position = Vector2(72, 72)
+
+[node name="fruit2" parent="fruits" index="1" instance=ExtResource("3_0ariw")]
+position = Vector2(96, 72)
+
+[node name="fruit3" parent="fruits" index="2" instance=ExtResource("3_0ariw")]
+position = Vector2(120, 72)
+
+[node name="fruit4" parent="fruits" index="3" instance=ExtResource("3_0ariw")]
+position = Vector2(144, 72)
+
+[node name="fruit5" parent="fruits" index="4" instance=ExtResource("3_0ariw")]
+position = Vector2(72, 104)
+
+[node name="fruit6" parent="fruits" index="5" instance=ExtResource("3_0ariw")]
+position = Vector2(96, 104)
+
+[node name="fruit7" parent="fruits" index="6" instance=ExtResource("3_0ariw")]
+position = Vector2(120, 104)
+
+[node name="fruit8" parent="fruits" index="7" instance=ExtResource("3_0ariw")]
+position = Vector2(144, 104)
+
+[node name="fruit9" parent="fruits" index="8" instance=ExtResource("3_0ariw")]
+position = Vector2(56, 88)
+
+[node name="fruit10" parent="fruits" index="9" instance=ExtResource("3_0ariw")]
+position = Vector2(80, 88)
+
+[node name="fruit11" parent="fruits" index="10" instance=ExtResource("3_0ariw")]
+position = Vector2(104, 88)
+
+[node name="fruit12" parent="fruits" index="11" instance=ExtResource("3_0ariw")]
+position = Vector2(128, 88)
+
+[node name="fruit14" parent="fruits" index="12" instance=ExtResource("3_0ariw")]
+position = Vector2(120, 192)
+
+[node name="fruit15" parent="fruits" index="13" instance=ExtResource("3_0ariw")]
+position = Vector2(152, 192)
+
+[node name="fruit16" parent="fruits" index="14" instance=ExtResource("3_0ariw")]
+position = Vector2(184, 192)
+
+[node name="fruit17" parent="fruits" index="15" instance=ExtResource("3_0ariw")]
+position = Vector2(208, 208)
+
+[node name="fruit18" parent="fruits" index="16" instance=ExtResource("3_0ariw")]
+position = Vector2(168, 208)
+
+[node name="fruit19" parent="fruits" index="17" instance=ExtResource("3_0ariw")]
+position = Vector2(136, 208)
+
+[node name="fruit20" parent="fruits" index="18" instance=ExtResource("3_0ariw")]
+position = Vector2(104, 208)
+
+[node name="fruit21" parent="fruits" index="19" instance=ExtResource("3_0ariw")]
+position = Vector2(456, 64)
+
+[node name="fruit22" parent="fruits" index="20" instance=ExtResource("3_0ariw")]
+position = Vector2(408, 160)
+
+[node name="fruit13" parent="fruits" index="21" instance=ExtResource("3_0ariw")]
+position = Vector2(152, 88)
+
 [node name="traps" parent="." index="4"]
 position = Vector2(144, 128)
 
 [node name="trap_spiked_ball" parent="traps" index="0" instance=ExtResource("3_14sev")]
+position = Vector2(88, -88)
+clamp_rotation = Vector2(10, 170)
+
+[node name="ball" parent="traps/trap_spiked_ball" index="0"]
+position = Vector2(22.7558, 58.1909)
 
 [node name="trap_spiked_ball2" parent="traps" index="1" instance=ExtResource("3_14sev")]
+position = Vector2(312, -40)
+clamp_rotation = Vector2(80, 170)
+rotation_speed = 1.0
 
 [node name="ball" parent="traps/trap_spiked_ball2" index="0"]
-position = Vector2(-200.977, -184.157)
+position = Vector2(1.19965, 64.4869)
 
 [node name="trap_spiked_ball3" parent="traps" index="2" instance=ExtResource("3_14sev")]
+position = Vector2(88, 40)
 
 [node name="ball" parent="traps/trap_spiked_ball3" index="0"]
-position = Vector2(-189.696, -172.809)
+position = Vector2(-44.8535, 72.2507)
 
 [node name="trap_spiked_ball4" parent="traps" index="3" instance=ExtResource("3_14sev")]
+position = Vector2(264, 56)
+clamp_rotation = Vector2(0, 180)
 
 [node name="ball" parent="traps/trap_spiked_ball4" index="0"]
-position = Vector2(-187.521, -170.638)
+position = Vector2(11.3701, -49.9472)
 
 [node name="end" parent="." index="5"]
+visible = false
 position = Vector2(64, 96)
 
+[editable path="traps/trap_spiked_ball"]
 [editable path="traps/trap_spiked_ball2"]
 [editable path="traps/trap_spiked_ball3"]
 [editable path="traps/trap_spiked_ball4"]

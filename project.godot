@@ -17,11 +17,18 @@ config/icon="res://icon.png"
 
 [display]
 
+window/size/viewport_width=576
+window/size/viewport_height=324
 window/stretch/mode="canvas_items"
 
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/godot_state_charts/plugin.cfg")
+
+[layer_names]
+
+2d_physics/layer_1="player"
+2d_physics/layer_4="fruit"
 
 [rendering]
 

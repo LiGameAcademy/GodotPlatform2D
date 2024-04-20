@@ -27,6 +27,8 @@ var normal_mask = (1 << 1) | (1 << 2)
 # 按下"下"键时，玩家应与层2碰撞，忽略层3（二进制100，十进制4）
 var pass_through_mask = 1 << 1
 
+signal died
+
 func _physics_process(delta):
 	var direction = Input.get_axis("ui_left", "ui_right")
 	if direction:
@@ -58,12 +60,24 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed("ui_down"):
 		# 允许通过单向平台
 		collision_mask = pass_through_mask
-		await get_tree().create_timer(0.5).timeout
+		await get_tree().create_timer(0.1).timeout
 		collision_mask = normal_mask
 
 	if is_on_wall() and velocity.y > 0:
 		velocity.y = min(velocity.y, wall_slide_speed) # 限制下落速度以模拟滑行
 		_state_chart.send_event("walled")
+
+## 收集道具
+func collect() -> void:
+	pass
+
+## 死亡
+func die() -> void:
+	_state_chart.send_event("die")
+	set_physics_process(false)
+	await get_tree().create_timer(0.5).timeout
+	died.emit()
+	queue_free()
 
 ## 土狼时间
 func coyote(delta : float) -> void:

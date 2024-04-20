@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://d1h3moni1v52m" path="res://source/entity/traps/falling_platforms.tscn" id="3_w6us5"]
 
 [node name="level_01" instance=ExtResource("1_5jbp0")]
+level_index = 1
 
 [node name="fruits" parent="fruits" index="0" instance=ExtResource("2_n5iar")]
 position = Vector2(192, 80)

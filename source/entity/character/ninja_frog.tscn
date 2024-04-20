@@ -13,9 +13,3 @@ texture = ExtResource("2_kjy82")
 libraries = {
 "": ExtResource("2_2uw4n")
 }
-
-[node name="AnimationTree" parent="." index="3"]
-active = false
-libraries = {
-"": ExtResource("2_2uw4n")
-}
