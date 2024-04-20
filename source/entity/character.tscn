@@ -1,8 +1,9 @@
-[gd_scene load_steps=36 format=3 uid="uid://ir1eugbdnrkn"]
+[gd_scene load_steps=37 format=3 uid="uid://ir1eugbdnrkn"]
 
 [ext_resource type="Script" path="res://source/entity/character.gd" id="1_dr6pd"]
 [ext_resource type="Texture2D" uid="uid://dd28gk2sytn4y" path="res://assets/textures/main_characters/Mask Dude/Idle (32x32).png" id="2_cyuim"]
 [ext_resource type="AnimationLibrary" uid="uid://d2xtwkoev3qif" path="res://assets/animations/animation_mask_dude.tres" id="3_o70do"]
+[ext_resource type="AnimationLibrary" uid="uid://dnnqi3yhyesqf" path="res://assets/animations/animation_common.tres" id="4_g2cbd"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="4_mrhrd"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/parallel_state.gd" id="5_5ha6e"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="5_pe8xi"]
@@ -13,7 +14,7 @@
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_e67oh"]
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_5slri"]
-animation = &"desappearing"
+animation = &"animation_common/desappearing"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_h73p7"]
 animation = &"double_jump"
@@ -44,7 +45,7 @@ blend_mode = 1
 animation = &"wall_jump"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_bfeux"]
-animation = &"appearing"
+animation = &"animation_common/appearing"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_lmya7"]
 animation = &"hit"
@@ -96,7 +97,7 @@ states/appearing/position = Vector2(-43, -25)
 states/hit/node = SubResource("AnimationNodeAnimation_lmya7")
 states/hit/position = Vector2(84, 95)
 transitions = ["Idle", "Move", SubResource("AnimationNodeStateMachineTransition_4fjbc"), "Move", "Idle", SubResource("AnimationNodeStateMachineTransition_m71t1"), "Move", "DoubleJump", SubResource("AnimationNodeStateMachineTransition_d17m3"), "DoubleJump", "Move", SubResource("AnimationNodeStateMachineTransition_vhfsd"), "Move", "Walled", SubResource("AnimationNodeStateMachineTransition_nbh2q"), "Walled", "Move", SubResource("AnimationNodeStateMachineTransition_442yi"), "Start", "appearing", SubResource("AnimationNodeStateMachineTransition_iajk7"), "appearing", "Idle", SubResource("AnimationNodeStateMachineTransition_8o2qj"), "Idle", "Desappearing", SubResource("AnimationNodeStateMachineTransition_ta88j"), "Move", "Desappearing", SubResource("AnimationNodeStateMachineTransition_vks8a"), "Walled", "Desappearing", SubResource("AnimationNodeStateMachineTransition_0vpme"), "DoubleJump", "Desappearing", SubResource("AnimationNodeStateMachineTransition_ek682")]
-graph_offset = Vector2(-36, -90)
+graph_offset = Vector2(-198, -76)
 
 [sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_jnjld"]
 
@@ -124,7 +125,8 @@ shape = SubResource("CapsuleShape2D_e67oh")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": ExtResource("3_o70do")
+"": ExtResource("3_o70do"),
+"animation_common": ExtResource("4_g2cbd")
 }
 
 [node name="AnimationTree" type="AnimationTree" parent="."]

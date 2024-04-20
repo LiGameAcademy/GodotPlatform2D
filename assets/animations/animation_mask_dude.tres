@@ -1,4 +1,4 @@
-[gd_resource type="AnimationLibrary" load_steps=20 format=3 uid="uid://d2xtwkoev3qif"]
+[gd_resource type="AnimationLibrary" load_steps=16 format=3 uid="uid://d2xtwkoev3qif"]
 
 [ext_resource type="Texture2D" uid="uid://dd28gk2sytn4y" path="res://assets/textures/main_characters/Mask Dude/Idle (32x32).png" id="1_612lb"]
 [ext_resource type="Texture2D" uid="uid://duovt6noa84oe" path="res://assets/textures/main_characters/Mask Dude/Double Jump (32x32).png" id="2_as1io"]
@@ -7,8 +7,6 @@
 [ext_resource type="Texture2D" uid="uid://d22jynckwovhj" path="res://assets/textures/main_characters/Mask Dude/Jump (32x32).png" id="5_i08o4"]
 [ext_resource type="Texture2D" uid="uid://smf03ifoyxji" path="res://assets/textures/main_characters/Mask Dude/Run (32x32).png" id="6_5jv2p"]
 [ext_resource type="Texture2D" uid="uid://dlempb4dgd2cw" path="res://assets/textures/main_characters/Mask Dude/Wall Jump (32x32).png" id="7_ue758"]
-[ext_resource type="Texture2D" uid="uid://dlnta0t1mnaw" path="res://assets/textures/main_characters/Appearing (96x96).png" id="8_b7fdg"]
-[ext_resource type="Texture2D" uid="uid://dhfxpe5ndwjh4" path="res://assets/textures/main_characters/Desappearing (96x96).png" id="9_1ps66"]
 
 [sub_resource type="Animation" id="Animation_m3dyd"]
 length = 0.001
@@ -47,86 +45,6 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [0]
-}
-
-[sub_resource type="Animation" id="Animation_sv6e2"]
-resource_name = "appearing"
-length = 0.7
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:texture")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("8_b7fdg")]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D:hframes")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [7]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Sprite2D:frame")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [0, 1, 2, 3, 4, 5, 6]
-}
-
-[sub_resource type="Animation" id="Animation_q1chy"]
-resource_name = "desappearing"
-length = 0.7
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:texture")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("9_1ps66")]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D:hframes")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [7]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Sprite2D:frame")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [0, 1, 2, 3, 4, 5, 6]
 }
 
 [sub_resource type="Animation" id="Animation_utw16"]
@@ -413,8 +331,6 @@ tracks/2/keys = {
 [resource]
 _data = {
 "RESET": SubResource("Animation_m3dyd"),
-"appearing": SubResource("Animation_sv6e2"),
-"desappearing": SubResource("Animation_q1chy"),
 "double_jump": SubResource("Animation_utw16"),
 "fall": SubResource("Animation_jcrot"),
 "hit": SubResource("Animation_gkwx6"),

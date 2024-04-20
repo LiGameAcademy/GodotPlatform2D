@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://dan3m2eu8eut8"]
+[gd_scene load_steps=5 format=3 uid="uid://dan3m2eu8eut8"]
 
 [ext_resource type="PackedScene" uid="uid://ir1eugbdnrkn" path="res://source/entity/character.tscn" id="1_b04nl"]
 [ext_resource type="Texture2D" uid="uid://cg06w4v6ij5kl" path="res://assets/textures/main_characters/Pink Man/Idle (32x32).png" id="2_6kcna"]
 [ext_resource type="AnimationLibrary" uid="uid://bflxioxuxd8lc" path="res://assets/animations/animation_pink_man.tres" id="3_7q6cx"]
+[ext_resource type="AnimationLibrary" uid="uid://dnnqi3yhyesqf" path="res://assets/animations/animation_common.tres" id="4_y7r83"]
 
 [node name="pink_man" instance=ExtResource("1_b04nl")]
 
@@ -11,5 +12,6 @@ texture = ExtResource("2_6kcna")
 
 [node name="AnimationPlayer" parent="." index="2"]
 libraries = {
-"": ExtResource("3_7q6cx")
+"": ExtResource("3_7q6cx"),
+"animation_common": ExtResource("4_y7r83")
 }

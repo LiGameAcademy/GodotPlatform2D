@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://dsep62yv7oxt3"]
+[gd_scene load_steps=5 format=3 uid="uid://dsep62yv7oxt3"]
 
 [ext_resource type="PackedScene" uid="uid://ir1eugbdnrkn" path="res://source/entity/character.tscn" id="1_46dr8"]
 [ext_resource type="Texture2D" uid="uid://c1os5ktd157n7" path="res://assets/textures/main_characters/Virtual Guy/Idle (32x32).png" id="2_cj3bl"]
 [ext_resource type="AnimationLibrary" uid="uid://dy0kh1emunj4o" path="res://assets/animations/animation_virtual_guy.tres" id="3_o71yl"]
+[ext_resource type="AnimationLibrary" uid="uid://dnnqi3yhyesqf" path="res://assets/animations/animation_common.tres" id="4_4mp3k"]
 
 [node name="virtual_guy" instance=ExtResource("1_46dr8")]
 
@@ -11,5 +12,6 @@ texture = ExtResource("2_cj3bl")
 
 [node name="AnimationPlayer" parent="." index="2"]
 libraries = {
-"": ExtResource("3_o71yl")
+"": ExtResource("3_o71yl"),
+"animation_common": ExtResource("4_4mp3k")
 }
