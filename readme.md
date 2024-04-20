@@ -29,17 +29,17 @@ itch.io试玩web：[https://godot-li.itch.io/platform2d](https://godot-li.itch.i
 - 多个关卡可切换，多个角色可选择
 - 多种关卡trap实现
 - 后续计划推出3D版本
-![输入图片说明](docs%E5%AE%A3%E4%BC%A0%E5%9B%BE1png.png)
-​![输入图片说明](docs/%E5%AE%A3%E4%BC%A0%E5%9B%BE2.png)
-![输入图片说明](docs/%E5%AE%A3%E4%BC%A0%E5%9B%BE3.png)
-![输入图片说明](docs/%E5%AE%A3%E4%BC%A0%E5%9B%BE4.png)​​​​
+![开始菜单](docs/%E5%AE%A3%E4%BC%A0%E5%9B%BE1.png)
+​![选择角色](docs/%E5%AE%A3%E4%BC%A0%E5%9B%BE2.png)
+![选择关卡](docs/%E5%AE%A3%E4%BC%A0%E5%9B%BE3.png)
+![游戏画面](docs/%E5%AE%A3%E4%BC%A0%E5%9B%BE4.png)​​​​
 
 欢迎加入老李的知识付费平台：老李游戏学院（知识星球）
 
 老李游戏学院
-![输入图片说明](docs/%E7%9F%A5%E8%AF%86%E6%98%9F%E7%90%83-%E4%BA%8C%E7%BB%B4%E7%A0%81.jpg)
+![知识星球](docs/%E7%9F%A5%E8%AF%86%E6%98%9F%E7%90%83-%E4%BA%8C%E7%BB%B4%E7%A0%81.jpg)
 如果你觉得我工作不赖，也可以请我喝杯咖啡~
-![输入图片说明](docs/Fv8M7VE1dqdywJXBPsH6VEruSng5.PNG)
+![我的头像](docs/Fv8M7VE1dqdywJXBPsH6VEruSng5.PNG)
 
 
 大家加油！
