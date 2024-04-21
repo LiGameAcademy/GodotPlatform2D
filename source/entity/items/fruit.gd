@@ -18,7 +18,9 @@ func _ready() -> void:
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	$AnimationPlayer.play("collected")
-	await get_tree().create_timer(0.5).timeout
-	body.collect()
+	await get_tree().create_timer(2).timeout
+	if body and is_instance_valid(body):
+		# 在延时期间内body可能已经不存在，因此要进行判断
+		body.collect()
 	queue_free()
 	
