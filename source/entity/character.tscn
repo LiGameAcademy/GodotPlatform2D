@@ -97,12 +97,12 @@ states/appearing/position = Vector2(-43, -25)
 states/hit/node = SubResource("AnimationNodeAnimation_lmya7")
 states/hit/position = Vector2(84, 95)
 transitions = ["Idle", "Move", SubResource("AnimationNodeStateMachineTransition_4fjbc"), "Move", "Idle", SubResource("AnimationNodeStateMachineTransition_m71t1"), "Move", "DoubleJump", SubResource("AnimationNodeStateMachineTransition_d17m3"), "DoubleJump", "Move", SubResource("AnimationNodeStateMachineTransition_vhfsd"), "Move", "Walled", SubResource("AnimationNodeStateMachineTransition_nbh2q"), "Walled", "Move", SubResource("AnimationNodeStateMachineTransition_442yi"), "Start", "appearing", SubResource("AnimationNodeStateMachineTransition_iajk7"), "appearing", "Idle", SubResource("AnimationNodeStateMachineTransition_8o2qj"), "Idle", "Desappearing", SubResource("AnimationNodeStateMachineTransition_ta88j"), "Move", "Desappearing", SubResource("AnimationNodeStateMachineTransition_vks8a"), "Walled", "Desappearing", SubResource("AnimationNodeStateMachineTransition_0vpme"), "DoubleJump", "Desappearing", SubResource("AnimationNodeStateMachineTransition_ek682")]
-graph_offset = Vector2(-198, -76)
+graph_offset = Vector2(-227, -97)
 
 [sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_jnjld"]
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_dytdh"]
-graph_offset = Vector2(-297.091, 42.3636)
+graph_offset = Vector2(-204, 73)
 nodes/StateMachine/node = SubResource("AnimationNodeStateMachine_ebpgm")
 nodes/StateMachine/position = Vector2(-120, 140)
 nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_jnjld")
@@ -132,7 +132,7 @@ libraries = {
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource("AnimationNodeBlendTree_dytdh")
 anim_player = NodePath("../AnimationPlayer")
-parameters/StateMachine/Move/blend_position = 0
+parameters/StateMachine/Move/blend_position = -1.0
 parameters/TimeScale/scale = 2.0
 
 [node name="StateChart" type="Node" parent="."]
