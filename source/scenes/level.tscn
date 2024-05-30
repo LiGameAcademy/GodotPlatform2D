@@ -1,10 +1,16 @@
-[gd_scene load_steps=9 format=3 uid="uid://brysy5j5sdv4w"]
+[gd_scene load_steps=11 format=3 uid="uid://brysy5j5sdv4w"]
 
 [ext_resource type="Texture2D" uid="uid://clutf557twwdw" path="res://assets/textures/background/Brown.png" id="1_l6vgb"]
 [ext_resource type="Script" path="res://source/scenes/level.gd" id="1_nu6e1"]
+[ext_resource type="Shader" path="res://assets/shader/diamond_based_screen_transition.gdshader" id="2_pclw8"]
 [ext_resource type="TileSet" uid="uid://di6wk0xyxjy0m" path="res://assets/tileset/terrain.tres" id="3_0778l"]
 [ext_resource type="PackedScene" uid="uid://bioj1fnrblhon" path="res://source/entity/checkpoint/start.tscn" id="7_73j2j"]
 [ext_resource type="PackedScene" uid="uid://5kd2sfvt0xgd" path="res://source/entity/checkpoint/end.tscn" id="8_s2bqh"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2cqnr"]
+shader = ExtResource("2_pclw8")
+shader_parameter/progress = 0.0
+shader_parameter/diamondPixelSize = 32.0
 
 [sub_resource type="Animation" id="Animation_6dbak"]
 length = 0.001
@@ -48,6 +54,17 @@ _data = {
 script = ExtResource("1_nu6e1")
 player_start = NodePath("start/player_start")
 speed = 30.0
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+material = SubResource("ShaderMaterial_2cqnr")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.996078)
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 scroll_offset = Vector2(0, 605.263)

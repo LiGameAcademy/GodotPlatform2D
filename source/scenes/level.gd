@@ -5,6 +5,7 @@ extends Node2D
 @onready var parallax_background: ParallaxBackground = $ParallaxBackground
 @onready var parallax_layer: ParallaxLayer = $ParallaxBackground/ParallaxLayer
 @onready var control: Control = $CanvasLayer/Control
+@onready var color_rect: ColorRect = $CanvasLayer/ColorRect
 
 @export var player_start : Marker2D = null
 @export var speed : float = 80
@@ -21,6 +22,7 @@ func _ready() -> void:
 		#material.set_shader_parameter("character_position", Vector3(mask_dude.position.x, mask_dude.position.y, 0))
 	$end.end.connect(
 		func() -> void:
+			await exit_level()
 			end.emit(level_index)
 	)
 
@@ -32,6 +34,7 @@ func _process(delta: float) -> void:
 
 ## 初始化
 func initialize(cha_scene : PackedScene) -> void:
+	await enter_level()
 	P_CHA = cha_scene
 	spawn_character()
 
@@ -49,3 +52,19 @@ func spawn_character() -> void:
 	)
 	_player.global_position = player_start.global_position
 	$start.start()
+
+func exit_level() -> void:
+	var tween : Tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
+	#var final_val : Color = Color.BLACK
+	#tween.tween_property(color_rect, "color", final_val, 0.5)
+	tween.tween_property(color_rect.material, "shader_parameter/progress", 1, 1.5).from(0)
+	await tween.finished
+
+func enter_level() -> void:
+	color_rect.color = Color.BLACK
+	var tween : Tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
+	#var final_val : Color = Color.BLACK
+	#final_val.a = 0.0
+	#tween.tween_property(color_rect, "color", final_val, 0.5)
+	tween.tween_property(color_rect.material, "shader_parameter/progress", 0, 1.5).from(1)
+	await tween.finished
