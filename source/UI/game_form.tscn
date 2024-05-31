@@ -13,6 +13,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 script = ExtResource("1_bgwvb")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
@@ -20,32 +21,31 @@ layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
 grow_horizontal = 2
+mouse_filter = 2
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 8
+mouse_filter = 2
 alignment = 2
 
 [node name="btn_previous" type="Button" parent="MarginContainer/HBoxContainer"]
 layout_mode = 2
 focus_mode = 0
-disabled = true
 icon = ExtResource("1_32rat")
 flat = true
 
 [node name="btn_restart" type="Button" parent="MarginContainer/HBoxContainer"]
 layout_mode = 2
 focus_mode = 0
-disabled = true
 icon = ExtResource("2_7642x")
 flat = true
 
 [node name="btn_next" type="Button" parent="MarginContainer/HBoxContainer"]
 layout_mode = 2
 focus_mode = 0
-disabled = true
 icon = ExtResource("3_v18rl")
 flat = true
 

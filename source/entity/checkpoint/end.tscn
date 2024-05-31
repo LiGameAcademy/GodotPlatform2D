@@ -71,6 +71,7 @@ advance_mode = 2
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_6egxu"]
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_k7x2x"]
+switch_mode = 2
 advance_mode = 2
 
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_iiu7p"]
@@ -105,5 +106,20 @@ autoplay = "idle"
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource("AnimationNodeStateMachine_iiu7p")
 anim_player = NodePath("../AnimationPlayer")
+parameters/current_length = 0.0
+parameters/current_position = 0.0
+parameters/current_delta = 0.0
+parameters/End/current_length = 0.0
+parameters/End/current_position = 0.0
+parameters/End/current_delta = 0.0
+parameters/Start/current_length = 0.0
+parameters/Start/current_position = 0.0
+parameters/Start/current_delta = 0.0
+parameters/idle/current_length = 1.0
+parameters/idle/current_position = 1.0
+parameters/idle/current_delta = 0.0
+parameters/pressed/current_length = 0.8
+parameters/pressed/current_position = 0.8
+parameters/pressed/current_delta = 0.0260597
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

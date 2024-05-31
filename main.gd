@@ -60,15 +60,41 @@ func _on_select_state_state_entered() -> void:
 	)
 
 func _on_game_state_state_entered() -> void:
-	_current_form = GAME_FORM.instantiate()
 	_current_scene = state_chart.get_meta("level").instantiate()
 	_current_scene.end.connect(
 		func (level_index : int) -> void:
 			var level = _levels[level_index if level_index < _levels.size() - 1 else _levels.size() - 1]
-			state_chart.set_meta("level", level)
-			state_chart.send_event("to_game")
+			load_level(level)
 	)
 	var P_CHA : PackedScene = state_chart.get_meta("P_CHA")
 	_current_scene.initialize(P_CHA)
+	_current_form = GAME_FORM.instantiate()
+	if _current_scene.level_index == 1:
+		_current_form.btn_previous.disabled = true
+	elif _current_scene.level_index == _levels.size():
+		_current_form.btn_next.disabled = true
+	_current_form.btn_previous_pressed.connect(
+		func() -> void:
+			var level_index = _current_scene.level_index
+			var level = _levels[clamp(level_index - 1, 1, _levels.size())  - 1]
+			load_level(level)
+	)
+	_current_form.btn_restart_pressed.connect(
+		func() -> void:
+			load_level(_levels[_current_scene.level_index - 1])
+	)	
+	_current_form.btn_next_pressed.connect(
+		func() -> void:
+			var level_index = _current_scene.level_index
+			#var level = _levels[level_index if level_index < _levels.size() - 1 else _levels.size() - 1]
+			var level = _levels[clamp(level_index + 1, 1, _levels.size())  - 1]
+			load_level(level)
+	)	
+	_current_form.btn_settings_pressed.connect(
+		func() -> void:
+			pass
+	)
 
-
+func load_level(level) -> void:
+	state_chart.set_meta("level", level)
+	state_chart.send_event("to_game")
