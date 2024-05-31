@@ -48,7 +48,6 @@ func _physics_process(delta):
 	else:
 		## apply gravity
 		velocity.y += gravity * delta
-		_state_chart.send_event("airborne")
 	
 	# let the state machine know if we are moving or not
 	if is_on_wall() and velocity.y > 0:

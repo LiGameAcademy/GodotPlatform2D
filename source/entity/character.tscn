@@ -138,11 +138,11 @@ libraries = {
 tree_root = SubResource("AnimationNodeBlendTree_dytdh")
 anim_player = NodePath("../AnimationPlayer")
 parameters/current_length = 1.1
-parameters/current_position = 0.987691
-parameters/current_delta = 0.044994
+parameters/current_position = 0.299211
+parameters/current_delta = 0.0416667
 parameters/StateMachine/current_length = 1.1
-parameters/StateMachine/current_position = 0.987691
-parameters/StateMachine/current_delta = 0.044994
+parameters/StateMachine/current_position = 0.299211
+parameters/StateMachine/current_delta = 0.0416667
 parameters/StateMachine/Desappearing/current_length = null
 parameters/StateMachine/Desappearing/current_position = null
 parameters/StateMachine/Desappearing/current_delta = null
@@ -153,8 +153,8 @@ parameters/StateMachine/End/current_length = null
 parameters/StateMachine/End/current_position = null
 parameters/StateMachine/End/current_delta = null
 parameters/StateMachine/Idle/current_length = 1.1
-parameters/StateMachine/Idle/current_position = 0.987691
-parameters/StateMachine/Idle/current_delta = 0.044994
+parameters/StateMachine/Idle/current_position = 0.299211
+parameters/StateMachine/Idle/current_delta = 0.0416667
 parameters/StateMachine/Move/current_length = 0
 parameters/StateMachine/Move/current_position = 0
 parameters/StateMachine/Move/current_delta = 0
@@ -181,12 +181,12 @@ parameters/StateMachine/hit/current_length = null
 parameters/StateMachine/hit/current_position = null
 parameters/StateMachine/hit/current_delta = null
 parameters/TimeScale/current_length = 1.1
-parameters/TimeScale/current_position = 0.987691
-parameters/TimeScale/current_delta = 0.044994
+parameters/TimeScale/current_position = 0.299211
+parameters/TimeScale/current_delta = 0.0416667
 parameters/TimeScale/scale = 2.0
 parameters/output/current_length = 1.1
-parameters/output/current_position = 0.987691
-parameters/output/current_delta = 0.044994
+parameters/output/current_position = 0.299211
+parameters/output/current_delta = 0.0416667
 
 [node name="StateChart" type="Node" parent="."]
 unique_name_in_owner = true
@@ -206,11 +206,6 @@ script = ExtResource("6_2odvk")
 script = ExtResource("9_rt64b")
 to = NodePath("../../Airborne/Jump")
 event = &"jump"
-
-[node name="On Airborne" type="Node" parent="StateChart/Root/Movement/Grounded"]
-script = ExtResource("9_rt64b")
-to = NodePath("../../Airborne")
-event = &"airborne"
 
 [node name="Airborne" type="Node" parent="StateChart/Root/Movement"]
 script = ExtResource("5_pe8xi")
@@ -314,5 +309,5 @@ offset_right = 323.0
 offset_bottom = 117.0
 initial_node_to_watch = NodePath("../StateChart")
 
-[connection signal="state_physics_processing" from="StateChart/Root/Movement/Grounded" to="." method="_on_jump_enabled_state_physics_processing"]
-[connection signal="state_physics_processing" from="StateChart/Root/Movement/Airborne/Jump" to="." method="_on_jump_enabled_state_physics_processing"]
+[connection signal="state_physics_processing" from="StateChart/Root/Movement/Grounded" to="." method="_on_jump_physics_processing"]
+[connection signal="state_physics_processing" from="StateChart/Root/Movement/Airborne/Jump" to="." method="_on_jump_physics_processing"]
