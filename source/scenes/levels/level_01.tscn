@@ -4,7 +4,8 @@
 [ext_resource type="PackedScene" uid="uid://b083n53vcsaeg" path="res://source/entity/items/fruit.tscn" id="2_n5iar"]
 [ext_resource type="PackedScene" uid="uid://d1h3moni1v52m" path="res://source/entity/traps/falling_platforms.tscn" id="3_w6us5"]
 
-[node name="level_01" instance=ExtResource("1_5jbp0")]
+[node name="level_01" node_paths=PackedStringArray("player_start") instance=ExtResource("1_5jbp0")]
+player_start = NodePath("start/player_start")
 level_index = 1
 
 [node name="fruits" parent="fruits" index="0" instance=ExtResource("2_n5iar")]
