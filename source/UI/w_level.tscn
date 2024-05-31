@@ -19,7 +19,7 @@ stretch_shrink = 2
 
 [node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
 handle_input_locally = false
-size = Vector2i(54, 32)
+size = Vector2i(2, 2)
 size_2d_override = Vector2i(576, 324)
 size_2d_override_stretch = true
 render_target_update_mode = 4

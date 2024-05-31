@@ -55,16 +55,11 @@ func spawn_character() -> void:
 
 func exit_level() -> void:
 	var tween : Tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
-	#var final_val : Color = Color.BLACK
-	#tween.tween_property(color_rect, "color", final_val, 0.5)
 	tween.tween_property(color_rect.material, "shader_parameter/progress", 1, 1.5).from(0)
 	await tween.finished
 
 func enter_level() -> void:
 	color_rect.color = Color.BLACK
 	var tween : Tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
-	#var final_val : Color = Color.BLACK
-	#final_val.a = 0.0
-	#tween.tween_property(color_rect, "color", final_val, 0.5)
 	tween.tween_property(color_rect.material, "shader_parameter/progress", 0, 1.5).from(1)
 	await tween.finished

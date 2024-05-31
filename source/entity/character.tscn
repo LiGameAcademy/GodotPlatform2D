@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://ir1eugbdnrkn"]
+[gd_scene load_steps=40 format=3 uid="uid://ir1eugbdnrkn"]
 
 [ext_resource type="Script" path="res://source/entity/character.gd" id="1_dr6pd"]
 [ext_resource type="Texture2D" uid="uid://dd28gk2sytn4y" path="res://assets/textures/main_characters/Mask Dude/Idle (32x32).png" id="2_cyuim"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="6_2odvk"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/animation_tree_state.gd" id="8_8367y"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="9_rt64b"]
+[ext_resource type="PackedScene" uid="uid://bcwkugn6v3oy7" path="res://addons/godot_state_charts/utilities/state_chart_debugger.tscn" id="11_iwjdw"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_e67oh"]
 
@@ -79,9 +80,13 @@ advance_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ek682"]
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_r7xqa"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_mhsjy"]
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_ebpgm"]
 states/Desappearing/node = SubResource("AnimationNodeAnimation_5slri")
-states/Desappearing/position = Vector2(550, 95)
+states/Desappearing/position = Vector2(84, 95)
 states/DoubleJump/node = SubResource("AnimationNodeAnimation_h73p7")
 states/DoubleJump/position = Vector2(550, -25)
 states/End/position = Vector2(783, 95)
@@ -95,14 +100,14 @@ states/Walled/position = Vector2(308, 95)
 states/appearing/node = SubResource("AnimationNodeAnimation_bfeux")
 states/appearing/position = Vector2(-43, -25)
 states/hit/node = SubResource("AnimationNodeAnimation_lmya7")
-states/hit/position = Vector2(84, 95)
-transitions = ["Idle", "Move", SubResource("AnimationNodeStateMachineTransition_4fjbc"), "Move", "Idle", SubResource("AnimationNodeStateMachineTransition_m71t1"), "Move", "DoubleJump", SubResource("AnimationNodeStateMachineTransition_d17m3"), "DoubleJump", "Move", SubResource("AnimationNodeStateMachineTransition_vhfsd"), "Move", "Walled", SubResource("AnimationNodeStateMachineTransition_nbh2q"), "Walled", "Move", SubResource("AnimationNodeStateMachineTransition_442yi"), "Start", "appearing", SubResource("AnimationNodeStateMachineTransition_iajk7"), "appearing", "Idle", SubResource("AnimationNodeStateMachineTransition_8o2qj"), "Idle", "Desappearing", SubResource("AnimationNodeStateMachineTransition_ta88j"), "Move", "Desappearing", SubResource("AnimationNodeStateMachineTransition_vks8a"), "Walled", "Desappearing", SubResource("AnimationNodeStateMachineTransition_0vpme"), "DoubleJump", "Desappearing", SubResource("AnimationNodeStateMachineTransition_ek682")]
-graph_offset = Vector2(-227, -97)
+states/hit/position = Vector2(-43, 95)
+transitions = ["Idle", "Move", SubResource("AnimationNodeStateMachineTransition_4fjbc"), "Move", "Idle", SubResource("AnimationNodeStateMachineTransition_m71t1"), "Move", "DoubleJump", SubResource("AnimationNodeStateMachineTransition_d17m3"), "DoubleJump", "Move", SubResource("AnimationNodeStateMachineTransition_vhfsd"), "Move", "Walled", SubResource("AnimationNodeStateMachineTransition_nbh2q"), "Walled", "Move", SubResource("AnimationNodeStateMachineTransition_442yi"), "Start", "appearing", SubResource("AnimationNodeStateMachineTransition_iajk7"), "appearing", "Idle", SubResource("AnimationNodeStateMachineTransition_8o2qj"), "Idle", "Desappearing", SubResource("AnimationNodeStateMachineTransition_ta88j"), "Move", "Desappearing", SubResource("AnimationNodeStateMachineTransition_vks8a"), "Walled", "Desappearing", SubResource("AnimationNodeStateMachineTransition_0vpme"), "DoubleJump", "Desappearing", SubResource("AnimationNodeStateMachineTransition_ek682"), "Walled", "DoubleJump", SubResource("AnimationNodeStateMachineTransition_r7xqa"), "DoubleJump", "Walled", SubResource("AnimationNodeStateMachineTransition_mhsjy")]
+graph_offset = Vector2(-119, -87)
 
 [sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_jnjld"]
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_dytdh"]
-graph_offset = Vector2(-204, 73)
+graph_offset = Vector2(-446, 46)
 nodes/StateMachine/node = SubResource("AnimationNodeStateMachine_ebpgm")
 nodes/StateMachine/position = Vector2(-120, 140)
 nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_jnjld")
@@ -133,11 +138,11 @@ libraries = {
 tree_root = SubResource("AnimationNodeBlendTree_dytdh")
 anim_player = NodePath("../AnimationPlayer")
 parameters/current_length = 1.1
-parameters/current_position = 0.921758
-parameters/current_delta = 0.0151515
+parameters/current_position = 0.987691
+parameters/current_delta = 0.044994
 parameters/StateMachine/current_length = 1.1
-parameters/StateMachine/current_position = 0.921758
-parameters/StateMachine/current_delta = 0.0151515
+parameters/StateMachine/current_position = 0.987691
+parameters/StateMachine/current_delta = 0.044994
 parameters/StateMachine/Desappearing/current_length = null
 parameters/StateMachine/Desappearing/current_position = null
 parameters/StateMachine/Desappearing/current_delta = null
@@ -148,12 +153,12 @@ parameters/StateMachine/End/current_length = null
 parameters/StateMachine/End/current_position = null
 parameters/StateMachine/End/current_delta = null
 parameters/StateMachine/Idle/current_length = 1.1
-parameters/StateMachine/Idle/current_position = 0.921758
-parameters/StateMachine/Idle/current_delta = 0.0151515
+parameters/StateMachine/Idle/current_position = 0.987691
+parameters/StateMachine/Idle/current_delta = 0.044994
 parameters/StateMachine/Move/current_length = 0
 parameters/StateMachine/Move/current_position = 0
 parameters/StateMachine/Move/current_delta = 0
-parameters/StateMachine/Move/blend_position = -1.0
+parameters/StateMachine/Move/blend_position = -0.000528276
 parameters/StateMachine/Move/0/current_length = null
 parameters/StateMachine/Move/0/current_position = null
 parameters/StateMachine/Move/0/current_delta = null
@@ -171,17 +176,17 @@ parameters/StateMachine/Walled/current_position = null
 parameters/StateMachine/Walled/current_delta = null
 parameters/StateMachine/appearing/current_length = 0.7
 parameters/StateMachine/appearing/current_position = 0.7
-parameters/StateMachine/appearing/current_delta = 0.0161338
+parameters/StateMachine/appearing/current_delta = 0.201044
 parameters/StateMachine/hit/current_length = null
 parameters/StateMachine/hit/current_position = null
 parameters/StateMachine/hit/current_delta = null
 parameters/TimeScale/current_length = 1.1
-parameters/TimeScale/current_position = 0.921758
-parameters/TimeScale/current_delta = 0.0151515
+parameters/TimeScale/current_position = 0.987691
+parameters/TimeScale/current_delta = 0.044994
 parameters/TimeScale/scale = 2.0
 parameters/output/current_length = 1.1
-parameters/output/current_position = 0.921758
-parameters/output/current_delta = 0.0151515
+parameters/output/current_position = 0.987691
+parameters/output/current_delta = 0.044994
 
 [node name="StateChart" type="Node" parent="."]
 unique_name_in_owner = true
@@ -199,7 +204,7 @@ script = ExtResource("6_2odvk")
 
 [node name="On Jump" type="Node" parent="StateChart/Root/Movement/Grounded"]
 script = ExtResource("9_rt64b")
-to = NodePath("../../Airborne/DoubleJumpEnabled")
+to = NodePath("../../Airborne/Jump")
 event = &"jump"
 
 [node name="On Airborne" type="Node" parent="StateChart/Root/Movement/Grounded"]
@@ -209,53 +214,26 @@ event = &"airborne"
 
 [node name="Airborne" type="Node" parent="StateChart/Root/Movement"]
 script = ExtResource("5_pe8xi")
-initial_state = NodePath("CoyoteJumpEnabled")
+initial_state = NodePath("Jump")
 
-[node name="On Grounded" type="Node" parent="StateChart/Root/Movement/Airborne"]
-script = ExtResource("9_rt64b")
-to = NodePath("../../Grounded")
-event = &"grounded"
-
-[node name="On Walled" type="Node" parent="StateChart/Root/Movement/Airborne"]
-script = ExtResource("9_rt64b")
-to = NodePath("../../Walled")
-event = &"walled"
-
-[node name="CoyoteJumpEnabled" type="Node" parent="StateChart/Root/Movement/Airborne"]
+[node name="Jump" type="Node" parent="StateChart/Root/Movement/Airborne"]
 script = ExtResource("6_2odvk")
 
-[node name="On Jump" type="Node" parent="StateChart/Root/Movement/Airborne/CoyoteJumpEnabled"]
+[node name="On Jump" type="Node" parent="StateChart/Root/Movement/Airborne/Jump"]
 script = ExtResource("9_rt64b")
-to = NodePath("../../DoubleJumpEnabled")
+to = NodePath("../../DoubleJump")
 event = &"jump"
 
-[node name="On Expiration" type="Node" parent="StateChart/Root/Movement/Airborne/CoyoteJumpEnabled"]
+[node name="On Expiration" type="Node" parent="StateChart/Root/Movement/Airborne/Jump"]
 script = ExtResource("9_rt64b")
-to = NodePath("../../CannotJump")
 delay_seconds = 0.2
 
-[node name="DoubleJumpEnabled" type="Node" parent="StateChart/Root/Movement/Airborne"]
-script = ExtResource("6_2odvk")
-
-[node name="On Jump" type="Node" parent="StateChart/Root/Movement/Airborne/DoubleJumpEnabled"]
-script = ExtResource("9_rt64b")
-to = NodePath("../../CannotJump")
-event = &"jump"
-
-[node name="CannotJump" type="Node" parent="StateChart/Root/Movement/Airborne"]
-script = ExtResource("6_2odvk")
-
-[node name="Walled" type="Node" parent="StateChart/Root/Movement"]
+[node name="DoubleJump" type="Node" parent="StateChart/Root/Movement/Airborne"]
 script = ExtResource("8_8367y")
-animation_tree = NodePath("../../../../AnimationTree")
+animation_tree = NodePath("../../../../../AnimationTree")
 state_machine_path = "parameters/StateMachine/playback"
 
-[node name="On Jump" type="Node" parent="StateChart/Root/Movement/Walled"]
-script = ExtResource("9_rt64b")
-to = NodePath("../../Airborne/DoubleJumpEnabled")
-event = &"jump"
-
-[node name="On Grounded" type="Node" parent="StateChart/Root/Movement/Walled"]
+[node name="On Grounded" type="Node" parent="StateChart/Root/Movement/Airborne"]
 script = ExtResource("9_rt64b")
 to = NodePath("../../Grounded")
 event = &"grounded"
@@ -273,6 +251,11 @@ state_machine_path = "parameters/StateMachine/playback"
 script = ExtResource("9_rt64b")
 to = NodePath("../../Move")
 event = &"moving"
+
+[node name="On Walled" type="Node" parent="StateChart/Root/Animation Control/Idle"]
+script = ExtResource("9_rt64b")
+to = NodePath("../../Walled")
+event = &"walled"
 
 [node name="OnDie" type="Node" parent="StateChart/Root/Animation Control/Idle"]
 script = ExtResource("9_rt64b")
@@ -294,14 +277,42 @@ script = ExtResource("9_rt64b")
 to = NodePath("../../Desappearing")
 event = &"die"
 
+[node name="On Walled" type="Node" parent="StateChart/Root/Animation Control/Move"]
+script = ExtResource("9_rt64b")
+to = NodePath("../../Walled")
+event = &"walled"
+
+[node name="Walled" type="Node" parent="StateChart/Root/Animation Control"]
+script = ExtResource("8_8367y")
+animation_tree = NodePath("../../../../AnimationTree")
+state_machine_path = "parameters/StateMachine/playback"
+
+[node name="OnDie" type="Node" parent="StateChart/Root/Animation Control/Walled"]
+script = ExtResource("9_rt64b")
+to = NodePath("../../Desappearing")
+event = &"die"
+
+[node name="On Idle" type="Node" parent="StateChart/Root/Animation Control/Walled"]
+script = ExtResource("9_rt64b")
+to = NodePath("../../Idle")
+event = &"idle"
+
+[node name="On Moving" type="Node" parent="StateChart/Root/Animation Control/Walled"]
+script = ExtResource("9_rt64b")
+to = NodePath("../../Move")
+event = &"moving"
+
 [node name="Desappearing" type="Node" parent="StateChart/Root/Animation Control"]
 script = ExtResource("8_8367y")
 animation_tree = NodePath("../../../../AnimationTree")
 state_machine_path = "parameters/StateMachine/playback"
 
+[node name="StateChartDebugger" parent="." instance=ExtResource("11_iwjdw")]
+offset_left = -39.0
+offset_top = -139.0
+offset_right = 323.0
+offset_bottom = 117.0
+initial_node_to_watch = NodePath("../StateChart")
+
 [connection signal="state_physics_processing" from="StateChart/Root/Movement/Grounded" to="." method="_on_jump_enabled_state_physics_processing"]
-[connection signal="state_physics_processing" from="StateChart/Root/Movement/Airborne/CoyoteJumpEnabled" to="." method="_on_jump_enabled_state_physics_processing"]
-[connection signal="state_physics_processing" from="StateChart/Root/Movement/Airborne/DoubleJumpEnabled" to="." method="_on_jump_enabled_state_physics_processing"]
-[connection signal="taken" from="StateChart/Root/Movement/Airborne/DoubleJumpEnabled/On Jump" to="." method="_on_double_jump_jump"]
-[connection signal="state_physics_processing" from="StateChart/Root/Movement/Walled" to="." method="_on_jump_enabled_state_physics_processing"]
-[connection signal="taken" from="StateChart/Root/Movement/Walled/On Jump" to="." method="_on_walled_jump"]
+[connection signal="state_physics_processing" from="StateChart/Root/Movement/Airborne/Jump" to="." method="_on_jump_enabled_state_physics_processing"]
