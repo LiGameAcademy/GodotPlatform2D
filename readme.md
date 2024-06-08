@@ -1,3 +1,5 @@
+# GodotPlatform2D 教程项目
+
 当前项目进入DEBUG阶段
 itch.io试玩web：[https://godot-li.itch.io/platform2d](https://godot-li.itch.io/platform2d)
 
@@ -22,7 +24,17 @@ itch.io试玩web：[https://godot-li.itch.io/platform2d](https://godot-li.itch.i
 
 有条件的同学可以支持原作者。
 
-游戏特色
+## TODOList
+
+- 玩家控制角色差异化设计
+- 传送门
+- 更多敌人和AI设计
+- 更多场景trap
+- 更多关卡设计
+- 角色联网，合作通关
+- 角色对抗玩法
+
+## 游戏特色
 
 - 使用godot4.2快速开发
 - 绝对轻量级的完整游戏demo
