@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://cxm11sfcrmnuh"]
 
 [ext_resource type="PackedScene" uid="uid://brysy5j5sdv4w" path="res://source/scenes/level.tscn" id="1_705kq"]
-[ext_resource type="Texture2D" uid="uid://oghxp6w8p0hd" path="res://assets/textures/background/Green.png" id="2_6dt81"]
+[ext_resource type="Texture2D" uid="uid://oghxp6w8p0hd" path="res://assets/textures/texture_bg_green.png" id="2_6dt81"]
 [ext_resource type="PackedScene" uid="uid://b083n53vcsaeg" path="res://source/entity/items/fruit.tscn" id="3_hfarq"]
 [ext_resource type="PackedScene" uid="uid://byvfeew05rum6" path="res://source/entity/traps/trap_rock_head.tscn" id="4_ikpde"]
 

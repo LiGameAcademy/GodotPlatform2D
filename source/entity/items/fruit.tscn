@@ -1,8 +1,8 @@
 [gd_scene load_steps=9 format=3 uid="uid://b083n53vcsaeg"]
 
-[ext_resource type="Texture2D" uid="uid://dbm5ab22gk35i" path="res://assets/textures/items/Fruits/Apple.png" id="1_g474i"]
+[ext_resource type="Texture2D" uid="uid://dbm5ab22gk35i" path="res://assets/textures/texture_items_fruits_apple.png" id="1_g474i"]
 [ext_resource type="Script" path="res://source/entity/items/fruit.gd" id="1_pr3dl"]
-[ext_resource type="Texture2D" uid="uid://ubkq3vl0nv80" path="res://assets/textures/items/Fruits/Collected.png" id="2_e6gtl"]
+[ext_resource type="Texture2D" uid="uid://ubkq3vl0nv80" path="res://assets/textures/texture_items_fruits_collected.png" id="2_e6gtl"]
 
 [sub_resource type="Animation" id="Animation_w2wn3"]
 length = 0.001

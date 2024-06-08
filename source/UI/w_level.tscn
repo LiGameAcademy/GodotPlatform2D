@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://source/UI/w_level.gd" id="1_k6vb2"]
 [ext_resource type="PackedScene" uid="uid://bj1lsk7xufy68" path="res://source/scenes/levels/level_01.tscn" id="1_oqwlf"]
-[ext_resource type="Texture2D" uid="uid://gbbldpm7biaa" path="res://assets/textures/menu_icon/Levels/01.png" id="2_03h5n"]
+[ext_resource type="Texture2D" uid="uid://gbbldpm7biaa" path="res://assets/textures/texture_icon_01.png" id="2_03h5n"]
 
 [node name="w_level" type="MarginContainer"]
 custom_minimum_size = Vector2(108, 60)

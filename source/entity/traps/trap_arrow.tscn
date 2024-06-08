@@ -1,7 +1,7 @@
 [gd_scene load_steps=18 format=3 uid="uid://cbsixo51abh84"]
 
-[ext_resource type="Texture2D" uid="uid://c0hhpnglaihur" path="res://assets/textures/traps/Arrow/Hit (18x18).png" id="1_lrpdp"]
-[ext_resource type="Texture2D" uid="uid://dr8hsxbpntlf1" path="res://assets/textures/traps/Arrow/Idle (18x18).png" id="2_1enph"]
+[ext_resource type="Texture2D" uid="uid://c0hhpnglaihur" path="res://assets/textures/texture_traps_arrow_hit_18_18.png" id="1_lrpdp"]
+[ext_resource type="Texture2D" uid="uid://dr8hsxbpntlf1" path="res://assets/textures/texture_traps_arrow_idle_18_18.png" id="2_1enph"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ek62l"]
 atlas = ExtResource("1_lrpdp")

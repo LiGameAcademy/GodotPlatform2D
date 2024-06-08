@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://cpj08i1dex48f"]
 
-[ext_resource type="Texture2D" uid="uid://clutf557twwdw" path="res://assets/textures/background/Brown.png" id="1_ko0ng"]
+[ext_resource type="Texture2D" uid="uid://clutf557twwdw" path="res://assets/textures/texture_bg_brown.png" id="1_ko0ng"]
 
 [sub_resource type="Animation" id="Animation_6dbak"]
 length = 0.001

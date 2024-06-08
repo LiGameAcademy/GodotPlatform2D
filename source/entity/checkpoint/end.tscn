@@ -1,6 +1,6 @@
 [gd_scene load_steps=14 format=3 uid="uid://5kd2sfvt0xgd"]
 
-[ext_resource type="Texture2D" uid="uid://brfeb2qlc1qrh" path="res://assets/textures/items/Checkpoints/End/End (Pressed) (64x64).png" id="1_5pv8t"]
+[ext_resource type="Texture2D" uid="uid://brfeb2qlc1qrh" path="res://assets/textures/texture_items_checkpoint_end_moving.png" id="1_5pv8t"]
 [ext_resource type="Script" path="res://source/entity/checkpoint/end.gd" id="1_mu88w"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0h6g6"]

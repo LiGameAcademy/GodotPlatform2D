@@ -3,12 +3,12 @@
 [ext_resource type="Script" path="res://source/UI/select_cha_form.gd" id="1_c32hp"]
 [ext_resource type="PackedScene" uid="uid://b7eguvb4gjfa5" path="res://source/entity/character/mask_dude.tscn" id="2_5375u"]
 [ext_resource type="FontFile" uid="uid://bj4wlflwm0lq7" path="res://assets/fonts/SourceHanSansSC-Regular-2.otf" id="2_n6tq3"]
-[ext_resource type="Texture2D" uid="uid://c13hvwrph7f77" path="res://assets/textures/menu_icon/Buttons/Back.png" id="3_3jm8p"]
+[ext_resource type="Texture2D" uid="uid://c13hvwrph7f77" path="res://assets/textures/texture_button_icon_back.png" id="3_3jm8p"]
 [ext_resource type="PackedScene" uid="uid://b5h5d1r3dnerd" path="res://source/entity/character/ninja_frog.tscn" id="3_clccf"]
 [ext_resource type="PackedScene" uid="uid://dan3m2eu8eut8" path="res://source/entity/character/pink_man.tscn" id="4_ww23s"]
-[ext_resource type="Texture2D" uid="uid://pivkhmyarpgb" path="res://assets/textures/menu_icon/Buttons/Previous.png" id="5_dm246"]
+[ext_resource type="Texture2D" uid="uid://pivkhmyarpgb" path="res://assets/textures/texture_button_icon_previous.png" id="5_dm246"]
 [ext_resource type="PackedScene" uid="uid://dsep62yv7oxt3" path="res://source/entity/character/virtual_guy.tscn" id="5_qudbu"]
-[ext_resource type="Texture2D" uid="uid://b6bxq8yvxs6xo" path="res://assets/textures/menu_icon/Buttons/Next.png" id="6_d6ckr"]
+[ext_resource type="Texture2D" uid="uid://b6bxq8yvxs6xo" path="res://assets/textures/texture_button_icon_next.png" id="6_d6ckr"]
 
 [node name="select_cha_form" type="Control"]
 layout_mode = 3

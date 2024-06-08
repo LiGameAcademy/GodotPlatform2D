@@ -1,7 +1,7 @@
 [gd_scene load_steps=13 format=3 uid="uid://khbo6uckmgrx"]
 
 [ext_resource type="Script" path="res://source/entity/traps/brown_platform.gd" id="1_1xu3l"]
-[ext_resource type="Texture2D" uid="uid://jhu3r8gdt5xt" path="res://assets/textures/traps/Platforms/Brown On (32x8).png" id="1_a2wpy"]
+[ext_resource type="Texture2D" uid="uid://jhu3r8gdt5xt" path="res://assets/textures/texture_traps_platforms_brown_on.png" id="1_a2wpy"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xstiy"]
 atlas = ExtResource("1_a2wpy")

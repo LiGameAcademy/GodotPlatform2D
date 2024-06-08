@@ -1,9 +1,9 @@
 [gd_scene load_steps=11 format=3 uid="uid://brysy5j5sdv4w"]
 
-[ext_resource type="Texture2D" uid="uid://clutf557twwdw" path="res://assets/textures/background/Brown.png" id="1_l6vgb"]
 [ext_resource type="Script" path="res://source/scenes/level.gd" id="1_nu6e1"]
 [ext_resource type="Shader" path="res://assets/shader/diamond_based_screen_transition.gdshader" id="2_pclw8"]
 [ext_resource type="TileSet" uid="uid://di6wk0xyxjy0m" path="res://assets/tileset/terrain.tres" id="3_0778l"]
+[ext_resource type="Texture2D" uid="uid://clutf557twwdw" path="res://assets/textures/texture_bg_brown.png" id="3_xe5uk"]
 [ext_resource type="PackedScene" uid="uid://bioj1fnrblhon" path="res://source/entity/checkpoint/start.tscn" id="7_73j2j"]
 [ext_resource type="PackedScene" uid="uid://5kd2sfvt0xgd" path="res://source/entity/checkpoint/end.tscn" id="8_s2bqh"]
 
@@ -80,7 +80,7 @@ offset_right = 1152.0
 offset_bottom = 648.0
 size_flags_horizontal = 0
 mouse_filter = 2
-texture = ExtResource("1_l6vgb")
+texture = ExtResource("3_xe5uk")
 stretch_mode = 1
 metadata/_edit_lock_ = true
 
