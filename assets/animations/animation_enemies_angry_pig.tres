@@ -1,39 +1,37 @@
-[gd_scene load_steps=16 format=3 uid="uid://wq1movb8oaf4"]
+[gd_resource type="AnimationLibrary" load_steps=13 format=3 uid="uid://blt3nmb2em8ty"]
 
-[ext_resource type="Script" path="res://source/entity/enemy.gd" id="1_o0urp"]
-[ext_resource type="Texture2D" uid="uid://blkf0o28l1ykk" path="res://assets/textures/enemies/AngryPig/Idle (36x30).png" id="1_ofh00"]
-[ext_resource type="Texture2D" uid="uid://m8iw1lficibn" path="res://assets/textures/enemies/AngryPig/Hit 1 (36x30).png" id="2_1fu54"]
-[ext_resource type="Texture2D" uid="uid://cy6gi1kt7t0py" path="res://assets/textures/enemies/AngryPig/Hit 2 (36x30).png" id="3_pxgux"]
-[ext_resource type="Texture2D" uid="uid://b1t7qb6wnlh5x" path="res://assets/textures/enemies/AngryPig/Walk (36x30).png" id="4_b1wxa"]
-[ext_resource type="Texture2D" uid="uid://hicm77os4r1" path="res://assets/textures/enemies/AngryPig/Run (36x30).png" id="5_p7oxd"]
+[ext_resource type="Texture2D" uid="uid://dd28gk2sytn4y" path="res://assets/textures/main_characters/Mask Dude/Idle (32x32).png" id="1_4omi2"]
+[ext_resource type="Texture2D" uid="uid://blkf0o28l1ykk" path="res://assets/textures/texture_enemies_angry_pig_idle.png" id="2_kiof7"]
+[ext_resource type="Texture2D" uid="uid://hicm77os4r1" path="res://assets/textures/texture_enemies_angry_pig_run.png" id="3_n5c4e"]
+[ext_resource type="Texture2D" uid="uid://b1t7qb6wnlh5x" path="res://assets/textures/texture_enemies_angry_pig_walk.png" id="4_kvyxa"]
+[ext_resource type="Texture2D" uid="uid://m8iw1lficibn" path="res://assets/textures/texture_enemies_angry_pig_hit_1.png" id="5_xgd15"]
+[ext_resource type="Texture2D" uid="uid://cy6gi1kt7t0py" path="res://assets/textures/texture_enemies_angry_pig_hit_2.png" id="6_f6rd7"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_s7tlc"]
-
-[sub_resource type="Animation" id="Animation_71jiq"]
+[sub_resource type="Animation" id="Animation_m3dyd"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:hframes")
+tracks/0/path = NodePath("Sprite2D:texture")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [9]
+"values": [ExtResource("1_4omi2")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D:texture")
+tracks/1/path = NodePath("Sprite2D:hframes")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("1_ofh00")]
+"values": [11]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -48,8 +46,8 @@ tracks/2/keys = {
 "values": [0]
 }
 
-[sub_resource type="Animation" id="Animation_0j5x2"]
-resource_name = "hit_1"
+[sub_resource type="Animation" id="Animation_67hwg"]
+resource_name = "jump"
 length = 0.5
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -61,7 +59,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("2_1fu54")]
+"values": [ExtResource("5_xgd15")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -85,11 +83,11 @@ tracks/2/keys = {
 "times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 1,
-"values": [0, 1, 2, 3, 4]
+"values": [0, 0, 1, 2, 3]
 }
 
-[sub_resource type="Animation" id="Animation_u1qwl"]
-resource_name = "hit_2"
+[sub_resource type="Animation" id="Animation_gkwx6"]
+resource_name = "hit"
 length = 0.5
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -101,7 +99,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("3_pxgux")]
+"values": [ExtResource("6_f6rd7")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -122,39 +120,39 @@ tracks/2/path = NodePath("Sprite2D:frame")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [0, 1, 2, 3, 4]
+"values": [0, 1, 2, 3, 4, 5, 6]
 }
 
-[sub_resource type="Animation" id="Animation_r8jdq"]
+[sub_resource type="Animation" id="Animation_mgkeo"]
 resource_name = "idle"
 length = 0.9
 loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:hframes")
+tracks/0/path = NodePath("Sprite2D:texture")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [9]
+"values": [ExtResource("2_kiof7")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D:texture")
+tracks/1/path = NodePath("Sprite2D:hframes")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("1_ofh00")]
+"values": [9]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -163,13 +161,13 @@ tracks/2/path = NodePath("Sprite2D:frame")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [0, 1, 2, 3, 4, 5, 6, 7, 8]
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 }
 
-[sub_resource type="Animation" id="Animation_qfi1l"]
+[sub_resource type="Animation" id="Animation_qdcwm"]
 resource_name = "run"
 length = 1.2
 loop_mode = 1
@@ -183,7 +181,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("5_p7oxd")]
+"values": [ExtResource("3_n5c4e")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -210,8 +208,8 @@ tracks/2/keys = {
 "values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
 }
 
-[sub_resource type="Animation" id="Animation_tevy8"]
-resource_name = "walk"
+[sub_resource type="Animation" id="Animation_3co7y"]
+resource_name = "wall_jump"
 length = 1.6
 loop_mode = 1
 tracks/0/type = "value"
@@ -224,7 +222,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("4_b1wxa")]
+"values": [ExtResource("4_kvyxa")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -251,37 +249,12 @@ tracks/2/keys = {
 "values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_rbgf7"]
+[resource]
 _data = {
-"RESET": SubResource("Animation_71jiq"),
-"hit_1": SubResource("Animation_0j5x2"),
-"hit_2": SubResource("Animation_u1qwl"),
-"idle": SubResource("Animation_r8jdq"),
-"run": SubResource("Animation_qfi1l"),
-"walk": SubResource("Animation_tevy8")
+"RESET": SubResource("Animation_m3dyd"),
+"hit_1": SubResource("Animation_67hwg"),
+"hit_2": SubResource("Animation_gkwx6"),
+"idle": SubResource("Animation_mgkeo"),
+"run": SubResource("Animation_qdcwm"),
+"walk": SubResource("Animation_3co7y")
 }
-
-[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_j455r"]
-graph_offset = Vector2(-279, 3)
-
-[node name="Enemy" type="CharacterBody2D"]
-script = ExtResource("1_o0urp")
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_ofh00")
-hframes = 9
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CapsuleShape2D_s7tlc")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_rbgf7")
-}
-
-[node name="AnimationTree" type="AnimationTree" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_rbgf7")
-}
-tree_root = SubResource("AnimationNodeBlendTree_j455r")
-anim_player = NodePath("../AnimationPlayer")

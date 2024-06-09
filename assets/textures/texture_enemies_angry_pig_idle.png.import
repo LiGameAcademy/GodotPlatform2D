@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://blkf0o28l1ykk"
-path="res://.godot/imported/Idle (36x30).png-31f81f79a5e40d1098c53b696f56849b.ctex"
+path="res://.godot/imported/texture_enemies_angry_pig_idle.png-ced4342b01cf335ae151a85b4bb65f9a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/textures/enemies/AngryPig/Idle (36x30).png"
-dest_files=["res://.godot/imported/Idle (36x30).png-31f81f79a5e40d1098c53b696f56849b.ctex"]
+source_file="res://assets/textures/texture_enemies_angry_pig_idle.png"
+dest_files=["res://.godot/imported/texture_enemies_angry_pig_idle.png-ced4342b01cf335ae151a85b4bb65f9a.ctex"]
 
 [params]
 

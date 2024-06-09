@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://m8iw1lficibn"
-path="res://.godot/imported/Hit 1 (36x30).png-96b5faa92773613494c013f411db847d.ctex"
+uid="uid://cy6gi1kt7t0py"
+path="res://.godot/imported/texture_enemies_angry_pig_hit_2.png-6c0832198bc918adcb2b924a730f5114.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/textures/enemies/AngryPig/Hit 1 (36x30).png"
-dest_files=["res://.godot/imported/Hit 1 (36x30).png-96b5faa92773613494c013f411db847d.ctex"]
+source_file="res://assets/textures/texture_enemies_angry_pig_hit_2.png"
+dest_files=["res://.godot/imported/texture_enemies_angry_pig_hit_2.png-6c0832198bc918adcb2b924a730f5114.ctex"]
 
 [params]
 

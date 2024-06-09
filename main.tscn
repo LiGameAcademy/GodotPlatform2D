@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://clruydec1lcxh"]
+[gd_scene load_steps=11 format=3 uid="uid://clruydec1lcxh"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_ua3dm"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="2_kn7vx"]
@@ -9,10 +9,24 @@
 [ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="4_x55fk"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="5_3agbu"]
 [ext_resource type="PackedScene" uid="uid://jtq7wdq85mqx" path="res://source/scenes/levels/level_04.tscn" id="5_a13fy"]
+[ext_resource type="Texture2D" uid="uid://clutf557twwdw" path="res://assets/textures/texture_bg_brown.png" id="6_a1lrd"]
 
 [node name="main" type="CanvasLayer"]
 script = ExtResource("1_ua3dm")
 _levels = Array[PackedScene]([ExtResource("2_v77sp"), ExtResource("3_afrwf"), ExtResource("4_umock"), ExtResource("5_a13fy")])
+
+[node name="Parallax2D" type="Parallax2D" parent="."]
+repeat_size = Vector2(0, 324)
+autoscroll = Vector2(0, 24)
+
+[node name="Sprite2D" type="TextureRect" parent="Parallax2D"]
+offset_right = 576.0
+offset_bottom = 324.0
+size_flags_horizontal = 0
+mouse_filter = 2
+texture = ExtResource("6_a1lrd")
+stretch_mode = 1
+metadata/_edit_lock_ = true
 
 [node name="UILayer" type="CanvasLayer" parent="."]
 unique_name_in_owner = true
