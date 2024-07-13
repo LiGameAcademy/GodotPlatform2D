@@ -106,8 +106,8 @@ autoplay = "idle"
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource("AnimationNodeStateMachine_iiu7p")
 anim_player = NodePath("../AnimationPlayer")
-parameters/current_length = 0.0
-parameters/current_position = 0.0
+parameters/current_length = 1.0
+parameters/current_position = 1.0
 parameters/current_delta = 0.0
 parameters/End/current_length = 0.0
 parameters/End/current_position = 0.0

@@ -101,12 +101,12 @@ states/appearing/position = Vector2(-43, -25)
 states/hit/node = SubResource("AnimationNodeAnimation_lmya7")
 states/hit/position = Vector2(-43, 95)
 transitions = ["Idle", "Move", SubResource("AnimationNodeStateMachineTransition_4fjbc"), "Move", "Idle", SubResource("AnimationNodeStateMachineTransition_m71t1"), "Move", "DoubleJump", SubResource("AnimationNodeStateMachineTransition_d17m3"), "DoubleJump", "Move", SubResource("AnimationNodeStateMachineTransition_vhfsd"), "Move", "Walled", SubResource("AnimationNodeStateMachineTransition_nbh2q"), "Walled", "Move", SubResource("AnimationNodeStateMachineTransition_442yi"), "Start", "appearing", SubResource("AnimationNodeStateMachineTransition_iajk7"), "appearing", "Idle", SubResource("AnimationNodeStateMachineTransition_8o2qj"), "Idle", "Desappearing", SubResource("AnimationNodeStateMachineTransition_ta88j"), "Move", "Desappearing", SubResource("AnimationNodeStateMachineTransition_vks8a"), "Walled", "Desappearing", SubResource("AnimationNodeStateMachineTransition_0vpme"), "DoubleJump", "Desappearing", SubResource("AnimationNodeStateMachineTransition_ek682"), "Walled", "DoubleJump", SubResource("AnimationNodeStateMachineTransition_r7xqa"), "DoubleJump", "Walled", SubResource("AnimationNodeStateMachineTransition_mhsjy")]
-graph_offset = Vector2(-119, -87)
+graph_offset = Vector2(-365, -74)
 
 [sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_jnjld"]
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_dytdh"]
-graph_offset = Vector2(-446, 46)
+graph_offset = Vector2(-325, 75)
 nodes/StateMachine/node = SubResource("AnimationNodeStateMachine_ebpgm")
 nodes/StateMachine/position = Vector2(-120, 140)
 nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_jnjld")
@@ -137,11 +137,11 @@ libraries = {
 tree_root = SubResource("AnimationNodeBlendTree_dytdh")
 anim_player = NodePath("../AnimationPlayer")
 parameters/current_length = 1.1
-parameters/current_position = 0.026479
-parameters/current_delta = 0.0129812
+parameters/current_position = 0.926749
+parameters/current_delta = 0.2
 parameters/StateMachine/current_length = 1.1
-parameters/StateMachine/current_position = 0.026479
-parameters/StateMachine/current_delta = 0.0129812
+parameters/StateMachine/current_position = 0.926749
+parameters/StateMachine/current_delta = 0.2
 parameters/StateMachine/Desappearing/current_length = null
 parameters/StateMachine/Desappearing/current_position = null
 parameters/StateMachine/Desappearing/current_delta = null
@@ -152,8 +152,8 @@ parameters/StateMachine/End/current_length = null
 parameters/StateMachine/End/current_position = null
 parameters/StateMachine/End/current_delta = null
 parameters/StateMachine/Idle/current_length = 1.1
-parameters/StateMachine/Idle/current_position = 0.026479
-parameters/StateMachine/Idle/current_delta = 0.0129812
+parameters/StateMachine/Idle/current_position = 0.926749
+parameters/StateMachine/Idle/current_delta = 0.2
 parameters/StateMachine/Move/current_length = 0
 parameters/StateMachine/Move/current_position = 0
 parameters/StateMachine/Move/current_delta = 0
@@ -175,17 +175,17 @@ parameters/StateMachine/Walled/current_position = null
 parameters/StateMachine/Walled/current_delta = null
 parameters/StateMachine/appearing/current_length = 0.7
 parameters/StateMachine/appearing/current_position = 0.7
-parameters/StateMachine/appearing/current_delta = 0.201044
+parameters/StateMachine/appearing/current_delta = 0.0215289
 parameters/StateMachine/hit/current_length = null
 parameters/StateMachine/hit/current_position = null
 parameters/StateMachine/hit/current_delta = null
 parameters/TimeScale/current_length = 1.1
-parameters/TimeScale/current_position = 0.026479
-parameters/TimeScale/current_delta = 0.0129812
+parameters/TimeScale/current_position = 0.926749
+parameters/TimeScale/current_delta = 0.2
 parameters/TimeScale/scale = 2.0
 parameters/output/current_length = 1.1
-parameters/output/current_position = 0.026479
-parameters/output/current_delta = 0.0129812
+parameters/output/current_position = 0.926749
+parameters/output/current_delta = 0.2
 
 [node name="StateChart" type="Node" parent="."]
 unique_name_in_owner = true
