@@ -1,6 +1,6 @@
 [gd_scene load_steps=15 format=3 uid="uid://1b14uwr13dsj"]
 
-[ext_resource type="Script" path="res://source/entity/traps/trap_saw.gd" id="1_b5wbe"]
+[ext_resource type="Script" uid="uid://coulsx6imrdlx" path="res://source/entity/traps/trap_saw.gd" id="1_b5wbe"]
 [ext_resource type="Texture2D" uid="uid://btiun2qpsrwkr" path="res://assets/textures/traps/Saw/Off.png" id="1_masfi"]
 [ext_resource type="Texture2D" uid="uid://mau0fah5y50r" path="res://assets/textures/traps/Saw/On (38x38).png" id="2_j5srm"]
 

@@ -1,7 +1,7 @@
 [gd_resource type="AnimationLibrary" load_steps=5 format=3 uid="uid://dnnqi3yhyesqf"]
 
-[ext_resource type="Texture2D" uid="uid://dlnta0t1mnaw" path="res://assets/textures/main_characters/Appearing (96x96).png" id="1_ahykl"]
-[ext_resource type="Texture2D" uid="uid://dhfxpe5ndwjh4" path="res://assets/textures/main_characters/Desappearing (96x96).png" id="2_gx6m5"]
+[ext_resource type="Texture2D" uid="uid://dlnta0t1mnaw" path="res://assets/textures/main_characters/texture_main_characters_appearing.png" id="1_ahykl"]
+[ext_resource type="Texture2D" uid="uid://dhfxpe5ndwjh4" path="res://assets/textures/main_characters/texture_main_characters_desappearing.png" id="2_gx6m5"]
 
 [sub_resource type="Animation" id="Animation_viswp"]
 resource_name = "appearing"

@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://d1thrwmgwlcge"]
 
-[ext_resource type="Script" path="res://source/entity/traps/trap_spiked_ball.gd" id="1_0yk6o"]
+[ext_resource type="Script" uid="uid://mav65o4wwgl" path="res://source/entity/traps/trap_spiked_ball.gd" id="1_0yk6o"]
 [ext_resource type="Texture2D" uid="uid://j5gjj3rgfdd5" path="res://assets/textures/traps/Spiked Ball/Spiked Ball.png" id="2_6j422"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_peuck"]

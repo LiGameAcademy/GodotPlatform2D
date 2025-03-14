@@ -1,10 +1,10 @@
 [gd_scene load_steps=6 format=3 uid="uid://dabbj8o71fouq"]
 
-[ext_resource type="Texture2D" uid="uid://pivkhmyarpgb" path="res://assets/textures/menu_icon/Buttons/Previous.png" id="1_32rat"]
-[ext_resource type="Script" path="res://source/UI/game_form.gd" id="1_bgwvb"]
-[ext_resource type="Texture2D" uid="uid://c6pyud61bnf7f" path="res://assets/textures/menu_icon/Buttons/Restart.png" id="2_7642x"]
-[ext_resource type="Texture2D" uid="uid://b6bxq8yvxs6xo" path="res://assets/textures/menu_icon/Buttons/Next.png" id="3_v18rl"]
-[ext_resource type="Texture2D" uid="uid://cbb5hg2wpmuke" path="res://assets/textures/menu_icon/Buttons/Settings.png" id="4_uiy3i"]
+[ext_resource type="Texture2D" uid="uid://pivkhmyarpgb" path="res://assets/textures/texture_button_icon_previous.png" id="1_32rat"]
+[ext_resource type="Script" uid="uid://5dybnqmbjcd2" path="res://source/UI/game_form.gd" id="1_bgwvb"]
+[ext_resource type="Texture2D" uid="uid://c6pyud61bnf7f" path="res://assets/textures/texture_button_icon_restart.png" id="2_7642x"]
+[ext_resource type="Texture2D" uid="uid://b6bxq8yvxs6xo" path="res://assets/textures/texture_button_icon_next.png" id="3_v18rl"]
+[ext_resource type="Texture2D" uid="uid://cbb5hg2wpmuke" path="res://assets/textures/texture_button_icon_settings.png" id="4_uiy3i"]
 
 [node name="game_form" type="Control"]
 layout_mode = 3

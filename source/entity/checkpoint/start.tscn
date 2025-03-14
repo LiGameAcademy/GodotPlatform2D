@@ -1,7 +1,7 @@
 [gd_scene load_steps=21 format=3 uid="uid://bioj1fnrblhon"]
 
-[ext_resource type="Script" path="res://source/entity/checkpoint/start.gd" id="1_a4yfg"]
-[ext_resource type="Texture2D" uid="uid://bd6j2pso77jju" path="res://assets/textures/items/Checkpoints/Start/Start (Moving) (64x64).png" id="1_b0fcu"]
+[ext_resource type="Script" uid="uid://b1odkyi8bck6u" path="res://source/entity/checkpoint/start.gd" id="1_a4yfg"]
+[ext_resource type="Texture2D" uid="uid://bd6j2pso77jju" path="res://assets/textures/texture_items_checkpoint_start_moving.png" id="1_b0fcu"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fd5vd"]
 atlas = ExtResource("1_b0fcu")

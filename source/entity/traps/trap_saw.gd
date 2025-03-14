@@ -9,8 +9,8 @@ func _process(delta: float) -> void:
 			_is_reversal = true
 		elif progress_ratio <= 0.01:
 			_is_reversal = false
-	if _is_reversal:
-		progress -= delta * speed
+		if _is_reversal:
+			progress -= delta * speed
 	else:
 		progress += delta * speed
 

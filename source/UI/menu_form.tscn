@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://bx4se2atxek3l"]
 
-[ext_resource type="Script" path="res://source/UI/menu_form.gd" id="1_sujad"]
+[ext_resource type="Script" uid="uid://b31v7n56vgqta" path="res://source/UI/menu_form.gd" id="1_sujad"]
 [ext_resource type="FontFile" uid="uid://bj4wlflwm0lq7" path="res://assets/fonts/SourceHanSansSC-Regular-2.otf" id="2_n1l4k"]
 
 [node name="menu_form" type="Control"]

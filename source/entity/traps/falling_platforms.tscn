@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://d1h3moni1v52m"]
 
-[ext_resource type="Script" path="res://source/entity/traps/falling_platforms.gd" id="1_wuida"]
-[ext_resource type="Texture2D" uid="uid://dkakwewj5umrv" path="res://assets/textures/traps/Falling Platforms/On (32x10).png" id="1_xfj68"]
+[ext_resource type="Script" uid="uid://dpvs68h44jpvf" path="res://source/entity/traps/falling_platforms.gd" id="1_wuida"]
+[ext_resource type="Texture2D" uid="uid://dkakwewj5umrv" path="res://assets/textures/texture_traps_falling_platforms_on.png" id="1_xfj68"]
 
 [sub_resource type="Animation" id="Animation_ny8fc"]
 length = 0.001
@@ -37,8 +37,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_jccg4"]
 _data = {
-"RESET": SubResource("Animation_ny8fc"),
-"idle": SubResource("Animation_613vk")
+&"RESET": SubResource("Animation_ny8fc"),
+&"idle": SubResource("Animation_613vk")
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lbtjk"]

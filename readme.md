@@ -1,3 +1,5 @@
+# GodotPlatform2D 教程项目
+
 当前项目进入DEBUG阶段
 itch.io试玩web：[https://godot-li.itch.io/platform2d](https://godot-li.itch.io/platform2d)
 
@@ -22,17 +24,36 @@ itch.io试玩web：[https://godot-li.itch.io/platform2d](https://godot-li.itch.i
 
 有条件的同学可以支持原作者。
 
-游戏特色
+## TODOList
+
+- 玩家控制角色差异化设计
+- 传送门
+- 更多敌人和AI设计
+- 更多场景trap
+- 更多关卡设计
+- 角色联网，合作通关
+- 角色对抗玩法
+
+## 游戏特色
 
 - 使用godot4.2快速开发
 - 绝对轻量级的完整游戏demo
 - 多个关卡可切换，多个角色可选择
 - 多种关卡trap实现
 - 后续计划推出3D版本
-![开始菜单](docs/%E5%AE%A3%E4%BC%A0%E5%9B%BE1.png)
+<!-- ![开始菜单](docs/%E5%AE%A3%E4%BC%A0%E5%9B%BE1.png)
 ​![选择角色](docs/%E5%AE%A3%E4%BC%A0%E5%9B%BE2.png)
 ![选择关卡](docs/%E5%AE%A3%E4%BC%A0%E5%9B%BE3.png)
-![游戏画面](docs/%E5%AE%A3%E4%BC%A0%E5%9B%BE4.png)​​​​
+![游戏画面](docs/%E5%AE%A3%E4%BC%A0%E5%9B%BE4.png)​​​​ -->
+
+![可选多角色](/docs/可选择多角色.gif)
+可选多角色
+![可选多关卡](/docs/可选择多关卡.gif)
+可选多关卡
+![关卡过渡](/docs/关卡过渡.gif)
+关卡过渡
+![关卡](/docs/关卡.gif)
+关卡演示
 
 欢迎加入老李的知识付费平台：老李游戏学院（知识星球）
 
