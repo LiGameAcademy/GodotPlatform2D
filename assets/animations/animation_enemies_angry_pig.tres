@@ -161,10 +161,10 @@ tracks/2/path = NodePath("Sprite2D:frame")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8]
 }
 
 [sub_resource type="Animation" id="Animation_qdcwm"]
@@ -251,10 +251,10 @@ tracks/2/keys = {
 
 [resource]
 _data = {
-"RESET": SubResource("Animation_m3dyd"),
-"hit_1": SubResource("Animation_67hwg"),
-"hit_2": SubResource("Animation_gkwx6"),
-"idle": SubResource("Animation_mgkeo"),
-"run": SubResource("Animation_qdcwm"),
-"walk": SubResource("Animation_3co7y")
+&"RESET": SubResource("Animation_m3dyd"),
+&"hit_1": SubResource("Animation_67hwg"),
+&"hit_2": SubResource("Animation_gkwx6"),
+&"idle": SubResource("Animation_mgkeo"),
+&"run": SubResource("Animation_qdcwm"),
+&"walk": SubResource("Animation_3co7y")
 }

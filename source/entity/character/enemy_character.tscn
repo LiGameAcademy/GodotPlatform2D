@@ -7,7 +7,7 @@
 
 [node name="AnimationPlayer" parent="." index="2"]
 libraries = {
-"": ExtResource("2_3n13d")
+&"": ExtResource("2_3n13d")
 }
 
 [node name="AnimationTree" parent="." index="3"]

@@ -1,7 +1,6 @@
 extends CanvasLayer
 class_name main
 
-# const MENU = preload("res://source/scenes/menu.tscn")
 const GAME_FORM = preload("res://source/UI/game_form.tscn")
 const MENU_FORM = preload("res://source/UI/menu_form.tscn")
 const SELECT_LEVEL_FORM = preload("res://source/UI/select_level_form.tscn")
@@ -26,6 +25,7 @@ var _current_form = null :
 		_current_form = value
 		if _current_form:
 			ui_layer.add_child(_current_form)
+
 
 func _on_menu_state_state_entered() -> void:
 	#_current_scene = MENU.instantiate()
@@ -86,7 +86,6 @@ func _on_game_state_state_entered() -> void:
 	_current_form.btn_next_pressed.connect(
 		func() -> void:
 			var level_index = _current_scene.level_index
-			#var level = _levels[level_index if level_index < _levels.size() - 1 else _levels.size() - 1]
 			var level = _levels[clamp(level_index + 1, 1, _levels.size())  - 1]
 			load_level(level)
 	)	

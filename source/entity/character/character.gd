@@ -28,6 +28,12 @@ class_name Character
 @export var combo_time_window = 2.0 # 连击时间窗口（秒）
 @export var max_combo = 5          # 最大连击数
 
+# 跳跃优化参数
+@export_group("Jump Feel")
+@export var coyote_time = 0.1      # 土狼时间窗口
+@export var jump_buffer_time = 0.1 # 跳跃输入缓冲时间
+@export var jump_cut_height = 0.5  # 跳跃高度控制系数
+
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity: int = ProjectSettings.get_setting("physics/2d/default_gravity")
 
@@ -45,9 +51,17 @@ var _current_combo = 0        # 当前连击数
 var _combo_timer: float = 0.0 # 连击计时器
 var _total_score = 0          # 总分数
 
+# 跳跃优化状态
+var _coyote_timer: float = 0.0     	# 土狼时间计时器
+var _jump_buffer_timer: float = 0.0 # 跳跃缓冲计时器
+var _was_on_floor: bool = false     # 上一帧是否在地面
+var _is_jumping: bool = false       # 是否正在跳跃
+
 signal died
 signal item_collected(item_type: String, combo: int, score: int)
 signal combo_ended(final_combo: int)
+signal jumped                # 跳跃信号
+signal landed               # 着陆信号
 
 
 func _ready() -> void:
@@ -61,6 +75,28 @@ func _exit_tree() -> void:
 
 
 func _physics_process(delta: float) -> void:
+	_update_timers(delta)
+	_handle_movement(delta)
+	_handle_jump()
+	move_and_slide()
+	_update_animation_parameters()
+	_update_combo_timer(delta)
+	_update_floor_state()
+
+
+## 更新计时器
+func _update_timers(delta: float) -> void:
+	# 更新土狼时间
+	if _coyote_timer > 0:
+		_coyote_timer -= delta
+	
+	# 更新跳跃缓冲
+	if _jump_buffer_timer > 0:
+		_jump_buffer_timer -= delta
+
+
+## 处理移动
+func _handle_movement(delta: float) -> void:
 	# 处理水平移动
 	var direction = Input.get_axis("ui_left", "ui_right")
 	if direction:
@@ -81,11 +117,69 @@ func _physics_process(delta: float) -> void:
 		collision_mask = pass_through_mask
 		await get_tree().create_timer(0.1).timeout
 		collision_mask = normal_mask
+
+
+## 处理跳跃
+func _handle_jump() -> void:
+	# 检测跳跃输入
+	if Input.is_action_just_pressed("ui_up"):
+		_jump_buffer_timer = jump_buffer_time
 	
-	move_and_slide()
+	# 处理跳跃释放（控制跳跃高度）
+	if Input.is_action_just_released("ui_up") and velocity.y < 0:
+		velocity.y *= jump_cut_height
 	
-	_update_animation_parameters()
-	_update_combo_timer(delta)
+	# 尝试执行跳跃
+	if _can_jump():
+		_perform_jump()
+	# 尝试执行二段跳
+	elif _can_double_jump():
+		_perform_double_jump()
+
+
+## 检查是否可以跳跃
+func _can_jump() -> bool:
+	return (_jump_buffer_timer > 0 and 
+			(is_on_floor() or _coyote_timer > 0))
+
+
+## 检查是否可以二段跳
+func _can_double_jump() -> bool:
+	return (_jump_buffer_timer > 0 and 
+			can_double_jump and 
+			not is_on_floor() and 
+			_coyote_timer <= 0)
+
+
+## 执行跳跃
+func _perform_jump() -> void:
+	velocity.y = JUMP_VELOCITY
+	_jump_buffer_timer = 0
+	_coyote_timer = 0
+	_is_jumping = true
+	emit_signal("jumped")
+
+
+## 执行二段跳
+func _perform_double_jump() -> void:
+	velocity.y = JUMP_VELOCITY * 0.8  # 二段跳稍微弱一些
+	can_double_jump = false
+	_jump_buffer_timer = 0
+	emit_signal("jumped")
+
+
+## 更新地面状态
+func _update_floor_state() -> void:
+	# 检测是否刚离开地面
+	if _was_on_floor and not is_on_floor():
+		_coyote_timer = coyote_time
+	# 检测是否刚着陆
+	elif not _was_on_floor and is_on_floor():
+		_is_jumping = false
+		can_double_jump = true
+		emit_signal("landed")
+	
+	_was_on_floor = is_on_floor()
 
 
 ## 更新动画参数
