@@ -9,11 +9,13 @@
 ### 1. 角色动画系统优化
 
 #### 1.1 动画状态机改进
+
 - 重构了动画状态机的实现，使用 `AnimationTree` 实现更流畅的动画过渡
 - 添加了动画混合空间（BlendSpace1D）用于处理空中动画状态
 - 实现了动态动画速度调整，使角色动作更加自然
 
 #### 1.2 可配置参数
+
 - 添加了动画相关的可配置参数：
   - `base_animation_speed`: 基础动画速度
   - `max_animation_speed`: 最大动画速度
@@ -24,6 +26,7 @@
 ### 2. 道具收集系统
 
 #### 2.1 连击系统
+
 - 实现了道具收集连击机制
 - 添加了连击相关参数：
   - `combo_time_window`: 连击时间窗口
@@ -31,6 +34,7 @@
   - `collection_score`: 基础收集分数
 
 #### 2.2 水果系统改进
+
 - 重构了水果类的实现
 - 添加了水果类型系统，支持8种不同水果
 - 实现了可配置的分数倍率
@@ -40,16 +44,19 @@
 ### 3. 信号系统
 
 #### 3.1 新增信号
+
 - `item_collected(item_type: String, combo: int, score: int)`
 - `combo_ended(final_combo: int)`
 
 #### 3.2 数据接口
+
 - 添加了 `get_collection_data()` 方法获取收集统计
 - 添加了 `get_fruit_data()` 方法获取水果信息
 
 ## 技术细节
 
 ### 动画系统
+
 ```gdscript
 # 动画速度计算
 var speed_factor = abs(velocity.x) / SPEED * speed_scale_factor
@@ -57,6 +64,7 @@ speed_scale = base_animation_speed + speed_factor * (max_animation_speed - base_
 ```
 
 ### 连击系统
+
 ```gdscript
 # 连击分数计算
 var combo_multiplier = 1.0 + (_current_combo - 1) * 0.5  # 每次连击增加50%分数
