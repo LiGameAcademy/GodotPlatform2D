@@ -14,13 +14,12 @@ itch.io试玩web：[https://godot-li.itch.io/platform2d](https://godot-li.itch.i
 
 [https://github.com/Liweimin0512/-GodotPlatform2D](https://github.com/Liweimin0512/-GodotPlatform2D)
 
-后续计划在哔哩哔哩和youtube更新关于这个项目的视频教程。
+视频教程已经同步更新在[bilibili](https://www.bilibili.com/video/BV1fy411B7E3)和[youtuber](https://www.youtube.com/playlist?list=PLN8Z_93DklwWYYkZrwqQ2VUk7p1pIu1NG)。
 
 后续教程项目都会采用这种形式开发。
 
 感谢你的支持和理解！
-
-本课程使用的素材：https://pixelfrog-assets.itch.io/pixel-adventure-1。
+本课程使用的素材：[pixelfrog-assets](https://pixelfrog-assets.itch.io/pixel-adventure-1)
 
 有条件的同学可以支持原作者。
 
