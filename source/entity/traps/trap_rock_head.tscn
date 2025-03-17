@@ -438,7 +438,7 @@ texture = ExtResource("1_e6gsp")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_v33lt")
+&"": SubResource("AnimationLibrary_v33lt")
 }
 autoplay = "blink"
 

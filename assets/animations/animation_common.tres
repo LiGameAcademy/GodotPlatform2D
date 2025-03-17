@@ -85,6 +85,6 @@ tracks/2/keys = {
 
 [resource]
 _data = {
-"appearing": SubResource("Animation_viswp"),
-"desappearing": SubResource("Animation_wv5s6")
+&"appearing": SubResource("Animation_viswp"),
+&"desappearing": SubResource("Animation_wv5s6")
 }

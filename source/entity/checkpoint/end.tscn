@@ -99,27 +99,12 @@ shape = SubResource("RectangleShape2D_0h6g6")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_yfrcj")
+&"": SubResource("AnimationLibrary_yfrcj")
 }
 autoplay = "idle"
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource("AnimationNodeStateMachine_iiu7p")
 anim_player = NodePath("../AnimationPlayer")
-parameters/current_length = 1.0
-parameters/current_position = 1.0
-parameters/current_delta = 0.0
-parameters/End/current_length = 0.0
-parameters/End/current_position = 0.0
-parameters/End/current_delta = 0.0
-parameters/Start/current_length = 0.0
-parameters/Start/current_position = 0.0
-parameters/Start/current_delta = 0.0
-parameters/idle/current_length = 1.0
-parameters/idle/current_position = 1.0
-parameters/idle/current_delta = 0.0
-parameters/pressed/current_length = 0.8
-parameters/pressed/current_position = 0.8
-parameters/pressed/current_delta = 0.0260597
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

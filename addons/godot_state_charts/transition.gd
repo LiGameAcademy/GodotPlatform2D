@@ -83,4 +83,3 @@ func _get_configuration_warnings():
 		warnings.append("Transitions must be children of states.")
 	
 	return warnings
-

@@ -147,7 +147,7 @@ hframes = 6
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_k5yim")
+&"": SubResource("AnimationLibrary_k5yim")
 }
 autoplay = "idle"
 speed_scale = 1.54

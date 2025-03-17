@@ -330,12 +330,12 @@ tracks/2/keys = {
 
 [resource]
 _data = {
-"RESET": SubResource("Animation_m3dyd"),
-"double_jump": SubResource("Animation_utw16"),
-"fall": SubResource("Animation_jcrot"),
-"hit": SubResource("Animation_gkwx6"),
-"idle": SubResource("Animation_mgkeo"),
-"jump": SubResource("Animation_67hwg"),
-"run": SubResource("Animation_qdcwm"),
-"wall_jump": SubResource("Animation_3co7y")
+&"RESET": SubResource("Animation_m3dyd"),
+&"double_jump": SubResource("Animation_utw16"),
+&"fall": SubResource("Animation_jcrot"),
+&"hit": SubResource("Animation_gkwx6"),
+&"idle": SubResource("Animation_mgkeo"),
+&"jump": SubResource("Animation_67hwg"),
+&"run": SubResource("Animation_qdcwm"),
+&"wall_jump": SubResource("Animation_3co7y")
 }
