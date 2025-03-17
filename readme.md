@@ -60,7 +60,7 @@
 
 ### 🤝 社区交流
 
-- [老李游戏学院 QQ频道](https://pd.qq.com/s/n93zqynt)
+- [老李游戏学院 discord服务器](https://discord.gg/V5nuzC2BcJ)
 - [老李游戏学院 知识星球](https://t.zsxq.com/12B5zOA6n)
 
 ### 📦 开源地址
@@ -94,9 +94,11 @@
 
 1. 确保已安装 [Godot 4.4](https://godotengine.org/download) 或更高版本
 2. 克隆项目仓库：
-   ```bash
-   git clone https://github.com/Liweimin0512/-GodotPlatform2D.git
-   ```
+
+    ```bash
+    git clone https://github.com/Liweimin0512/-GodotPlatform2D.git
+    ```
+
 3. 使用 Godot 引擎打开项目
 4. 点击运行即可开始游戏
 

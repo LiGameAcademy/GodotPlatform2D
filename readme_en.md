@@ -60,7 +60,7 @@ A 2D platform game tutorial project developed with Godot 4.4. This project aims 
 
 ### Community
 
-- [Li's Game Academy QQ Channel](https://pd.qq.com/s/n93zqynt)
+- [Li's Game Academy Discord Server](https://discord.gg/V5nuzC2BcJ)
 - [Li's Game Academy Knowledge Planet](https://t.zsxq.com/12B5zOA6n)
 
 ### Open Source
@@ -73,15 +73,19 @@ A 2D platform game tutorial project developed with Godot 4.4. This project aims 
 <div align="center">
 
 ### Character Selection
+
 ![Multiple Characters](/docs/images/可选择多角色.gif)
 
 ### Level Selection
+
 ![Multiple Levels](/docs/images/可选择多关卡.gif)
 
 ### Level Transition
+
 ![Level Transition](/docs/images/关卡过渡shader.gif)
 
 ### Gameplay
+
 ![Level](/docs/images/关卡.gif)
 
 </div>
