@@ -1,16 +1,14 @@
-[gd_scene load_steps=10 format=3 uid="uid://b0yui6g25hphq"]
+[gd_scene load_steps=8 format=3 uid="uid://b0yui6g25hphq"]
 
-[ext_resource type="Script" uid="uid://chdcdjvqve7gb" path="res://source/UI/select_cha_form.gd" id="1_c32hp"]
-[ext_resource type="PackedScene" uid="uid://b7eguvb4gjfa5" path="res://source/entity/character/mask_dude.tscn" id="2_5375u"]
-[ext_resource type="FontFile" uid="uid://bj4wlflwm0lq7" path="res://assets/fonts/SourceHanSansSC-Regular-2.otf" id="2_n6tq3"]
-[ext_resource type="Texture2D" uid="uid://c13hvwrph7f77" path="res://assets/textures/texture_button_icon_back.png" id="3_3jm8p"]
-[ext_resource type="PackedScene" uid="uid://b5h5d1r3dnerd" path="res://source/entity/character/ninja_frog.tscn" id="3_clccf"]
-[ext_resource type="PackedScene" uid="uid://dan3m2eu8eut8" path="res://source/entity/character/pink_man.tscn" id="4_ww23s"]
-[ext_resource type="Texture2D" uid="uid://pivkhmyarpgb" path="res://assets/textures/texture_button_icon_previous.png" id="5_dm246"]
-[ext_resource type="PackedScene" uid="uid://dsep62yv7oxt3" path="res://source/entity/character/virtual_guy.tscn" id="5_qudbu"]
-[ext_resource type="Texture2D" uid="uid://b6bxq8yvxs6xo" path="res://assets/textures/texture_button_icon_next.png" id="6_d6ckr"]
+[ext_resource type="Texture2D" uid="uid://clutf557twwdw" path="res://assets/textures/texture_bg_brown.png" id="2_ac0mh"]
+[ext_resource type="Script" uid="uid://chdcdjvqve7gb" path="res://source/scenes/select_cha_scene.gd" id="3_ac0mh"]
+[ext_resource type="FontFile" uid="uid://bj4wlflwm0lq7" path="res://assets/fonts/SourceHanSansSC-Regular-2.otf" id="3_hla6y"]
+[ext_resource type="Texture2D" uid="uid://c13hvwrph7f77" path="res://assets/textures/texture_button_icon_back.png" id="4_xm2gq"]
+[ext_resource type="PackedScene" uid="uid://dan3m2eu8eut8" path="res://source/entity/character/player_character/pink_man.tscn" id="5_5ro13"]
+[ext_resource type="Texture2D" uid="uid://pivkhmyarpgb" path="res://assets/textures/texture_button_icon_previous.png" id="6_w5nu7"]
+[ext_resource type="Texture2D" uid="uid://b6bxq8yvxs6xo" path="res://assets/textures/texture_button_icon_next.png" id="7_8aetf"]
 
-[node name="select_cha_form" type="Control"]
+[node name="select_cha_scene" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -18,8 +16,20 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
-script = ExtResource("1_c32hp")
-_characters = Array[PackedScene]([ExtResource("2_5375u"), ExtResource("3_clccf"), ExtResource("4_ww23s"), ExtResource("5_qudbu")])
+script = ExtResource("3_ac0mh")
+
+[node name="Parallax2D" type="Parallax2D" parent="."]
+repeat_size = Vector2(0, 324)
+autoscroll = Vector2(0, 24)
+
+[node name="Sprite2D" type="TextureRect" parent="Parallax2D"]
+offset_right = 576.0
+offset_bottom = 324.0
+size_flags_horizontal = 0
+mouse_filter = 2
+texture = ExtResource("2_ac0mh")
+stretch_mode = 1
+metadata/_edit_lock_ = true
 
 [node name="MarginContainer2" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -28,6 +38,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("3_ac0mh")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer2"]
 layout_mode = 2
@@ -41,15 +52,14 @@ theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
 [node name="btn_close" type="Button" parent="MarginContainer2/VBoxContainer/MarginContainer2"]
-unique_name_in_owner = true
 custom_minimum_size = Vector2(128, 49)
 layout_mode = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 5
-theme_override_fonts/font = ExtResource("2_n6tq3")
+theme_override_fonts/font = ExtResource("3_hla6y")
 theme_override_font_sizes/font_size = 22
 text = "返回"
-icon = ExtResource("3_3jm8p")
+icon = ExtResource("4_xm2gq")
 flat = true
 expand_icon = true
 
@@ -66,7 +76,7 @@ size_flags_vertical = 4
 layout_mode = 2
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="MarginContainer2/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer"]
-custom_minimum_size = Vector2(192, 192)
+custom_minimum_size = Vector2(144, 144)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -76,15 +86,15 @@ stretch = true
 transparent_bg = true
 handle_input_locally = false
 canvas_item_default_texture_filter = 0
-size = Vector2i(192, 192)
+size = Vector2i(144, 144)
 render_target_update_mode = 4
 
-[node name="character_point" type="Node2D" parent="MarginContainer2/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/SubViewportContainer/SubViewport"]
+[node name="CharacterPoint" type="Node2D" parent="MarginContainer2/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/SubViewportContainer/SubViewport"]
 unique_name_in_owner = true
-position = Vector2(96, 96)
-scale = Vector2(5, 5)
+position = Vector2(72, 72)
+scale = Vector2(3, 3)
 
-[node name="pink_man" parent="MarginContainer2/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/SubViewportContainer/SubViewport/character_point" instance=ExtResource("4_ww23s")]
+[node name="pink_man" parent="MarginContainer2/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/SubViewportContainer/SubViewport/CharacterPoint" instance=ExtResource("5_5ro13")]
 
 [node name="MarginContainer2" type="MarginContainer" parent="MarginContainer2/VBoxContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -97,33 +107,37 @@ size_flags_vertical = 6
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer2/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/MarginContainer3"]
 layout_mode = 2
 
-[node name="btn_previous" type="Button" parent="MarginContainer2/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/MarginContainer3/HBoxContainer"]
-unique_name_in_owner = true
+[node name="btn_prev" type="Button" parent="MarginContainer2/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/MarginContainer3/HBoxContainer"]
 custom_minimum_size = Vector2(46, 46)
 layout_mode = 2
-theme_override_fonts/font = ExtResource("2_n6tq3")
+theme_override_fonts/font = ExtResource("3_hla6y")
 theme_override_font_sizes/font_size = 22
-icon = ExtResource("5_dm246")
+icon = ExtResource("6_w5nu7")
 flat = true
 icon_alignment = 1
 expand_icon = true
 
 [node name="btn_enter_game" type="Button" parent="MarginContainer2/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/MarginContainer3/HBoxContainer"]
-unique_name_in_owner = true
 custom_minimum_size = Vector2(128, 46)
 layout_mode = 2
-theme_override_fonts/font = ExtResource("2_n6tq3")
-theme_override_font_sizes/font_size = 22
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("3_hla6y")
+theme_override_font_sizes/font_size = 18
 text = "进入游戏"
 flat = true
 
 [node name="btn_next" type="Button" parent="MarginContainer2/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/MarginContainer3/HBoxContainer"]
-unique_name_in_owner = true
 custom_minimum_size = Vector2(46, 46)
 layout_mode = 2
-theme_override_fonts/font = ExtResource("2_n6tq3")
+theme_override_fonts/font = ExtResource("3_hla6y")
 theme_override_font_sizes/font_size = 22
-icon = ExtResource("6_d6ckr")
+icon = ExtResource("7_8aetf")
 flat = true
 icon_alignment = 1
 expand_icon = true
+
+[connection signal="pressed" from="MarginContainer2/VBoxContainer/MarginContainer2/btn_close" to="." method="_on_btn_close_pressed"]
+[connection signal="pressed" from="MarginContainer2/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/MarginContainer3/HBoxContainer/btn_prev" to="." method="_on_btn_prev_pressed"]
+[connection signal="pressed" from="MarginContainer2/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/MarginContainer3/HBoxContainer/btn_enter_game" to="." method="_on_btn_enter_game_pressed"]
+[connection signal="pressed" from="MarginContainer2/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/MarginContainer3/HBoxContainer/btn_next" to="." method="_on_btn_next_pressed"]

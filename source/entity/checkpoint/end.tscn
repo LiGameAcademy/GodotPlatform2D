@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://5kd2sfvt0xgd"]
+[gd_scene load_steps=8 format=3 uid="uid://5kd2sfvt0xgd"]
 
 [ext_resource type="Texture2D" uid="uid://brfeb2qlc1qrh" path="res://assets/textures/texture_items_checkpoint_end_moving.png" id="1_5pv8t"]
 [ext_resource type="Script" uid="uid://behlhdyu7jw0t" path="res://source/entity/checkpoint/end.gd" id="1_mu88w"]
@@ -59,30 +59,6 @@ _data = {
 &"pressed": SubResource("Animation_dmcf0")
 }
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_6p0as"]
-animation = &"idle"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_2jx1g"]
-animation = &"pressed"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ecem2"]
-advance_mode = 2
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_6egxu"]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_k7x2x"]
-switch_mode = 2
-advance_mode = 2
-
-[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_iiu7p"]
-states/End/position = Vector2(606, 100)
-states/idle/node = SubResource("AnimationNodeAnimation_6p0as")
-states/idle/position = Vector2(326, 100)
-states/pressed/node = SubResource("AnimationNodeAnimation_2jx1g")
-states/pressed/position = Vector2(477, 100)
-transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_ecem2"), "idle", "pressed", SubResource("AnimationNodeStateMachineTransition_6egxu"), "pressed", "End", SubResource("AnimationNodeStateMachineTransition_k7x2x")]
-graph_offset = Vector2(-122, -2)
-
 [node name="end" type="Node2D"]
 script = ExtResource("1_mu88w")
 
@@ -102,9 +78,5 @@ libraries = {
 &"": SubResource("AnimationLibrary_yfrcj")
 }
 autoplay = "idle"
-
-[node name="AnimationTree" type="AnimationTree" parent="."]
-tree_root = SubResource("AnimationNodeStateMachine_iiu7p")
-anim_player = NodePath("../AnimationPlayer")
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

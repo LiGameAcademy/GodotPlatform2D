@@ -1,53 +1,57 @@
 extends Node2D
+class_name Level
 
-@onready var control: Control = $CanvasLayer/Control
-@onready var color_rect: ColorRect = %Transition
-@onready var end: Node2D = $End
-@onready var start: Node2D = $Start
+@onready var start_point: StartPoint = %StartPoint
+@onready var end_point: EndPoint = %EndPoint
 
-@export var speed : float = 80
-var P_CHA : PackedScene
-var _player : Character = null
+var _level_index: int
+var _character : Character
+var _score: int
 
-@export var level_index : int = 0
-
-signal ended
-
+func init_state(data: Dictionary) -> void:
+	_level_index = data.level_index
+	_character = data.character
+	_score = data.score
+	if not is_node_ready():
+		await ready
+	_setup_player()
+	
 func _ready() -> void:
-	$End.end.connect(
-		func() -> void:
-			await exit_level()
-			ended.emit(level_index)
-	)
+	# 连接结束点信号
+	if end_point:
+		end_point.end.connect(_on_level_end)
 
-
-## 初始化
-func initialize(cha_scene : PackedScene) -> void:
-	await enter_level()
-	P_CHA = cha_scene
-	spawn_character()
-
-## 生成玩家角色
-func spawn_character() -> void:
-	_player = P_CHA.instantiate()
-	_player.set_process(false)
+func _setup_player() -> void:
+	_character.set_process(false)
+	add_child(_character)
+	_character.global_position = start_point.global_position
 	await get_tree().create_timer(0.3).timeout
-	_player.set_process(true)
-	add_child(_player)
-	_player.died.connect(
-		func() -> void:
-			spawn_character()
-	)
-	_player.global_position = start.global_position
-	start.start()
+	_character.set_process(true)
+	
+	# 连接死亡信号
+	_character.died.connect(_on_player_died)
+	
+	# 启动起点动画
+	start_point.start()
 
-func exit_level() -> void:
-	var tween : Tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
-	tween.tween_property(color_rect.material, "shader_parameter/progress", 1, 1.5).from(0)
-	await tween.finished
+## 增加分数
+func add_score(value: int) -> void:
+	_score += value
+	GameInstance.add_score(value)
 
-func enter_level() -> void:
-	color_rect.color = Color.BLACK
-	var tween : Tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
-	tween.tween_property(color_rect.material, "shader_parameter/progress", 0, 1.5).from(1)
-	await tween.finished
+## 完成关卡
+func complete_level() -> void:
+	# 保存分数
+	GameInstance.score = _score
+	# 发送关卡完成信号
+	CoreSystem.event_bus.push_event("level_completed", _level_index)
+	
+## 游戏失败
+func _on_player_died() -> void:
+	CoreSystem.event_bus.push_event("player_died")
+
+## 关卡结束
+func _on_level_end() -> void:
+	complete_level()
+	# 添加关卡结束的处理方法
+	print("关卡结束")

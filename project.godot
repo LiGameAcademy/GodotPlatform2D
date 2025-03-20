@@ -19,6 +19,7 @@ config/icon="res://icon.png"
 [autoload]
 
 CoreSystem="*res://addons/godot_core_system/source/core_system.gd"
+GameInstance="*res://source/autoload/game_instance.gd"
 
 [display]
 

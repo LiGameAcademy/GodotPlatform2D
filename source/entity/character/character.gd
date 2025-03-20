@@ -57,6 +57,9 @@ var _jump_buffer_timer: float = 0.0 # 跳跃缓冲计时器
 var _was_on_floor: bool = false     # 上一帧是否在地面
 var _is_jumping: bool = false       # 是否正在跳跃
 
+# 预览模式标志
+var is_preview_mode := false
+
 signal died
 signal item_collected(item_type: String, combo: int, score: int)
 signal combo_ended(final_combo: int)
@@ -75,6 +78,9 @@ func _exit_tree() -> void:
 
 
 func _physics_process(delta: float) -> void:
+	if is_preview_mode:
+		return
+		
 	_update_timers(delta)
 	_handle_movement(delta)
 	_handle_jump()

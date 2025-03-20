@@ -1,17 +1,12 @@
-[gd_scene load_steps=11 format=3 uid="uid://udb5a7kgi8m4"]
+[gd_scene load_steps=6 format=3 uid="uid://udb5a7kgi8m4"]
 
-[ext_resource type="Script" uid="uid://curodnjsaaulf" path="res://source/UI/select_level_form.gd" id="1_wp058"]
+[ext_resource type="Script" uid="uid://curodnjsaaulf" path="res://source/scenes/select_level_scene.gd" id="1_wp058"]
 [ext_resource type="FontFile" uid="uid://bj4wlflwm0lq7" path="res://assets/fonts/SourceHanSansSC-Regular-2.otf" id="2_4uhmw"]
+[ext_resource type="Texture2D" uid="uid://clutf557twwdw" path="res://assets/textures/texture_bg_brown.png" id="2_32epf"]
 [ext_resource type="Texture2D" uid="uid://c13hvwrph7f77" path="res://assets/textures/texture_button_icon_back.png" id="3_pfp23"]
 [ext_resource type="PackedScene" uid="uid://xgd463v78vj2" path="res://source/UI/w_level.tscn" id="4_joogn"]
-[ext_resource type="PackedScene" uid="uid://dljtp4pw0wj81" path="res://source/scenes/levels/level_02.tscn" id="5_xjk1t"]
-[ext_resource type="Texture2D" uid="uid://dbtj2bqgheabq" path="res://assets/textures/texture_icon_02.png" id="6_ncbuv"]
-[ext_resource type="PackedScene" uid="uid://cxm11sfcrmnuh" path="res://source/scenes/levels/level_03.tscn" id="7_pyd0t"]
-[ext_resource type="Texture2D" uid="uid://d2idg6l16golb" path="res://assets/textures/texture_icon_03.png" id="8_ph3u0"]
-[ext_resource type="PackedScene" uid="uid://jtq7wdq85mqx" path="res://source/scenes/levels/level_04.tscn" id="9_u5m1e"]
-[ext_resource type="Texture2D" uid="uid://ci47ljm1c2hr6" path="res://assets/textures/texture_icon_50.png" id="10_atras"]
 
-[node name="select_level_form" type="Control"]
+[node name="select_level_scene" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -20,6 +15,19 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 script = ExtResource("1_wp058")
+
+[node name="Parallax2D" type="Parallax2D" parent="."]
+repeat_size = Vector2(0, 324)
+autoscroll = Vector2(0, 24)
+
+[node name="Sprite2D" type="TextureRect" parent="Parallax2D"]
+offset_right = 576.0
+offset_bottom = 324.0
+size_flags_horizontal = 0
+mouse_filter = 2
+texture = ExtResource("2_32epf")
+stretch_mode = 1
+metadata/_edit_lock_ = true
 
 [node name="MarginContainer2" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -41,7 +49,6 @@ theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
 [node name="btn_close" type="Button" parent="MarginContainer2/VBoxContainer/MarginContainer2"]
-unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 5
@@ -75,17 +82,13 @@ layout_mode = 2
 [node name="w_level2" parent="MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/GridContainer" instance=ExtResource("4_joogn")]
 custom_minimum_size = Vector2(152, 88)
 layout_mode = 2
-level_scene = ExtResource("5_xjk1t")
-level_icon = ExtResource("6_ncbuv")
 
 [node name="w_level3" parent="MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/GridContainer" instance=ExtResource("4_joogn")]
 custom_minimum_size = Vector2(152, 88)
 layout_mode = 2
-level_scene = ExtResource("7_pyd0t")
-level_icon = ExtResource("8_ph3u0")
 
 [node name="w_level4" parent="MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/GridContainer" instance=ExtResource("4_joogn")]
 custom_minimum_size = Vector2(152, 88)
 layout_mode = 2
-level_scene = ExtResource("9_u5m1e")
-level_icon = ExtResource("10_atras")
+
+[connection signal="pressed" from="MarginContainer2/VBoxContainer/MarginContainer2/btn_close" to="." method="_on_btn_close_pressed"]
