@@ -17,7 +17,6 @@ class LaunchState extends BaseState:
 	func _enter(_msg: Dictionary = {}) -> void:
 		switch_to(&"menu")
 
-
 # 菜单状态
 class MenuState extends BaseState:
 	func _enter(_msg: Dictionary = {}) -> void:

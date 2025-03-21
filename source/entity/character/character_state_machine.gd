@@ -4,13 +4,17 @@ class_name CharacterStateMachine
 ## 角色状态机，管理角色的所有状态转换和行为
 
 func _ready() -> void:
-	super()
 	# 创建并注册所有状态
 	add_state(&"ground", GroundState.new())
 	add_state(&"air", AirState.new())
 	add_state(&"wall", WallState.new())
 	add_state(&"dead", DeadState.new())
 
+	CoreSystem.event_bus.subscribe("character_died", _on_character_died)
+
+func _on_character_died(character: Character) -> void:
+	if character == agent:
+		switch(&"dead")
 
 # 地面状态（包含站立和移动）
 class GroundState extends BaseState:

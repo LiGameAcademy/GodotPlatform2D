@@ -231,7 +231,7 @@ func is_moving() -> bool:
 
 ## 是否正在跳跃
 func is_jumping() -> bool:
-	return Input.is_action_just_pressed("ui_accept")
+	return Input.is_action_just_pressed("ui_up")
 
 
 ## 收集道具
@@ -262,7 +262,8 @@ func get_collection_data() -> Dictionary:
 
 ## 死亡
 func die() -> void:
-	CoreSystem.state_machine_manager.get_state_machine(&"character_%d" % get_instance_id()).switch(&"dead")
+	# CoreSystem.state_machine_manager.get_state_machine(&"character_%d" % get_instance_id()).switch(&"dead")
+	CoreSystem.event_bus.push_event("character_died", self)
 	set_physics_process(false)
 	await get_tree().create_timer(0.5).timeout
 	died.emit()

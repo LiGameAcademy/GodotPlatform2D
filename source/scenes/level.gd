@@ -8,6 +8,16 @@ var _level_index: int
 var _character : Character
 var _score: int
 
+	
+func _ready() -> void:
+	# 连接结束点信号
+	if end_point:
+		end_point.end.connect(_on_level_end)
+
+func _exit_tree() -> void:
+	if _character and _character.get_parent() == self:
+		remove_child(_character)
+
 func init_state(data: Dictionary) -> void:
 	_level_index = data.level_index
 	_character = data.character
@@ -15,11 +25,6 @@ func init_state(data: Dictionary) -> void:
 	if not is_node_ready():
 		await ready
 	_setup_player()
-	
-func _ready() -> void:
-	# 连接结束点信号
-	if end_point:
-		end_point.end.connect(_on_level_end)
 
 func _setup_player() -> void:
 	_character.set_process(false)

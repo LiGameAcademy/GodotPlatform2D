@@ -26,6 +26,12 @@ var completed_levels: Array[bool] = []
 var unlocked_levels: Array[bool] = []
 
 func _ready() -> void:
+	CoreSystem.scene_manager.register_transition(
+		CoreSystem.scene_manager.TransitionEffect.CUSTOM, 
+		LevelTransition.new(), 
+		"level_transition"
+	)
+
 	# 初始化关卡状态数组
 	completed_levels.resize(LEVELS.size())
 	completed_levels.fill(false)
@@ -92,7 +98,6 @@ func load_level_data(data: Dictionary) -> void:
 ## 内部加载关卡方法
 func _load_level(level_path: String) -> void:
 	# 使用场景管理器异步切换场景
-	var transition = LevelTransition.new()
 	CoreSystem.scene_manager.change_scene_async(
 		level_path, 
 		{
@@ -100,11 +105,11 @@ func _load_level(level_path: String) -> void:
 			"character": GameInstance.selected_character,
 			"score": GameInstance.score
 		}, 
-		true,  # 使用过渡效果
+		false, 
 		CoreSystem.scene_manager.TransitionEffect.CUSTOM,  # 自定义过渡效果
-		1.5,  # 过渡时间
+		0.5,  # 过渡时间
 		Callable(),  # 无需额外回调
-		transition  # 过渡效果实例
+		"level_transition"  # 过渡效果实例
 	)
 	
 	# 发送关卡开始信号

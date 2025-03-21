@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://down6symrdc0q"]
+
+[ext_resource type="Shader" uid="uid://bmc4dhl4w6rf" path="res://assets/shader/diamond_based_screen_transition.gdshader" id="1_0soxv"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_u4jke"]
+shader = ExtResource("1_0soxv")
+shader_parameter/progress = 0.364
+shader_parameter/diamondPixelSize = 15.0
+
+[node name="LevelTransition" type="Node2D"]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+material = SubResource("ShaderMaterial_u4jke")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2

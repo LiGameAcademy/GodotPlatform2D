@@ -4,7 +4,7 @@
 [ext_resource type="FontFile" uid="uid://bj4wlflwm0lq7" path="res://assets/fonts/SourceHanSansSC-Regular-2.otf" id="2_4uhmw"]
 [ext_resource type="Texture2D" uid="uid://clutf557twwdw" path="res://assets/textures/texture_bg_brown.png" id="2_32epf"]
 [ext_resource type="Texture2D" uid="uid://c13hvwrph7f77" path="res://assets/textures/texture_button_icon_back.png" id="3_pfp23"]
-[ext_resource type="PackedScene" uid="uid://xgd463v78vj2" path="res://source/UI/w_level.tscn" id="4_joogn"]
+[ext_resource type="PackedScene" uid="uid://xgd463v78vj2" path="res://source/UI/components/level_widget.tscn" id="4_joogn"]
 
 [node name="select_level_scene" type="Control"]
 layout_mode = 3

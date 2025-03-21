@@ -1,12 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://xgd463v78vj2"]
+[gd_scene load_steps=4 format=3 uid="uid://xgd463v78vj2"]
 
-[ext_resource type="Script" uid="uid://c562ufc20eajy" path="res://source/UI/w_level.gd" id="1_k6vb2"]
-[ext_resource type="Texture2D" uid="uid://gbbldpm7biaa" path="res://assets/textures/texture_icon_01.png" id="2_03h5n"]
+[ext_resource type="Script" uid="uid://c562ufc20eajy" path="res://source/UI/components/level_widget.gd" id="1_1vo2p"]
+[ext_resource type="PackedScene" uid="uid://bj1lsk7xufy68" path="res://source/scenes/levels/level_01.tscn" id="2_il2hj"]
+[ext_resource type="Texture2D" uid="uid://gbbldpm7biaa" path="res://assets/textures/texture_icon_01.png" id="2_qdx8e"]
 
-[node name="w_level" type="MarginContainer"]
+[node name="level_widget" type="MarginContainer"]
 custom_minimum_size = Vector2(108, 60)
 mouse_filter = 0
-script = ExtResource("1_k6vb2")
+script = ExtResource("1_1vo2p")
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="."]
 layout_mode = 2
@@ -17,10 +18,12 @@ stretch_shrink = 2
 [node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
 unique_name_in_owner = true
 handle_input_locally = false
-size = Vector2i(2, 2)
+size = Vector2i(54, 32)
 size_2d_override = Vector2i(576, 324)
 size_2d_override_stretch = true
 render_target_update_mode = 4
+
+[node name="level_01" parent="SubViewportContainer/SubViewport" instance=ExtResource("2_il2hj")]
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 custom_minimum_size = Vector2(64, 64)
@@ -34,7 +37,7 @@ theme_override_constants/margin_bottom = 5
 
 [node name="TextureRect" type="TextureRect" parent="MarginContainer"]
 layout_mode = 2
-texture = ExtResource("2_03h5n")
+texture = ExtResource("2_qdx8e")
 expand_mode = 1
 
 [node name="LabelStatus" type="Label" parent="."]
