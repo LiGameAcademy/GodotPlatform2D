@@ -1,0 +1,17 @@
+[gd_scene load_steps=5 format=3 uid="uid://b5h5d1r3dnerd"]
+
+[ext_resource type="PackedScene" uid="uid://ir1eugbdnrkn" path="res://source/gameplay/character/character.tscn" id="1_31eiw"]
+[ext_resource type="AnimationLibrary" uid="uid://1i816fyvj7j8" path="res://assets/animations/animation_ninja_frog.tres" id="2_2uw4n"]
+[ext_resource type="Texture2D" uid="uid://ds8b3fpakegtk" path="res://assets/textures/main_characters/Ninja Frog/Idle (32x32).png" id="2_kjy82"]
+[ext_resource type="AnimationLibrary" uid="uid://dnnqi3yhyesqf" path="res://assets/animations/animation_common.tres" id="4_cenrj"]
+
+[node name="ninja_frog" instance=ExtResource("1_31eiw")]
+
+[node name="Sprite2D" parent="." index="0"]
+texture = ExtResource("2_kjy82")
+
+[node name="AnimationPlayer" parent="." index="2"]
+libraries = {
+"": ExtResource("2_2uw4n"),
+"animation_common": ExtResource("4_cenrj")
+}

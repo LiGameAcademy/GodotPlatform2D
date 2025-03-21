@@ -1,12 +1,12 @@
 [gd_scene load_steps=8 format=3 uid="uid://b0yui6g25hphq"]
 
-[ext_resource type="Texture2D" uid="uid://clutf557twwdw" path="res://assets/textures/texture_bg_brown.png" id="2_ac0mh"]
+[ext_resource type="Texture2D" uid="uid://clutf557twwdw" path="res://assets/textures/bg/texture_bg_brown.png" id="2_ac0mh"]
 [ext_resource type="Script" uid="uid://chdcdjvqve7gb" path="res://source/scenes/select_cha_scene.gd" id="3_ac0mh"]
 [ext_resource type="FontFile" uid="uid://bj4wlflwm0lq7" path="res://assets/fonts/SourceHanSansSC-Regular-2.otf" id="3_hla6y"]
-[ext_resource type="Texture2D" uid="uid://c13hvwrph7f77" path="res://assets/textures/texture_button_icon_back.png" id="4_xm2gq"]
-[ext_resource type="PackedScene" uid="uid://dan3m2eu8eut8" path="res://source/entity/character/player_character/pink_man.tscn" id="5_5ro13"]
-[ext_resource type="Texture2D" uid="uid://pivkhmyarpgb" path="res://assets/textures/texture_button_icon_previous.png" id="6_w5nu7"]
-[ext_resource type="Texture2D" uid="uid://b6bxq8yvxs6xo" path="res://assets/textures/texture_button_icon_next.png" id="7_8aetf"]
+[ext_resource type="Texture2D" uid="uid://c13hvwrph7f77" path="res://assets/textures/ui/texture_button_icon_back.png" id="4_xm2gq"]
+[ext_resource type="PackedScene" uid="uid://dan3m2eu8eut8" path="res://source/gameplay/character/player_character/pink_man.tscn" id="5_5ro13"]
+[ext_resource type="Texture2D" uid="uid://pivkhmyarpgb" path="res://assets/textures/ui/texture_button_icon_previous.png" id="6_w5nu7"]
+[ext_resource type="Texture2D" uid="uid://b6bxq8yvxs6xo" path="res://assets/textures/ui/texture_button_icon_next.png" id="7_8aetf"]
 
 [node name="select_cha_scene" type="Control"]
 layout_mode = 3

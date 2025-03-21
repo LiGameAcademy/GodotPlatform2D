@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://bx4se2atxek3l"]
 
 [ext_resource type="Script" uid="uid://b31v7n56vgqta" path="res://source/scenes/menu_screen.gd" id="1_sv2dm"]
-[ext_resource type="Texture2D" uid="uid://clutf557twwdw" path="res://assets/textures/texture_bg_brown.png" id="2_ghyoc"]
+[ext_resource type="Texture2D" uid="uid://clutf557twwdw" path="res://assets/textures/bg/texture_bg_brown.png" id="2_ghyoc"]
 [ext_resource type="FontFile" uid="uid://bj4wlflwm0lq7" path="res://assets/fonts/SourceHanSansSC-Regular-2.otf" id="3_b4crg"]
 
 [node name="menu_screen" type="Control"]

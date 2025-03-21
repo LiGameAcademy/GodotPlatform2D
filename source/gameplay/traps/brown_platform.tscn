@@ -1,0 +1,91 @@
+[gd_scene load_steps=13 format=3 uid="uid://dw5mhyodxgrus"]
+
+[ext_resource type="Script" path="res://source/entity/traps/brown_platform.gd" id="1_1xu3l"]
+[ext_resource type="Texture2D" uid="uid://jhu3r8gdt5xt" path="res://assets/textures/traps/platforms_brown/texture_traps_platforms_brown_on.png" id="1_a2wpy"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xstiy"]
+atlas = ExtResource("1_a2wpy")
+region = Rect2(0, 0, 32, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4v8ss"]
+atlas = ExtResource("1_a2wpy")
+region = Rect2(32, 0, 32, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_twokk"]
+atlas = ExtResource("1_a2wpy")
+region = Rect2(64, 0, 32, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ehhto"]
+atlas = ExtResource("1_a2wpy")
+region = Rect2(96, 0, 32, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hniax"]
+atlas = ExtResource("1_a2wpy")
+region = Rect2(128, 0, 32, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y18jh"]
+atlas = ExtResource("1_a2wpy")
+region = Rect2(160, 0, 32, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_coja7"]
+atlas = ExtResource("1_a2wpy")
+region = Rect2(192, 0, 32, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_74koe"]
+atlas = ExtResource("1_a2wpy")
+region = Rect2(224, 0, 32, 8)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_vghh8"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xstiy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4v8ss")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_twokk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ehhto")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hniax")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y18jh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_coja7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_74koe")
+}],
+"loop": true,
+"name": &"on",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vy5g3"]
+size = Vector2(64, 5)
+
+[node name="brown_platform" type="RigidBody2D"]
+collision_layer = 2
+freeze = true
+freeze_mode = 1
+contact_monitor = true
+max_contacts_reported = 10
+script = SubResource("GDScript_v8ete")
+
+[node name="Sprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(2, 1)
+sprite_frames = SubResource("SpriteFrames_vghh8")
+animation = &"on"
+frame_progress = 0.650555
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_vy5g3")
+
+[node name="Hinge" type="Marker2D" parent="."]
