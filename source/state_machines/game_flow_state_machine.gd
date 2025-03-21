@@ -68,10 +68,16 @@ class LevelSelectState extends BaseState:
 class PlayingState extends BaseState:
 	func _enter(_msg: Dictionary = {}) -> void:
 		CoreSystem.event_bus.subscribe("level_completed", _on_level_completed)
+		CoreSystem.event_bus.subscribe("level_previous_requested", _on_level_previous_requested)
+		CoreSystem.event_bus.subscribe("level_restart_requested", _on_level_restart_requested)
+		CoreSystem.event_bus.subscribe("level_next_requested", _on_level_next_requested)
 		GameInstance.load_current_level()
 	
 	func _exit() -> void:
 		CoreSystem.event_bus.unsubscribe("level_completed", _on_level_completed)
+		CoreSystem.event_bus.unsubscribe("level_previous_requested", _on_level_previous_requested)
+		CoreSystem.event_bus.unsubscribe("level_restart_requested", _on_level_restart_requested)
+		CoreSystem.event_bus.unsubscribe("level_next_requested", _on_level_next_requested)
 	
 	func _on_level_completed(level_index: int) -> void:
 		# 标记当前关卡为已完成
@@ -87,3 +93,12 @@ class PlayingState extends BaseState:
 		else:
 			# 如果是最后一关，返回关卡选择界面
 			switch_to(&"level_select")
+	
+	func _on_level_previous_requested() -> void:
+		GameInstance.level_manager.load_previous_level()
+	
+	func _on_level_restart_requested() -> void:
+		GameInstance.load_current_level()
+	
+	func _on_level_next_requested() -> void:
+		GameInstance.level_manager.load_next_level()

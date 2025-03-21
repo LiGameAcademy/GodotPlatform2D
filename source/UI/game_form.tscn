@@ -55,3 +55,8 @@ focus_mode = 0
 disabled = true
 icon = ExtResource("4_uiy3i")
 flat = true
+
+[connection signal="pressed" from="MarginContainer/HBoxContainer/btn_previous" to="." method="_on_btn_previous_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/btn_restart" to="." method="_on_btn_restart_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/btn_next" to="." method="_on_btn_next_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/btn_settings" to="." method="_on_btn_settings_pressed"]

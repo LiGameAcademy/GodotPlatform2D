@@ -72,10 +72,10 @@ func _ready() -> void:
 	var state_machine = CharacterStateMachine.new()
 	CoreSystem.state_machine_manager.register_state_machine(&"character_%d" % get_instance_id(), state_machine, self, &"ground")
 
-
 func _exit_tree() -> void:
+	_animation_tree.active = false
 	CoreSystem.state_machine_manager.unregister_state_machine(&"character_%d" % get_instance_id())
-
+	request_ready()
 
 func _physics_process(delta: float) -> void:
 	if is_preview_mode:

@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://brysy5j5sdv4w"]
+[gd_scene load_steps=7 format=3 uid="uid://brysy5j5sdv4w"]
 
 [ext_resource type="Script" uid="uid://c2eqf7vcvh08i" path="res://source/scenes/level.gd" id="1_nu6e1"]
 [ext_resource type="TileSet" uid="uid://di6wk0xyxjy0m" path="res://assets/tileset/terrain.tres" id="3_0778l"]
 [ext_resource type="Texture2D" uid="uid://clutf557twwdw" path="res://assets/textures/texture_bg_brown.png" id="3_xe5uk"]
+[ext_resource type="PackedScene" uid="uid://dabbj8o71fouq" path="res://source/UI/game_form.tscn" id="6_x64os"]
 [ext_resource type="PackedScene" uid="uid://bioj1fnrblhon" path="res://source/entity/checkpoint/start.tscn" id="7_73j2j"]
 [ext_resource type="PackedScene" uid="uid://5kd2sfvt0xgd" path="res://source/entity/checkpoint/end.tscn" id="8_s2bqh"]
 
@@ -39,3 +40,7 @@ position = Vector2(80, 160)
 [node name="EndPoint" parent="." instance=ExtResource("8_s2bqh")]
 unique_name_in_owner = true
 position = Vector2(512, 128)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="game_form" parent="CanvasLayer" instance=ExtResource("6_x64os")]
