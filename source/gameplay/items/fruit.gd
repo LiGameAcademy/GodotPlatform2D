@@ -3,14 +3,14 @@ class_name Fruit
 
 # 水果类型和对应的纹理
 const FRUIT_TYPES = {
-	"apple": preload("res://assets/textures/texture_items_fruits_apple.png"),
-	"bananas": preload("res://assets/textures/texture_items_fruits_bananas.png"),
-	"cherries": preload("res://assets/textures/texture_items_fruits_cherries.png"),
-	"kiwi": preload("res://assets/textures/texture_items_fruits_kiwi.png"),
-	"melon": preload("res://assets/textures/texture_items_fruits_melon.png"),
-	"orange": preload("res://assets/textures/texture_items_fruits_orange.png"),
-	"pineapple": preload("res://assets/textures/texture_items_fruits_pineapple.png"),
-	"strawberry": preload("res://assets/textures/texture_items_fruits_strawberry.png")
+	"apple": preload("res://assets/textures/items/texture_items_fruits_apple.png"),
+	"bananas": preload("res://assets/textures/items/texture_items_fruits_bananas.png"),
+	"cherries": preload("res://assets/textures/items/texture_items_fruits_cherries.png"),
+	"kiwi": preload("res://assets/textures/items/texture_items_fruits_kiwi.png"),
+	"melon": preload("res://assets/textures/items/texture_items_fruits_melon.png"),
+	"orange": preload("res://assets/textures/items/texture_items_fruits_orange.png"),
+	"pineapple": preload("res://assets/textures/items/texture_items_fruits_pineapple.png"),
+	"strawberry": preload("res://assets/textures/items/texture_items_fruits_strawberry.png")
 }
 
 # 水果参数

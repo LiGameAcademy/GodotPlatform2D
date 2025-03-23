@@ -7,10 +7,10 @@ signal level_started(level_index: int)
 
 # 关卡配置
 const LEVELS : Array[String] = [
-	"res://source/scenes/levels/level_01.tscn",
-	"res://source/scenes/levels/level_02.tscn",
-	"res://source/scenes/levels/level_03.tscn",
-	"res://source/scenes/levels/level_04.tscn"
+	"res://source/gameplay/levels/level_01.tscn",
+	"res://source/gameplay/levels/level_02.tscn",
+	"res://source/gameplay/levels/level_03.tscn",
+	"res://source/gameplay/levels/level_04.tscn"
 ]
 
 ## 关卡数据
