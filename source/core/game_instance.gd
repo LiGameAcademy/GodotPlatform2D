@@ -14,16 +14,16 @@ var level_manager : LevelManager
 
 ## 角色相关
 var characters: Array[PackedScene] = [
-	preload("res://source/entity/character/player_character/mask_dude.tscn"), 
-	preload("res://source/entity/character/player_character/ninja_frog.tscn"), 
-	preload("res://source/entity/character/player_character/pink_man.tscn"), 
-	preload("res://source/entity/character/player_character/virtual_guy.tscn")
+	preload("res://source/gameplay/character/player_character/mask_dude.tscn"), 
+	preload("res://source/gameplay/character/player_character/ninja_frog.tscn"), 
+	preload("res://source/gameplay/character/player_character/pink_man.tscn"), 
+	preload("res://source/gameplay/character/player_character/virtual_guy.tscn")
 ]
 
 func _ready() -> void:
 	level_manager = LevelManager.new()
 	add_child(level_manager)
-	
+
 
 func create_character_preview(character_scene: PackedScene) -> Character:
 	if not character_scene:
