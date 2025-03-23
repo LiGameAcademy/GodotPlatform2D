@@ -60,6 +60,9 @@ var _is_jumping: bool = false       # 是否正在跳跃
 # 预览模式标志
 var is_preview_mode := false
 
+# 角色控制器
+var controller: CharacterController
+
 signal died
 signal item_collected(item_type: String, combo: int, score: int)
 signal combo_ended(final_combo: int)
@@ -88,6 +91,61 @@ func _physics_process(delta: float) -> void:
 	_update_animation_parameters()
 	_update_combo_timer(delta)
 	_update_floor_state()
+
+func set_controller(new_controller: CharacterController) -> void:
+	controller = new_controller
+
+## 播放动画
+func play_animation(anim_name: String) -> void:
+	if current_animation != anim_name:
+		current_animation = anim_name
+		_animation_state_machine.travel(anim_name)
+
+
+## 是否正在移动
+func is_moving() -> bool:
+	return abs(velocity.x) > 0.1
+
+
+## 是否正在跳跃
+func is_jumping() -> bool:
+	return Input.is_action_just_pressed("ui_up")
+
+
+## 收集道具
+func collect_item(item_type: String = "") -> void:
+	_collected_items += 1
+	
+	# 更新连击
+	_current_combo = min(_current_combo + 1, max_combo)
+	_combo_timer = combo_time_window
+	
+	# 计算分数
+	var combo_multiplier = 1.0 + (_current_combo - 1) * 0.5  # 每次连击增加50%分数
+	var score = roundi(collection_score * combo_multiplier)
+	_total_score += score
+	
+	# 发出信号
+	item_collected.emit(item_type, _current_combo, score)
+
+
+## 获取收集数据
+func get_collection_data() -> Dictionary:
+	return {
+		"collected_items": _collected_items,
+		"current_combo": _current_combo,
+		"total_score": _total_score
+	}
+
+
+## 死亡
+func die() -> void:
+	# CoreSystem.state_machine_manager.get_state_machine(&"character_%d" % get_instance_id()).switch(&"dead")
+	CoreSystem.event_bus.push_event("character_died", self)
+	set_physics_process(false)
+	await get_tree().create_timer(0.5).timeout
+	died.emit()
+	queue_free()
 
 
 ## 更新计时器
@@ -215,56 +273,3 @@ func _update_combo_timer(delta: float) -> void:
 		if _combo_timer <= 0:
 			combo_ended.emit(_current_combo)
 			_current_combo = 0
-
-
-## 播放动画
-func play_animation(anim_name: String) -> void:
-	if current_animation != anim_name:
-		current_animation = anim_name
-		_animation_state_machine.travel(anim_name)
-
-
-## 是否正在移动
-func is_moving() -> bool:
-	return abs(velocity.x) > 0.1
-
-
-## 是否正在跳跃
-func is_jumping() -> bool:
-	return Input.is_action_just_pressed("ui_up")
-
-
-## 收集道具
-func collect_item(item_type: String = "") -> void:
-	_collected_items += 1
-	
-	# 更新连击
-	_current_combo = min(_current_combo + 1, max_combo)
-	_combo_timer = combo_time_window
-	
-	# 计算分数
-	var combo_multiplier = 1.0 + (_current_combo - 1) * 0.5  # 每次连击增加50%分数
-	var score = roundi(collection_score * combo_multiplier)
-	_total_score += score
-	
-	# 发出信号
-	item_collected.emit(item_type, _current_combo, score)
-
-
-## 获取收集数据
-func get_collection_data() -> Dictionary:
-	return {
-		"collected_items": _collected_items,
-		"current_combo": _current_combo,
-		"total_score": _total_score
-	}
-
-
-## 死亡
-func die() -> void:
-	# CoreSystem.state_machine_manager.get_state_machine(&"character_%d" % get_instance_id()).switch(&"dead")
-	CoreSystem.event_bus.push_event("character_died", self)
-	set_physics_process(false)
-	await get_tree().create_timer(0.5).timeout
-	died.emit()
-	queue_free()
