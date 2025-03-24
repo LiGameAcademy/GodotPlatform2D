@@ -60,15 +60,6 @@ var _is_jumping: bool = false       # 是否正在跳跃
 # 预览模式标志
 var is_preview_mode := false
 
-# 角色控制器
-var controller: CharacterController
-
-signal died
-signal item_collected(item_type: String, combo: int, score: int)
-signal combo_ended(final_combo: int)
-signal jumped                # 跳跃信号
-signal landed               # 着陆信号
-
 
 func _ready() -> void:
 	_animation_tree.active = true
@@ -91,9 +82,6 @@ func _physics_process(delta: float) -> void:
 	_update_animation_parameters()
 	_update_combo_timer(delta)
 	_update_floor_state()
-
-func set_controller(new_controller: CharacterController) -> void:
-	controller = new_controller
 
 ## 播放动画
 func play_animation(anim_name: String) -> void:
@@ -126,7 +114,7 @@ func collect_item(item_type: String = "") -> void:
 	_total_score += score
 	
 	# 发出信号
-	item_collected.emit(item_type, _current_combo, score)
+	CoreSystem.event_bus.push_event("item_collected", {"item_type": item_type, "combo": _current_combo, "score": score})
 
 
 ## 获取收集数据
@@ -140,12 +128,21 @@ func get_collection_data() -> Dictionary:
 
 ## 死亡
 func die() -> void:
-	# CoreSystem.state_machine_manager.get_state_machine(&"character_%d" % get_instance_id()).switch(&"dead")
+	# 发送死亡事件
 	CoreSystem.event_bus.push_event("character_died", self)
+	# 禁用物理和输入处理
 	set_physics_process(false)
-	await get_tree().create_timer(0.5).timeout
-	died.emit()
-	queue_free()
+	set_process_input(false)
+
+
+## 重生
+## [param respawn_position] 重生位置
+func respawn(respawn_position: Vector2) -> void:
+	global_position = respawn_position
+	velocity = Vector2.ZERO
+	visible = true
+	set_physics_process(true)
+	set_process_input(true)
 
 
 ## 更新计时器
@@ -221,7 +218,7 @@ func _perform_jump() -> void:
 	_jump_buffer_timer = 0
 	_coyote_timer = 0
 	_is_jumping = true
-	emit_signal("jumped")
+	CoreSystem.event_bus.push_event("jumped", self)
 
 
 ## 执行二段跳
@@ -229,7 +226,7 @@ func _perform_double_jump() -> void:
 	velocity.y = JUMP_VELOCITY * 0.8  # 二段跳稍微弱一些
 	can_double_jump = false
 	_jump_buffer_timer = 0
-	emit_signal("jumped")
+	CoreSystem.event_bus.push_event("jumped", self)
 
 
 ## 更新地面状态
@@ -241,7 +238,7 @@ func _update_floor_state() -> void:
 	elif not _was_on_floor and is_on_floor():
 		_is_jumping = false
 		can_double_jump = true
-		emit_signal("landed")
+		CoreSystem.event_bus.push_event("landed", self)
 	
 	_was_on_floor = is_on_floor()
 
@@ -271,5 +268,5 @@ func _update_combo_timer(delta: float) -> void:
 	if _current_combo > 0:
 		_combo_timer -= delta
 		if _combo_timer <= 0:
-			combo_ended.emit(_current_combo)
+			CoreSystem.event_bus.push_event("combo_ended", {"final_combo": _current_combo})
 			_current_combo = 0

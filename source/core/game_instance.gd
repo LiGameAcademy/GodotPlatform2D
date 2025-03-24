@@ -1,24 +1,19 @@
 extends Node
 
 ## 场景路径常量
-const MENU_SCENE : String = "res://source/scenes/menu_screen.tscn"
-const CHARACTER_SELECT_SCENE : String = "res://source/scenes/select_cha_scene.tscn"
-const LEVEL_SELECT_SCENE : String = "res://source/scenes/select_level_scene.tscn"
+const MENU_SCENE : String = ResourcePaths.Scenes.MENU
+const CHARACTER_SELECT_SCENE : String = ResourcePaths.Scenes.CHARACTER_SELECT
+const LEVEL_SELECT_SCENE : String = ResourcePaths.Scenes.LEVEL_SELECT
 
 # 游戏数据
 var current_level := 1
 var score := 0
-var selected_character: Character
+var selected_character_index := 0
 
 var level_manager : LevelManager
 
 ## 角色相关
-var characters: Array[PackedScene] = [
-	preload("res://source/gameplay/character/player_character/mask_dude.tscn"), 
-	preload("res://source/gameplay/character/player_character/ninja_frog.tscn"), 
-	preload("res://source/gameplay/character/player_character/pink_man.tscn"), 
-	preload("res://source/gameplay/character/player_character/virtual_guy.tscn")
-]
+var characters: Array[PackedScene] = ResourcePaths.Characters.get_all()
 
 func _ready() -> void:
 	level_manager = LevelManager.new()
@@ -32,12 +27,6 @@ func create_character_preview(character_scene: PackedScene) -> Character:
 	var character: Character = character_scene.instantiate()
 	character.is_preview_mode = true
 	return character
-
-
-func get_character(index: int) -> PackedScene:
-	if index >= 0 and index < characters.size():
-		return characters[index]
-	return null
 
 
 func get_characters_count() -> int:

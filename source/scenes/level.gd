@@ -14,27 +14,24 @@ func _ready() -> void:
 	if end_point:
 		end_point.end.connect(_on_level_end)
 
-func _exit_tree() -> void:
-	if _character and _character.get_parent() == self:
-		remove_child(_character)
-
 func init_state(data: Dictionary) -> void:
 	_level_index = data.level_index
-	_character = data.character
 	_score = data.score
 	if not is_node_ready():
 		await ready
 	_setup_player()
 
 func _setup_player() -> void:
-	_character.set_process(false)
+	var character_scene : PackedScene = ResourcePaths.Characters.get_by_index(GameInstance.selected_character_index)
+	if not character_scene:
+		return
+	_character = character_scene.instantiate()
 	add_child(_character)
 	_character.global_position = start_point.global_position
-	await get_tree().create_timer(0.3).timeout
-	_character.set_process(true)
 	
-	# 连接死亡信号
-	_character.died.connect(_on_player_died)
+	# 订阅角色相关事件
+	CoreSystem.event_bus.subscribe("character_death_animation_finished", _on_death_animation_finished, CoreSystem.event_bus.Priority.NORMAL,
+		false, func(payload): return payload[0] == _character)
 	
 	# 启动起点动画
 	start_point.start()
@@ -51,9 +48,9 @@ func complete_level() -> void:
 	# 发送关卡完成信号
 	CoreSystem.event_bus.push_event("level_completed", _level_index)
 	
-## 游戏失败
-func _on_player_died() -> void:
-	CoreSystem.event_bus.push_event("player_died")
+## 死亡动画完成后处理
+func _on_death_animation_finished(character: Character) -> void:
+	_setup_player()
 
 ## 关卡结束
 func _on_level_end() -> void:

@@ -41,3 +41,42 @@ class ItemTextures:
 
 static func get_fruit_texture(fruit_name: String) -> Texture:
 	return ItemTextures.FRUITS.get(fruit_name, ItemTextures.FRUITS["apple"])
+
+## 资源路径常量
+## 场景路径
+class Scenes:
+	## 菜单场景
+	const MENU := "res://source/scenes/menu_screen.tscn"
+	## 角色选择场景
+	const CHARACTER_SELECT := "res://source/scenes/select_cha_scene.tscn"
+	## 关卡选择场景
+	const LEVEL_SELECT := "res://source/scenes/select_level_scene.tscn"
+
+## 角色路径
+class Characters:
+	## 面具小子
+	const MASK_DUDE := "res://source/gameplay/character/player_character/mask_dude.tscn"
+	## 忍者蛙
+	const NINJA_FROG := "res://source/gameplay/character/player_character/ninja_frog.tscn"
+	## 粉红人
+	const PINK_MAN := "res://source/gameplay/character/player_character/pink_man.tscn"
+	## 虚拟人
+	const VIRTUAL_GUY := "res://source/gameplay/character/player_character/virtual_guy.tscn"
+
+	## 获取所有角色场景
+	static func get_all() -> Array[PackedScene]:
+		return [
+			preload(MASK_DUDE),
+			preload(NINJA_FROG),
+			preload(PINK_MAN),
+			preload(VIRTUAL_GUY)
+		]
+		
+	## 根据索引获取角色场景
+	## [param index] 角色索引
+	## [returns] 角色场景，如果索引无效则返回null
+	static func get_by_index(index: int) -> PackedScene:
+		var scenes = get_all()
+		if index >= 0 and index < scenes.size():
+			return scenes[index]
+		return null

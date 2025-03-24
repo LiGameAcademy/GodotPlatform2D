@@ -81,7 +81,7 @@ advance_mode = 2
 states/Appearing/node = SubResource("AnimationNodeAnimation_bfeux")
 states/Appearing/position = Vector2(-43, -25)
 states/Desappearing/node = SubResource("AnimationNodeAnimation_5slri")
-states/Desappearing/position = Vector2(84, 95)
+states/Desappearing/position = Vector2(84.352, 95.16)
 states/DoubleJump/node = SubResource("AnimationNodeAnimation_h73p7")
 states/DoubleJump/position = Vector2(550, -25)
 states/End/position = Vector2(783, 95)
@@ -95,12 +95,12 @@ states/Walled/position = Vector2(308, 95)
 states/hit/node = SubResource("AnimationNodeAnimation_lmya7")
 states/hit/position = Vector2(-42.52, 94.68)
 transitions = ["Idle", "Move", SubResource("AnimationNodeStateMachineTransition_4fjbc"), "Move", "Idle", SubResource("AnimationNodeStateMachineTransition_m71t1"), "Move", "DoubleJump", SubResource("AnimationNodeStateMachineTransition_d17m3"), "DoubleJump", "Move", SubResource("AnimationNodeStateMachineTransition_vhfsd"), "Move", "Walled", SubResource("AnimationNodeStateMachineTransition_nbh2q"), "Walled", "Move", SubResource("AnimationNodeStateMachineTransition_442yi"), "Start", "Appearing", SubResource("AnimationNodeStateMachineTransition_iajk7"), "Appearing", "Idle", SubResource("AnimationNodeStateMachineTransition_8o2qj"), "Idle", "Desappearing", SubResource("AnimationNodeStateMachineTransition_ta88j"), "Move", "Desappearing", SubResource("AnimationNodeStateMachineTransition_vks8a"), "Walled", "Desappearing", SubResource("AnimationNodeStateMachineTransition_0vpme"), "DoubleJump", "Desappearing", SubResource("AnimationNodeStateMachineTransition_ek682"), "Walled", "DoubleJump", SubResource("AnimationNodeStateMachineTransition_r7xqa"), "DoubleJump", "Walled", SubResource("AnimationNodeStateMachineTransition_mhsjy")]
-graph_offset = Vector2(-365, -74)
+graph_offset = Vector2(-334, -154)
 
 [sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_jnjld"]
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_dytdh"]
-graph_offset = Vector2(-391.2, 61.6)
+graph_offset = Vector2(-458.729, 137.588)
 nodes/StateMachine/node = SubResource("AnimationNodeStateMachine_ebpgm")
 nodes/StateMachine/position = Vector2(-160, 128)
 nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_jnjld")

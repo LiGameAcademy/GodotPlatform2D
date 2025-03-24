@@ -10,7 +10,11 @@ func _ready() -> void:
 	add_state(&"wall", WallState.new())
 	add_state(&"dead", DeadState.new())
 
-	CoreSystem.event_bus.subscribe("character_died", _on_character_died)
+	# 订阅死亡事件
+	CoreSystem.event_bus.subscribe("character_died", _on_character_died, CoreSystem.event_bus.Priority.HIGH)
+
+func _dispose() -> void:
+	CoreSystem.event_bus.unsubscribe("character_died", _on_character_died)
 
 func _on_character_died(character: Character) -> void:
 	if character == agent:
@@ -84,3 +88,8 @@ class WallState extends BaseState:
 class DeadState extends BaseState:
 	func _enter(_msg: Dictionary = {}) -> void:
 		agent.play_animation("Desappearing")
+		await agent.get_tree().create_timer(0.7).timeout
+		# 从父节点移除
+		agent.get_parent().remove_child(agent)
+		# 发送动画完成事件
+		CoreSystem.event_bus.push_event("character_death_animation_finished", agent)
