@@ -6,12 +6,7 @@ signal level_changed(old_level: int, new_level: int)
 signal level_started(level_index: int)
 
 # 关卡配置
-const LEVELS : Array[String] = [
-	"res://source/gameplay/levels/level_01.tscn",
-	"res://source/gameplay/levels/level_02.tscn",
-	"res://source/gameplay/levels/level_03.tscn",
-	"res://source/gameplay/levels/level_04.tscn"
-]
+const LEVELS : Array[String] = ResourcePaths.ScenePaths.LEVELS
 
 ## 关卡数据
 var current_level_index: int = 0:

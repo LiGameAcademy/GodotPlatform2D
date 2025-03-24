@@ -1,6 +1,6 @@
 extends Control
 
-const LEVEL_WIDGET := preload("res://source/ui/widgets/level_widget.tscn")
+const LEVEL_WIDGET := ResourcePaths.ScenePaths.LEVEL_WIDGET
 
 @onready var grid_container : GridContainer = %GridContainer
 
