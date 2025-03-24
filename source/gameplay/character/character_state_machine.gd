@@ -22,14 +22,22 @@ func _on_character_died(character: Character) -> void:
 
 # 地面状态（包含站立和移动）
 class GroundState extends BaseState:
+	var _coyote_timer: float = 0.0
+	
 	func _enter(_msg: Dictionary = {}) -> void:
 		agent.can_double_jump = true
 		agent.play_animation("Idle")
+		_coyote_timer = 0.0
 	
-	func _physics_update(_delta: float) -> void:
+	func _physics_update(delta: float) -> void:
 		if not agent.is_on_floor():
-			switch_to(&"air")
-		elif agent.is_jumping():
+			_coyote_timer += delta
+			if _coyote_timer > agent.coyote_time:
+				switch_to(&"air")
+		else:
+			_coyote_timer = 0.0
+			
+		if agent.is_jumping():
 			switch_to(&"air", {"jump": true})
 		else:
 			# 更新动画
@@ -37,31 +45,42 @@ class GroundState extends BaseState:
 			if agent.current_animation != anim:
 				agent.play_animation(anim)
 
-
 # 空中状态（包含跳跃、二段跳和下落）
 class AirState extends BaseState:
+	var _jump_buffer_timer: float = 0.0
+	
 	func _enter(msg: Dictionary = {}) -> void:
 		if msg.get("jump", false):
 			agent.velocity.y = agent.JUMP_VELOCITY
 			agent.play_animation("Move") # 使用混合空间
 		else:
 			agent.play_animation("Move") # 使用混合空间
+		_jump_buffer_timer = 0.0
 	
-	func _physics_update(_delta: float) -> void:
+	func _physics_update(delta: float) -> void:
+		# 处理跳跃缓冲
+		if agent.is_jumping():
+			_jump_buffer_timer = agent.jump_buffer_time
+		elif _jump_buffer_timer > 0:
+			_jump_buffer_timer -= delta
+			
+		# 处理状态转换
 		if agent.is_on_floor():
+			if _jump_buffer_timer > 0:
+				agent.velocity.y = agent.JUMP_VELOCITY
+				_jump_buffer_timer = 0
 			switch_to(&"ground")
 		elif agent.is_on_wall() and agent.velocity.y > 0:
 			switch_to(&"wall")
 		elif agent.is_jumping() and agent.can_double_jump:
 			agent.can_double_jump = false
-			agent.velocity.y = agent.JUMP_VELOCITY
+			agent.velocity.y = agent.JUMP_VELOCITY * 0.8
 			agent.play_animation("DoubleJump")
 		else:
 			# 更新动画
 			var anim = "Move" if agent.velocity.y < 0 else "Move"
 			if agent.current_animation != anim:
 				agent.play_animation(anim)
-
 
 # 墙壁状态（包含墙壁滑行和墙跳）
 class WallState extends BaseState:
@@ -82,7 +101,6 @@ class WallState extends BaseState:
 			agent.velocity.y = agent.JUMP_VELOCITY
 			agent.velocity.x = -signf(agent.get_node("Sprite2D").flip_h) * agent.SPEED
 			switch_to(&"air", {"jump": true})
-
 
 # 死亡状态
 class DeadState extends BaseState:
