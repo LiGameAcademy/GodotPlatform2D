@@ -6,4 +6,3 @@
 
 [node name="AnimationTree" parent="." index="3"]
 parameters/StateMachine/Move/blend_position = 0.000692964
-parameters/TimeScale/scale = 1.0
