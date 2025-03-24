@@ -100,7 +100,7 @@ graph_offset = Vector2(-334, -154)
 [sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_jnjld"]
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_dytdh"]
-graph_offset = Vector2(-458.729, 137.588)
+graph_offset = Vector2(-483.529, 57.588)
 nodes/StateMachine/node = SubResource("AnimationNodeStateMachine_ebpgm")
 nodes/StateMachine/position = Vector2(-160, 128)
 nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_jnjld")
@@ -130,5 +130,5 @@ libraries = {
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource("AnimationNodeBlendTree_dytdh")
 anim_player = NodePath("../AnimationPlayer")
-parameters/StateMachine/Move/blend_position = -0.000528276
-parameters/TimeScale/scale = 2.0
+parameters/StateMachine/Move/blend_position = 0.765766
+parameters/TimeScale/scale = 1.0

@@ -45,6 +45,10 @@ var normal_mask = (1 << 1) | (1 << 2)
 # 按下"下"键时，玩家应与层2碰撞，忽略层3（二进制100，十进制4）
 var pass_through_mask = 1 << 1
 
+# 角色状态
+var _wants_to_jump := false
+var _wants_to_jump_release := false
+
 # 道具收集状态
 var _collected_items = 0       # 收集的道具总数
 var _current_combo = 0        # 当前连击数
@@ -58,6 +62,28 @@ func _ready() -> void:
 	_animation_tree.active = true
 	var state_machine = CharacterStateMachine.new()
 	CoreSystem.state_machine_manager.register_state_machine(&"character_%d" % get_instance_id(), state_machine, self, &"ground")
+	
+	# 查找并连接控制器信号
+	for child in get_children():
+		if child is CharacterController:
+			_connect_controller(child)
+
+func _connect_controller(controller: CharacterController) -> void:
+	# 连接控制器信号
+	controller.jump_requested.connect(func(): _wants_to_jump = true)
+	controller.jump_released.connect(func(): _wants_to_jump_release = true)
+
+## 是否想要跳跃
+func wants_to_jump() -> bool:
+	var wants = _wants_to_jump
+	_wants_to_jump = false  # 消费跳跃请求
+	return wants
+
+## 是否想要释放跳跃
+func wants_to_jump_release() -> bool:
+	var wants = _wants_to_jump_release
+	_wants_to_jump_release = false  # 消费释放请求
+	return wants
 
 func _exit_tree() -> void:
 	_animation_tree.active = false
@@ -68,8 +94,14 @@ func _physics_process(delta: float) -> void:
 	if is_preview_mode:
 		return
 		
-	_handle_movement(delta)
-	_handle_collision()
+	# 应用重力
+	if not is_on_floor():
+		velocity.y += gravity * delta
+	
+	# 更新朝向
+	if signf(velocity.x) != 0:
+		_sprite.flip_h = velocity.x < 0
+	
 	move_and_slide()
 	_update_animation_parameters()
 	_update_combo_timer(delta)
@@ -83,10 +115,6 @@ func play_animation(anim_name: String) -> void:
 ## 是否正在移动
 func is_moving() -> bool:
 	return abs(velocity.x) > 0.1
-
-## 是否正在跳跃
-func is_jumping() -> bool:
-	return Input.is_action_just_pressed("ui_up")
 
 ## 收集道具
 func collect_item(item_type: String = "") -> void:
@@ -129,31 +157,6 @@ func respawn(respawn_position: Vector2) -> void:
 	set_physics_process(true)
 	set_process_input(true)
 
-## 处理移动
-func _handle_movement(delta: float) -> void:
-	# 处理水平移动
-	var direction = Input.get_axis("ui_left", "ui_right")
-	if direction:
-		velocity.x = direction * SPEED
-	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
-	
-	# 更新精灵朝向
-	if signf(velocity.x) != 0:
-		_sprite.flip_h = velocity.x < 0
-	
-	# 应用重力
-	if not is_on_floor():
-		velocity.y += gravity * delta
-
-## 处理碰撞
-func _handle_collision() -> void:
-	# 处理穿透平台
-	if Input.is_action_just_pressed("ui_down"):
-		collision_mask = pass_through_mask
-		await get_tree().create_timer(0.1).timeout
-		collision_mask = normal_mask
-
 ## 更新动画参数
 func _update_animation_parameters() -> void:
 	# 更新动画速度
@@ -168,9 +171,11 @@ func _update_animation_parameters() -> void:
 	_animation_tree["parameters/TimeScale/scale"] = speed_scale
 	
 	# 更新Move状态的混合位置
-	if not is_on_floor():
-		# 在空中时，根据垂直速度更新混合位置
-		var blend_pos = clampf(velocity.y / (JUMP_VELOCITY * air_blend_threshold), -1.0, 1.0)
+	if current_animation == "Move":
+		var blend_pos = 0.0  # 默认为移动动画
+		if not is_on_floor():
+			# 在空中时，根据垂直速度更新混合位置
+			blend_pos = clampf(velocity.y / (JUMP_VELOCITY * air_blend_threshold), -1.0, 1.0)
 		_animation_tree["parameters/StateMachine/Move/blend_position"] = blend_pos
 
 ## 更新连击计时器

@@ -26,7 +26,8 @@ class GroundState extends BaseState:
 	
 	func _enter(_msg: Dictionary = {}) -> void:
 		agent.can_double_jump = true
-		agent.play_animation("Idle")
+		# 根据移动状态选择动画
+		_update_ground_animation()
 		_coyote_timer = 0.0
 	
 	func _physics_update(delta: float) -> void:
@@ -37,50 +38,66 @@ class GroundState extends BaseState:
 		else:
 			_coyote_timer = 0.0
 			
-		if agent.is_jumping():
+		if agent.wants_to_jump():
 			switch_to(&"air", {"jump": true})
 		else:
-			# 更新动画
-			var anim = "Idle" if not agent.is_moving() else "Move"
-			if agent.current_animation != anim:
-				agent.play_animation(anim)
+			_update_ground_animation()
+	
+	## 更新地面动画
+	func _update_ground_animation() -> void:
+		var target_anim = "Idle" if not agent.is_moving() else "Move"
+		if agent.current_animation != target_anim:
+			agent.play_animation(target_anim)
 
 # 空中状态（包含跳跃、二段跳和下落）
 class AirState extends BaseState:
 	var _jump_buffer_timer: float = 0.0
+	var _was_double_jumping := false
 	
 	func _enter(msg: Dictionary = {}) -> void:
+		_was_double_jumping = false
 		if msg.get("jump", false):
 			agent.velocity.y = agent.JUMP_VELOCITY
-			agent.play_animation("Move") # 使用混合空间
+			CoreSystem.event_bus.push_event("jumped", agent)
+			agent.play_animation("Move")
 		else:
-			agent.play_animation("Move") # 使用混合空间
+			# 如果不是从跳跃进入，保持当前动画状态
+			if agent.current_animation == "Idle" or agent.current_animation == "":
+				agent.play_animation("Move")
 		_jump_buffer_timer = 0.0
 	
 	func _physics_update(delta: float) -> void:
 		# 处理跳跃缓冲
-		if agent.is_jumping():
-			_jump_buffer_timer = agent.jump_buffer_time
+		if agent.wants_to_jump():
+			if agent.can_double_jump and not _was_double_jumping:
+				_was_double_jumping = true
+				agent.can_double_jump = false
+				agent.velocity.y = agent.JUMP_VELOCITY * 0.8
+				agent.play_animation("DoubleJump")
+				CoreSystem.event_bus.push_event("jumped", agent)
+			else:
+				_jump_buffer_timer = agent.jump_buffer_time
 		elif _jump_buffer_timer > 0:
 			_jump_buffer_timer -= delta
+		
+		# 处理跳跃释放
+		if agent.wants_to_jump_release() and agent.velocity.y < 0:
+			agent.velocity.y *= agent.jump_cut_height
 			
 		# 处理状态转换
 		if agent.is_on_floor():
 			if _jump_buffer_timer > 0:
 				agent.velocity.y = agent.JUMP_VELOCITY
 				_jump_buffer_timer = 0
-			switch_to(&"ground")
+				CoreSystem.event_bus.push_event("jumped", agent)
+				agent.play_animation("Move")
+			else:
+				switch_to(&"ground")
 		elif agent.is_on_wall() and agent.velocity.y > 0:
 			switch_to(&"wall")
-		elif agent.is_jumping() and agent.can_double_jump:
-			agent.can_double_jump = false
-			agent.velocity.y = agent.JUMP_VELOCITY * 0.8
-			agent.play_animation("DoubleJump")
-		else:
-			# 更新动画
-			var anim = "Move" if agent.velocity.y < 0 else "Move"
-			if agent.current_animation != anim:
-				agent.play_animation(anim)
+		elif not _was_double_jumping:
+			# 只在非二段跳状态更新动画
+			agent.play_animation("Move")
 
 # 墙壁状态（包含墙壁滑行和墙跳）
 class WallState extends BaseState:
@@ -97,9 +114,10 @@ class WallState extends BaseState:
 			switch_to(&"ground")
 		elif not agent.is_on_wall():
 			switch_to(&"air")
-		elif agent.is_jumping():
+		elif agent.wants_to_jump():
 			agent.velocity.y = agent.JUMP_VELOCITY
 			agent.velocity.x = -signf(agent.get_node("Sprite2D").flip_h) * agent.SPEED
+			CoreSystem.event_bus.push_event("jumped", agent)
 			switch_to(&"air", {"jump": true})
 
 # 死亡状态

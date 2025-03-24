@@ -26,6 +26,8 @@ func _setup_player() -> void:
 	if not character_scene:
 		return
 	_character = character_scene.instantiate()
+	var player_controller : PlayerController = PlayerController.new()
+	_character.add_child(player_controller)
 	add_child(_character)
 	_character.global_position = start_point.global_position
 	
@@ -49,7 +51,7 @@ func complete_level() -> void:
 	CoreSystem.event_bus.push_event("level_completed", _level_index)
 	
 ## 死亡动画完成后处理
-func _on_death_animation_finished(character: Character) -> void:
+func _on_death_animation_finished(_character: Character) -> void:
 	_setup_player()
 
 ## 关卡结束
