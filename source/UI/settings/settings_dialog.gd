@@ -12,8 +12,8 @@ extends Window
 @onready var reset_button: Button = %ResetButton
 
 # 系统引用
-var config_manager: Node
-var input_manager: Node
+@onready var config_manager: CoreSystem.ConfigManager = CoreSystem.config_manager
+@onready var input_manager: CoreSystem.InputManager = CoreSystem.input_manager
 
 # 预制场景
 const InputMappingItem = preload(ResourcePaths.UI.INPUT_MAPPING_ITEM)
@@ -43,12 +43,9 @@ var _current_remapping_action: String = ""
 var _waiting_for_input: bool = false
 
 func _ready() -> void:
-	config_manager = CoreSystem.config_manager
-	input_manager = CoreSystem.input_manager
-	
 	# 连接信号
 	config_manager.config_loaded.connect(_on_config_loaded)
-	input_manager.input_remapped.connect(_on_input_remapped)
+	input_manager.remap_completed.connect(_on_input_remapped)
 	save_button.pressed.connect(_on_save_button_pressed)
 	reset_button.pressed.connect(_on_reset_button_pressed)
 	
@@ -62,13 +59,13 @@ func _ready() -> void:
 	reset_button.text = tr("SETTINGS_RESET")
 	
 	# 初始化设置UI
-	_init_system_settings()
-	_init_input_settings()
-	_init_audio_settings()
-	_init_graphics_settings()
+	#_init_system_settings()
+	#_init_input_settings()
+	#_init_audio_settings()
+	#_init_graphics_settings()
 	
 	# 加载当前配置
-	_load_current_settings()
+	#_load_current_settings()
 
 func _init_system_settings() -> void:
 	# 清除现有的系统设置
@@ -89,7 +86,7 @@ func _init_input_settings() -> void:
 	
 	# 创建输入映射UI
 	for action in InputMap.get_actions():
-		if action.begins_with("ui_"):  # 只显示UI相关的输入
+		if not action.begins_with("ui_"):  # 只显示游戏相关的输入
 			var item = InputMappingItem.instantiate()
 			input_settings.add_child(item)
 			
@@ -100,39 +97,25 @@ func _init_input_settings() -> void:
 			item.set_button_text(_get_action_key_string(action))
 			
 			# 连接信号
-			item.remap_requested.connect(_on_remap_button_pressed.bind(action))
+			item.remap_button_pressed.connect(_on_remap_button_pressed.bind(action))
 			
 			# 缓存UI引用
 			_input_mapping_ui[action] = item
 
 func _init_audio_settings() -> void:
-	# 清除现有的音量控件
+	# 清除现有的音量滑块
 	for child in audio_settings.get_children():
 		if child.name != "Description" and child.name != "HSeparator":
 			child.queue_free()
 	
-	# 添加音量滑块
-	for key in VOLUME_SETTINGS:
+	# 创建音量滑块
+	for setting in VOLUME_SETTINGS:
 		var item = VolumeSliderItem.instantiate()
 		audio_settings.add_child(item)
 		
-		# 设置标签文本
-		item.set_label_text(tr(key))
-		
-		# 设置滑块值和回调
-		var config_key = VOLUME_SETTINGS[key]
-		var section = config_key.split("/")[0]
-		var key_name = config_key.split("/")[1]
-		var config = config_manager.get_section(section)
-		item.set_value(config.get(key_name, 100) if config else 100)
-		
-		# 当滑块值改变时更新配置
-		item.value_changed.connect(
-			func(value): 
-				var cfg = config_manager.get_section(section) if config_manager.has_section(section) else {}
-				cfg[key_name] = value
-				config_manager.set_section(section, cfg)
-		)
+		# 设置标签和配置键
+		item.set_label(tr(setting))
+		item.value_changed.connect(_on_volume_changed.bind(VOLUME_SETTINGS[setting]))
 
 func _init_graphics_settings() -> void:
 	# 清除现有的图形选项
@@ -140,96 +123,125 @@ func _init_graphics_settings() -> void:
 		if child.name != "Description" and child.name != "HSeparator":
 			child.queue_free()
 	
-	# 添加图形设置选项
-	for key in GRAPHICS_SETTINGS:
+	# 创建图形选项
+	for setting in GRAPHICS_SETTINGS:
 		var item = GraphicsOptionItem.instantiate()
 		graphics_settings.add_child(item)
 		
-		# 设置标签文本
-		item.set_label_text(tr(key))
-		
-		# 设置复选框状态和回调
-		var setting = GRAPHICS_SETTINGS[key]
-		var config_key = setting["key"]
-		var default_value = setting["default"]
-		var section = config_key.split("/")[0]
-		var key_name = config_key.split("/")[1]
-		var config = config_manager.get_section(section)
-		item.set_pressed(config.get(key_name, default_value) if config else default_value)
-		
-		# 当复选框状态改变时更新配置
-		item.toggled.connect(
-			func(pressed): 
-				var cfg = config_manager.get_section(section) if config_manager.has_section(section) else {}
-				cfg[key_name] = pressed
-				config_manager.set_section(section, cfg)
-		)
+		# 设置标签和配置键
+		item.set_label(tr(setting))
+		item.toggled.connect(_on_graphics_option_toggled.bind(GRAPHICS_SETTINGS[setting].key))
+
+func _input(event: InputEvent) -> void:
+	if _waiting_for_input and event.is_pressed():
+		if event is InputEventKey or event is InputEventMouseButton or event is InputEventJoypadButton:
+			_waiting_for_input = false
+			
+			# 更新输入映射
+			if _current_remapping_action:
+				var events = [event]
+				InputMap.action_erase_events(_current_remapping_action)
+				InputMap.action_add_event(_current_remapping_action, event)
+				
+				# 更新UI
+				if _input_mapping_ui.has(_current_remapping_action):
+					_input_mapping_ui[_current_remapping_action].set_button_text(_get_action_key_string(_current_remapping_action))
+					_input_mapping_ui[_current_remapping_action].set_remapping(false)
+				
+				# 保存配置
+				_save_input_settings()
+				
+				_current_remapping_action = ""
 
 func _get_display_name(action: String) -> String:
 	# 将动作名称转换为显示名称
-	return action.substr(3).capitalize().replace("_", " ")
+	return tr("INPUT_" + action.to_upper())
 
 func _get_action_key_string(action: String) -> String:
+	# 获取动作的按键字符串
 	var events = InputMap.action_get_events(action)
 	if events.is_empty():
-		return tr("SETTINGS_NOT_SET")
+		return tr("KEY_NONE")
 	
 	var event = events[0]
 	if event is InputEventKey:
 		return event.as_text()
+	elif event is InputEventMouseButton:
+		return tr("KEY_MOUSE_BUTTON").format({"button": event.button_index})
 	elif event is InputEventJoypadButton:
-		return tr("SETTINGS_GAMEPAD") + str(event.button_index)
+		return tr("KEY_JOY_BUTTON").format({"button": event.button_index})
 	
-	return tr("SETTINGS_NOT_SET")
+	return tr("KEY_UNKNOWN")
+
+func _load_current_settings() -> void:
+	# 加载音频设置
+	for setting in VOLUME_SETTINGS:
+		var bus_idx = AudioServer.get_bus_index(VOLUME_SETTINGS[setting].split("/")[1])
+		if bus_idx >= 0:
+			var volume_db = AudioServer.get_bus_volume_db(bus_idx)
+			for child in audio_settings.get_children():
+				if child and child.get_label() == tr(setting):
+					child.set_value(db_to_linear(volume_db))
+	
+	# 加载图形设置
+	for setting in GRAPHICS_SETTINGS:
+		var value = config_manager.get_value("graphics", setting, GRAPHICS_SETTINGS[setting].default)
+		for child in graphics_settings.get_children():
+			if child and child.get_label() == tr(setting):
+				child.set_checked(value)
+
+func _save_input_settings() -> void:
+	var input_config = {}
+	for action in InputMap.get_actions():
+		if not action.begins_with("ui_"):
+			var events = InputMap.action_get_events(action)
+			if not events.is_empty():
+				input_config[action] = events[0]
+	
+	config_manager.set_section("input", input_config)
+	config_manager.save_config()
+
+func _on_config_loaded() -> void:
+	_load_current_settings()
+
+func _on_input_remapped(action: String, event: InputEvent) -> void:
+	if _input_mapping_ui.has(action):
+		_input_mapping_ui[action].set_button_text(_get_action_key_string(action))
 
 func _on_remap_button_pressed(action: String) -> void:
 	if _waiting_for_input:
 		return
 	
-	_current_remapping_action = action
 	_waiting_for_input = true
-	_input_mapping_ui[action].set_button_text(tr("SETTINGS_PRESS_KEY"))
+	_current_remapping_action = action
+	
+	if _input_mapping_ui.has(action):
+		_input_mapping_ui[action].set_remapping(true)
 
-func _on_input_remapped(action_name: String, events: Array[InputEvent]) -> void:
-	if _input_mapping_ui.has(action_name):
-		_input_mapping_ui[action_name].set_button_text(_get_action_key_string(action_name))
+func _on_volume_changed(value: float, bus_name: String) -> void:
+	var bus_idx = AudioServer.get_bus_index(bus_name.split("/")[1])
+	if bus_idx >= 0:
+		AudioServer.set_bus_volume_db(bus_idx, linear_to_db(value))
 
-func _on_language_changed(locale: String) -> void:
-	# 刷新所有文本
-	_ready()
+func _on_graphics_option_toggled(value: bool, setting_key: String) -> void:
+	config_manager.set_value("graphics", setting_key, value)
+	match setting_key:
+		"fullscreen":
+			if value:
+				DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
+			else:
+				DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
+		"graphics/vsync":
+			DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_ENABLED if value else DisplayServer.VSYNC_DISABLED)
 
 func _on_save_button_pressed() -> void:
 	config_manager.save_config()
 	hide()
 
 func _on_reset_button_pressed() -> void:
-	config_manager.reset_to_default()
+	config_manager.reset_config()
 	_load_current_settings()
 
-func _load_current_settings() -> void:
-	# 重新初始化所有设置
-	_init_system_settings()
-	_init_input_settings()
-	_init_audio_settings()
-	_init_graphics_settings()
-
-func _on_config_loaded() -> void:
-	_load_current_settings()
-
-func _unhandled_input(event: InputEvent) -> void:
-	if not _waiting_for_input:
-		return
-	
-	if event is InputEventKey or event is InputEventJoypadButton:
-		# 阻止事件继续传播
-		get_viewport().set_input_as_handled()
-		
-		if event is InputEventKey and event.keycode == KEY_ESCAPE:
-			# 取消重映射
-			_waiting_for_input = false
-			_input_mapping_ui[_current_remapping_action].set_button_text(_get_action_key_string(_current_remapping_action))
-			return
-		
-		# 重映射输入
-		input_manager.remap_action(_current_remapping_action, [event])
-		_waiting_for_input = false
+func _on_language_changed(locale: String) -> void:
+	TranslationServer.set_locale(locale)
+	config_manager.set_value("system", "locale", locale)
