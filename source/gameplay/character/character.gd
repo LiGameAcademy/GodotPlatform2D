@@ -10,6 +10,7 @@ class_name Character
 @export var SPEED = 300.0
 @export var JUMP_VELOCITY = -400.0
 @export var wall_slide_speed = 50 # 定义墙滑行时的最大下落速度
+@export_range(0.0, 1.0) var friction = 0.2 # 摩擦力系数，影响停止时的减速效果
 
 # 动画参数
 @export_group("Animation")
@@ -101,6 +102,10 @@ func _physics_process(delta: float) -> void:
 	# 更新朝向
 	if signf(velocity.x) != 0:
 		_sprite.flip_h = velocity.x < 0
+	
+	# 应用摩擦力
+	if is_on_floor() and abs(velocity.x) > 0.1:
+		velocity.x *= (1 - friction)
 	
 	move_and_slide()
 	_update_animation_parameters()

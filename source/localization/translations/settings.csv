@@ -1,0 +1,22 @@
+keys,zh,en
+SETTINGS_TITLE,设置,Settings
+SETTINGS_INPUT_DESC,点击按钮重新映射按键,Click button to remap key
+SETTINGS_AUDIO_DESC,调整音量大小,Adjust volume
+SETTINGS_GRAPHICS_DESC,调整图形设置,Adjust graphics settings
+SETTINGS_SYSTEM_DESC,调整系统设置,Adjust system settings
+SETTINGS_MASTER_VOLUME,主音量,Master Volume
+SETTINGS_MUSIC_VOLUME,音乐音量,Music Volume
+SETTINGS_SFX_VOLUME,音效音量,SFX Volume
+SETTINGS_FULLSCREEN,全屏,Fullscreen
+SETTINGS_VSYNC,垂直同步,VSync
+SETTINGS_SHOW_FPS,显示FPS,Show FPS
+SETTINGS_PRESS_KEY,请按键...,Press Any Key...
+SETTINGS_NOT_SET,未设置,Not Set
+SETTINGS_GAMEPAD,手柄,Gamepad
+SETTINGS_SAVE,保存,Save
+SETTINGS_RESET,重置,Reset
+SETTINGS_INPUT,输入,Input
+SETTINGS_AUDIO,音频,Audio
+SETTINGS_GRAPHICS,图形,Graphics
+SETTINGS_LANGUAGE,语言,Language
+SETTINGS_SYSTEM,系统,System

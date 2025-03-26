@@ -1,0 +1,17 @@
+keys,zh,en
+COMMON_OK,确定,OK
+COMMON_CANCEL,取消,Cancel
+COMMON_YES,是,Yes
+COMMON_NO,否,No
+COMMON_BACK,返回,Back
+COMMON_NEXT,下一步,Next
+COMMON_PREVIOUS,上一步,Previous
+COMMON_FINISH,完成,Finish
+COMMON_LOADING,加载中...,Loading...
+COMMON_ERROR,错误,Error
+COMMON_WARNING,警告,Warning
+COMMON_INFO,提示,Info
+COMMON_SUCCESS,成功,Success
+COMMON_FAILED,失败,Failed
+COMMON_RETRY,重试,Retry
+COMMON_CLOSE,关闭,Close

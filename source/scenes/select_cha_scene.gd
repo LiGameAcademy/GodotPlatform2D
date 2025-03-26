@@ -19,9 +19,8 @@ func _ready() -> void:
 func _update_character_preview() -> void:
 	var character_scene = ResourcePaths.Characters.get_by_index(current_character_index)
 	if character_scene:
-		var character = character_scene.instantiate()
+		var character = GameInstance.create_character_preview(character_scene)
 		character.name = "Character"
-		character.is_preview_mode = true
 		_character = character
 
 func _on_btn_next_pressed() -> void:

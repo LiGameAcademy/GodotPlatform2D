@@ -52,6 +52,19 @@ class Scenes:
 	## 关卡选择场景
 	const LEVEL_SELECT := "res://source/scenes/select_level_scene.tscn"
 
+## UI路径
+class UI:
+	## 设置弹窗
+	const SETTINGS_DIALOG := "res://source/ui/settings/settings_dialog.tscn"
+	## 输入映射项
+	const INPUT_MAPPING_ITEM := "res://source/ui/settings/input_mapping_item.tscn"
+	## 音量滑块项
+	const VOLUME_SLIDER_ITEM := "res://source/ui/settings/volume_slider_item.tscn"
+	## 图形选项项
+	const GRAPHICS_OPTION_ITEM := "res://source/ui/settings/graphics_option_item.tscn"
+	## 语言选项预制场景
+	const LANGUAGE_OPTION := "res://source/ui/settings/language_option.tscn"
+
 ## 角色路径
 class Characters:
 	## 面具小子
