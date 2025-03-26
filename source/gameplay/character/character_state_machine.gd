@@ -113,7 +113,8 @@ class DeadState extends BaseState:
 	func _enter(_msg: Dictionary = {}) -> void:
 		agent.play_animation("Desappearing")
 		await agent.get_tree().create_timer(0.7).timeout
-		# 从父节点移除
-		agent.get_parent().remove_child(agent)
+		if agent and agent.get_parent():
+			# 从父节点移除
+			agent.get_parent().remove_child(agent)
 		# 发送动画完成事件
 		CoreSystem.event_bus.push_event("character_death_animation_finished", agent)
