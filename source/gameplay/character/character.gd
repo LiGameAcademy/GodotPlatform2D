@@ -10,6 +10,7 @@ class_name Character
 @export var SPEED = 300.0
 @export var JUMP_VELOCITY = -400.0
 @export var wall_slide_speed = 50 # 定义墙滑行时的最大下落速度
+@export_range(0.0, 1.0) var friction = 0.2 # 摩擦力系数，影响停止时的减速效果
 
 # 动画参数
 @export_group("Animation")
@@ -45,32 +46,45 @@ var normal_mask = (1 << 1) | (1 << 2)
 # 按下"下"键时，玩家应与层2碰撞，忽略层3（二进制100，十进制4）
 var pass_through_mask = 1 << 1
 
+# 角色状态
+var _wants_to_jump := false
+var _wants_to_jump_release := false
+
 # 道具收集状态
 var _collected_items = 0       # 收集的道具总数
 var _current_combo = 0        # 当前连击数
 var _combo_timer: float = 0.0 # 连击计时器
 var _total_score = 0          # 总分数
 
-# 跳跃优化状态
-var _coyote_timer: float = 0.0     	# 土狼时间计时器
-var _jump_buffer_timer: float = 0.0 # 跳跃缓冲计时器
-var _was_on_floor: bool = false     # 上一帧是否在地面
-var _is_jumping: bool = false       # 是否正在跳跃
-
 # 预览模式标志
 var is_preview_mode := false
-
-signal died
-signal item_collected(item_type: String, combo: int, score: int)
-signal combo_ended(final_combo: int)
-signal jumped                # 跳跃信号
-signal landed               # 着陆信号
-
 
 func _ready() -> void:
 	_animation_tree.active = true
 	var state_machine = CharacterStateMachine.new()
 	CoreSystem.state_machine_manager.register_state_machine(&"character_%d" % get_instance_id(), state_machine, self, &"ground")
+	
+	# 查找并连接控制器信号
+	for child in get_children():
+		if child is CharacterController:
+			_connect_controller(child)
+
+func _connect_controller(controller: CharacterController) -> void:
+	# 连接控制器信号
+	controller.jump_requested.connect(func(): _wants_to_jump = true)
+	controller.jump_released.connect(func(): _wants_to_jump_release = true)
+
+## 是否想要跳跃
+func wants_to_jump() -> bool:
+	var wants = _wants_to_jump
+	_wants_to_jump = false  # 消费跳跃请求
+	return wants
+
+## 是否想要释放跳跃
+func wants_to_jump_release() -> bool:
+	var wants = _wants_to_jump_release
+	_wants_to_jump_release = false  # 消费释放请求
+	return wants
 
 func _exit_tree() -> void:
 	_animation_tree.active = false
@@ -81,141 +95,21 @@ func _physics_process(delta: float) -> void:
 	if is_preview_mode:
 		return
 		
-	_update_timers(delta)
-	_handle_movement(delta)
-	_handle_jump()
-	move_and_slide()
-	_update_animation_parameters()
-	_update_combo_timer(delta)
-	_update_floor_state()
-
-
-## 更新计时器
-func _update_timers(delta: float) -> void:
-	# 更新土狼时间
-	if _coyote_timer > 0:
-		_coyote_timer -= delta
-	
-	# 更新跳跃缓冲
-	if _jump_buffer_timer > 0:
-		_jump_buffer_timer -= delta
-
-
-## 处理移动
-func _handle_movement(delta: float) -> void:
-	# 处理水平移动
-	var direction = Input.get_axis("ui_left", "ui_right")
-	if direction:
-		velocity.x = direction * SPEED
-	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
-	
-	# 更新精灵朝向
-	if signf(velocity.x) != 0:
-		_sprite.flip_h = velocity.x < 0
-	
 	# 应用重力
 	if not is_on_floor():
 		velocity.y += gravity * delta
 	
-	# 处理下落穿透
-	if Input.is_action_just_pressed("ui_down"):
-		collision_mask = pass_through_mask
-		await get_tree().create_timer(0.1).timeout
-		collision_mask = normal_mask
-
-
-## 处理跳跃
-func _handle_jump() -> void:
-	# 检测跳跃输入
-	if Input.is_action_just_pressed("ui_up"):
-		_jump_buffer_timer = jump_buffer_time
+	# 更新朝向
+	if signf(velocity.x) != 0:
+		_sprite.flip_h = velocity.x < 0
 	
-	# 处理跳跃释放（控制跳跃高度）
-	if Input.is_action_just_released("ui_up") and velocity.y < 0:
-		velocity.y *= jump_cut_height
+	# 应用摩擦力
+	if is_on_floor() and abs(velocity.x) > 0.1:
+		velocity.x *= (1 - friction)
 	
-	# 尝试执行跳跃
-	if _can_jump():
-		_perform_jump()
-	# 尝试执行二段跳
-	elif _can_double_jump():
-		_perform_double_jump()
-
-
-## 检查是否可以跳跃
-func _can_jump() -> bool:
-	return (_jump_buffer_timer > 0 and 
-			(is_on_floor() or _coyote_timer > 0))
-
-
-## 检查是否可以二段跳
-func _can_double_jump() -> bool:
-	return (_jump_buffer_timer > 0 and 
-			can_double_jump and 
-			not is_on_floor() and 
-			_coyote_timer <= 0)
-
-
-## 执行跳跃
-func _perform_jump() -> void:
-	velocity.y = JUMP_VELOCITY
-	_jump_buffer_timer = 0
-	_coyote_timer = 0
-	_is_jumping = true
-	emit_signal("jumped")
-
-
-## 执行二段跳
-func _perform_double_jump() -> void:
-	velocity.y = JUMP_VELOCITY * 0.8  # 二段跳稍微弱一些
-	can_double_jump = false
-	_jump_buffer_timer = 0
-	emit_signal("jumped")
-
-
-## 更新地面状态
-func _update_floor_state() -> void:
-	# 检测是否刚离开地面
-	if _was_on_floor and not is_on_floor():
-		_coyote_timer = coyote_time
-	# 检测是否刚着陆
-	elif not _was_on_floor and is_on_floor():
-		_is_jumping = false
-		can_double_jump = true
-		emit_signal("landed")
-	
-	_was_on_floor = is_on_floor()
-
-
-## 更新动画参数
-func _update_animation_parameters() -> void:
-	# 更新动画速度
-	var speed_scale = base_animation_speed
-	if is_moving():
-		# 根据移动速度调整动画速度
-		var speed_factor = abs(velocity.x) / SPEED * speed_scale_factor
-		speed_scale = base_animation_speed + speed_factor * (max_animation_speed - base_animation_speed)
-	elif is_on_wall() and velocity.y > 0:
-		# 墙壁滑行时减慢动画
-		speed_scale = wall_slide_anim_scale
-	_animation_tree["parameters/TimeScale/scale"] = speed_scale
-	
-	# 更新Move状态的混合位置
-	if not is_on_floor():
-		# 在空中时，根据垂直速度更新混合位置
-		var blend_pos = clampf(velocity.y / (JUMP_VELOCITY * air_blend_threshold), -1.0, 1.0)
-		_animation_tree["parameters/StateMachine/Move/blend_position"] = blend_pos
-
-
-## 更新连击计时器
-func _update_combo_timer(delta: float) -> void:
-	if _current_combo > 0:
-		_combo_timer -= delta
-		if _combo_timer <= 0:
-			combo_ended.emit(_current_combo)
-			_current_combo = 0
-
+	move_and_slide()
+	_update_animation_parameters()
+	_update_combo_timer(delta)
 
 ## 播放动画
 func play_animation(anim_name: String) -> void:
@@ -223,16 +117,9 @@ func play_animation(anim_name: String) -> void:
 		current_animation = anim_name
 		_animation_state_machine.travel(anim_name)
 
-
 ## 是否正在移动
 func is_moving() -> bool:
 	return abs(velocity.x) > 0.1
-
-
-## 是否正在跳跃
-func is_jumping() -> bool:
-	return Input.is_action_just_pressed("ui_up")
-
 
 ## 收集道具
 func collect_item(item_type: String = "") -> void:
@@ -248,8 +135,7 @@ func collect_item(item_type: String = "") -> void:
 	_total_score += score
 	
 	# 发出信号
-	item_collected.emit(item_type, _current_combo, score)
-
+	CoreSystem.event_bus.push_event("item_collected", {"item_type": item_type, "combo": _current_combo, "score": score})
 
 ## 获取收集数据
 func get_collection_data() -> Dictionary:
@@ -259,12 +145,48 @@ func get_collection_data() -> Dictionary:
 		"total_score": _total_score
 	}
 
-
 ## 死亡
 func die() -> void:
-	# CoreSystem.state_machine_manager.get_state_machine(&"character_%d" % get_instance_id()).switch(&"dead")
+	# 发送死亡事件
 	CoreSystem.event_bus.push_event("character_died", self)
+	# 禁用物理和输入处理
 	set_physics_process(false)
-	await get_tree().create_timer(0.5).timeout
-	died.emit()
-	queue_free()
+	set_process_input(false)
+
+## 重生
+## [param respawn_position] 重生位置
+func respawn(respawn_position: Vector2) -> void:
+	global_position = respawn_position
+	velocity = Vector2.ZERO
+	visible = true
+	set_physics_process(true)
+	set_process_input(true)
+
+## 更新动画参数
+func _update_animation_parameters() -> void:
+	# 更新动画速度
+	var speed_scale = base_animation_speed
+	if is_moving():
+		# 根据移动速度调整动画速度
+		var speed_factor = abs(velocity.x) / SPEED * speed_scale_factor
+		speed_scale = base_animation_speed + speed_factor * (max_animation_speed - base_animation_speed)
+	elif is_on_wall() and velocity.y > 0:
+		# 墙壁滑行时减慢动画
+		speed_scale = wall_slide_anim_scale
+	_animation_tree["parameters/TimeScale/scale"] = speed_scale
+	
+	# 更新Move状态的混合位置
+	if current_animation == "Move":
+		var blend_pos = 0.0  # 默认为移动动画
+		if not is_on_floor():
+			# 在空中时，根据垂直速度更新混合位置
+			blend_pos = clampf(velocity.y / (JUMP_VELOCITY * air_blend_threshold), -1.0, 1.0)
+		_animation_tree["parameters/StateMachine/Move/blend_position"] = blend_pos
+
+## 更新连击计时器
+func _update_combo_timer(delta: float) -> void:
+	if _current_combo > 0:
+		_combo_timer -= delta
+		if _combo_timer <= 0:
+			CoreSystem.event_bus.push_event("combo_ended", {"final_combo": _current_combo})
+			_current_combo = 0

@@ -2,15 +2,7 @@
 extends MarginContainer
 class_name LevelWidget
 
-const level_count_texture : Array[Texture] = [
-	preload("res://assets/textures/ui/texture_icon_01.png"), 
-	preload("res://assets/textures/ui/texture_icon_02.png"), 
-	preload("res://assets/textures/ui/texture_icon_03.png"), 
-	preload("res://assets/textures/ui/texture_icon_04.png"), 
-	preload("res://assets/textures/ui/texture_icon_05.png"), 
-	preload("res://assets/textures/ui/texture_icon_06.png"), 
-	preload("res://assets/textures/ui/texture_icon_49.png"), 
-	preload("res://assets/textures/ui/texture_icon_50.png")]
+const level_count_texture : Array[Texture] = ResourcePaths.UITextures.LEVEL_TEXTURES
 
 @onready var texture_rect: TextureRect = $MarginContainer/TextureRect
 @onready var label_status: Label = %LabelStatus

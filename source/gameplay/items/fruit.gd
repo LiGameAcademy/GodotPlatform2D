@@ -3,14 +3,14 @@ class_name Fruit
 
 # 水果类型和对应的纹理
 const FRUIT_TYPES = {
-	"apple": preload("res://assets/textures/items/texture_items_fruits_apple.png"),
-	"bananas": preload("res://assets/textures/items/texture_items_fruits_bananas.png"),
-	"cherries": preload("res://assets/textures/items/texture_items_fruits_cherries.png"),
-	"kiwi": preload("res://assets/textures/items/texture_items_fruits_kiwi.png"),
-	"melon": preload("res://assets/textures/items/texture_items_fruits_melon.png"),
-	"orange": preload("res://assets/textures/items/texture_items_fruits_orange.png"),
-	"pineapple": preload("res://assets/textures/items/texture_items_fruits_pineapple.png"),
-	"strawberry": preload("res://assets/textures/items/texture_items_fruits_strawberry.png")
+	"apple": ResourcePaths.ItemTextures.FRUITS["apple"],
+	"bananas": ResourcePaths.ItemTextures.FRUITS["bananas"],
+	"cherries": ResourcePaths.ItemTextures.FRUITS["cherries"],
+	"kiwi": ResourcePaths.ItemTextures.FRUITS["kiwi"],
+	"melon": ResourcePaths.ItemTextures.FRUITS["melon"],
+	"orange": ResourcePaths.ItemTextures.FRUITS["orange"],
+	"pineapple": ResourcePaths.ItemTextures.FRUITS["pineapple"],
+	"strawberry": ResourcePaths.ItemTextures.FRUITS["strawberry"]
 }
 
 # 水果参数

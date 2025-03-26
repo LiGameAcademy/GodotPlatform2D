@@ -6,12 +6,7 @@ signal level_changed(old_level: int, new_level: int)
 signal level_started(level_index: int)
 
 # 关卡配置
-const LEVELS : Array[String] = [
-	"res://source/gameplay/levels/level_01.tscn",
-	"res://source/gameplay/levels/level_02.tscn",
-	"res://source/gameplay/levels/level_03.tscn",
-	"res://source/gameplay/levels/level_04.tscn"
-]
+const LEVELS : Array[String] = ResourcePaths.ScenePaths.LEVELS
 
 ## 关卡数据
 var current_level_index: int = 0:
@@ -39,6 +34,7 @@ func _ready() -> void:
 	unlocked_levels.resize(LEVELS.size())
 	unlocked_levels.fill(false)
 	unlocked_levels[0] = true  # 第一关默认解锁
+	unlocked_levels[1] = true  # 第一关默认解锁
 
 ## 创建关卡（用于预览）
 func create_level_preview(level_index: int) -> Level:
@@ -102,7 +98,6 @@ func _load_level(level_path: String) -> void:
 		level_path, 
 		{
 			"level_index": current_level_index,
-			"character": GameInstance.selected_character,
 			"score": GameInstance.score
 		}, 
 		false, 

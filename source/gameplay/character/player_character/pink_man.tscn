@@ -12,6 +12,6 @@ texture = ExtResource("2_6kcna")
 
 [node name="AnimationPlayer" parent="." index="2"]
 libraries = {
-"": ExtResource("3_7q6cx"),
-"animation_common": ExtResource("4_y7r83")
+&"": ExtResource("3_7q6cx"),
+&"animation_common": ExtResource("4_y7r83")
 }
