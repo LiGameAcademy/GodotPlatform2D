@@ -15,7 +15,7 @@
 
 ## 📖 项目简介
 
-一个使用 Godot 4.4 开发的 2D 平台跳跃游戏教程项目。本项目旨在帮助开发者快速掌握 Godot 引擎的核心功能，同时提供一个完整的游戏开发实践案例。
+一个使用 Godot 4.4 开发的 2D 平台跳跃游戏教程项目。本项目旨在帮助开发者快速掌握 Godot 引擎的核心功能，提供一个完整的游戏开发实践案例，同时也是[godot_core_system插件](https://github.com/LiGameAcademy/godot_core_system)的示例项目。
 
 ### ✨ 在线试玩
 
