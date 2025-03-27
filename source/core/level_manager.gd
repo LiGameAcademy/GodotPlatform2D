@@ -15,6 +15,7 @@ var current_level_index: int = 0:
 		current_level_index = clampi(value, 0, LEVELS.size() - 1)
 		if old_index != current_level_index:
 			level_changed.emit(old_index, current_level_index)
+var _current_level : Level
 
 ## 关卡状态记录
 var completed_levels: Array[bool] = []
@@ -91,6 +92,9 @@ func load_level_data(data: Dictionary) -> void:
 	if "current_level_index" in data:
 		current_level_index = data.current_level_index
 
+func get_current_level() -> Level:
+	return _current_level
+
 ## 内部加载关卡方法
 func _load_level(level_path: String) -> void:
 	# 使用场景管理器异步切换场景
@@ -98,12 +102,13 @@ func _load_level(level_path: String) -> void:
 		level_path, 
 		{
 			"level_index": current_level_index,
-			"score": GameInstance.score
+			# "score": GameInstance.score
 		}, 
 		false, 
 		CoreSystem.scene_manager.TransitionEffect.CUSTOM,  # 自定义过渡效果
 		0.5,  # 过渡时间
-		Callable(),  # 无需额外回调
+		func() -> void:
+			_current_level = CoreSystem.scene_manager.get_current_scene(),
 		"level_transition"  # 过渡效果实例
 	)
 	

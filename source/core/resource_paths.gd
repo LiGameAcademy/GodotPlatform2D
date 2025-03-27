@@ -51,6 +51,16 @@ class Scenes:
 	const CHARACTER_SELECT := "res://source/scenes/select_cha_scene.tscn"
 	## 关卡选择场景
 	const LEVEL_SELECT := "res://source/scenes/select_level_scene.tscn"
+	## 主菜单场景
+	const MAIN_MENU := "res://source/ui/main_menu.tscn"
+	## 游戏场景
+	const GAME := "res://source/ui/game.tscn"
+	## 角色选择场景
+	const CHARACTER_SELECT_UI := "res://source/ui/character_select.tscn"
+	## 关卡选择场景
+	const LEVEL_SELECT_UI := "res://source/ui/level_select.tscn"
+	## 分数漂字场景
+	const FLOATING_SCORE := "res://source/ui/floating_score.tscn"
 
 ## UI路径
 class UI:
@@ -64,6 +74,11 @@ class UI:
 	const GRAPHICS_OPTION_ITEM := "res://source/ui/settings/graphics_option_item.tscn"
 	## 语言选项预制场景
 	const LANGUAGE_OPTION := "res://source/ui/settings/language_option.tscn"
+
+## UI效果路径
+class Effects:
+	## 分数漂字效果
+	const FLOATING_SCORE := "res://source/ui/floating_score.tscn"
 
 ## 角色路径
 class Characters:

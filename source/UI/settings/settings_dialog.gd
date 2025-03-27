@@ -46,8 +46,6 @@ func _ready() -> void:
 	# 连接信号
 	config_manager.config_loaded.connect(_on_config_loaded)
 	input_manager.remap_completed.connect(_on_input_remapped)
-	save_button.pressed.connect(_on_save_button_pressed)
-	reset_button.pressed.connect(_on_reset_button_pressed)
 	
 	# 设置标签文本
 	title = tr("SETTINGS_TITLE")
@@ -139,7 +137,7 @@ func _input(event: InputEvent) -> void:
 			
 			# 更新输入映射
 			if _current_remapping_action:
-				var events = [event]
+				#var events = [event]
 				InputMap.action_erase_events(_current_remapping_action)
 				InputMap.action_add_event(_current_remapping_action, event)
 				
@@ -204,7 +202,7 @@ func _save_input_settings() -> void:
 func _on_config_loaded() -> void:
 	_load_current_settings()
 
-func _on_input_remapped(action: String, event: InputEvent) -> void:
+func _on_input_remapped(action: String, _event: InputEvent) -> void:
 	if _input_mapping_ui.has(action):
 		_input_mapping_ui[action].set_button_text(_get_action_key_string(action))
 
