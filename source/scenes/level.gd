@@ -1,33 +1,54 @@
 extends Node2D
 class_name Level
 
-@onready var start_point: StartPoint = %StartPoint
-@onready var end_point: EndPoint = %EndPoint
+@onready var start_point: StartPoint = $StartPoint
+@onready var end_point: EndPoint = $EndPoint
 
 var _level_index: int
 var _character : Character
 var _score: int
-
 	
 func _ready() -> void:
 	# 连接结束点信号
 	if end_point:
 		end_point.end.connect(_on_level_end)
+	CoreSystem.event_bus.subscribe(GameEvents.CollectionEvent.SCORE_CHANGED, _on_score_changed)
+
+func _exit_tree() -> void:
+	CoreSystem.event_bus.unsubscribe(GameEvents.CollectionEvent.SCORE_CHANGED, _on_score_changed)
 
 func init_state(data: Dictionary) -> void:
 	_level_index = data.level_index
-	_score = data.score
+	# _score = data.score
 	if not is_node_ready():
 		await ready
 	_setup_player()
 
+func get_score() -> int:
+	return _score
+
+## 完成关卡
+func complete_level() -> void:
+	# 保存分数
+	GameInstance.add_level_score(_score)
+	# 发送关卡完成事件
+	GameEvents.LevelEvent.push_level_completed(_level_index, _score)
+
+## 设置关卡索引
+func set_level_index(index: int) -> void:
+	_level_index = index
+
+## 重置关卡
+func reset() -> void:
+	_score = 0
+	GameEvents.UIEvent.push_level_score_changed(_score)
+
 func _setup_player() -> void:
-	var character_scene : PackedScene = ResourcePaths.Characters.get_by_index(GameInstance.selected_character_index)
-	if not character_scene:
+	_character = GameInstance.create_player_character()
+	if not _character:
+		CoreSystem.logger.error("Failed to create player character")
 		return
-	_character = character_scene.instantiate()
-	var player_controller : PlayerController = PlayerController.new()
-	_character.add_child(player_controller)
+		
 	add_child(_character)
 	_character.global_position = start_point.global_position
 	
@@ -38,20 +59,14 @@ func _setup_player() -> void:
 	# 启动起点动画
 	start_point.start()
 
-## 增加分数
-func add_score(value: int) -> void:
-	_score += value
-	GameInstance.add_score(value)
+## 处理分数改变事件
+func _on_score_changed(event_data: GameEvents.CollectionEvent.ScoreChangedData) -> void:
+	_score += event_data.score
+	# 通知UI更新关卡分数
+	GameEvents.UIEvent.push_level_score_changed(_score)
 
-## 完成关卡
-func complete_level() -> void:
-	# 保存分数
-	GameInstance.score = _score
-	# 发送关卡完成信号
-	CoreSystem.event_bus.push_event("level_completed", _level_index)
-	
 ## 死亡动画完成后处理
-func _on_death_animation_finished(_character: Character) -> void:
+func _on_death_animation_finished(_cha: Character) -> void:
 	_setup_player()
 
 ## 关卡结束

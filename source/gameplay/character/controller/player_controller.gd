@@ -16,7 +16,7 @@ const MOVEMENT_AXES_NAME : StringName = "player_move"
 ## 输入管理器引用
 @onready var input_manager: CoreSystem.InputManager = CoreSystem.input_manager
 ## 调试模式
-@export var debug_mode: bool = true
+@export var debug_mode: bool = false
 
 func _ready() -> void:
 	if not input_manager:

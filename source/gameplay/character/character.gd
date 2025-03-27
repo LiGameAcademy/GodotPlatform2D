@@ -3,36 +3,30 @@ class_name Character
 
 @onready var _sprite: Sprite2D = $Sprite2D
 @onready var _animation_tree: AnimationTree = $AnimationTree
-@onready var _animation_state_machine : AnimationNodeStateMachinePlayback = _animation_tree.get("parameters/StateMachine/playback")
+@onready var _animation_state_machine: AnimationNodeStateMachinePlayback = _animation_tree.get("parameters/StateMachine/playback")
 
 # 基础移动参数
 @export_group("Movement")
 @export var SPEED = 300.0
 @export var JUMP_VELOCITY = -400.0
-@export var wall_slide_speed = 50 # 定义墙滑行时的最大下落速度
-@export_range(0.0, 1.0) var friction = 0.2 # 摩擦力系数，影响停止时的减速效果
+@export var wall_slide_speed = 50
+@export_range(0.0, 1.0) var friction = 0.2
 
 # 动画参数
 @export_group("Animation")
-@export var base_animation_speed = 1.0  # 基础动画速度
-@export var max_animation_speed = 1.5   # 最大动画速度
-@export var wall_slide_anim_scale = 0.7 # 墙壁滑行动画速度
-@export_range(0.0, 1.0) var speed_scale_factor = 0.5 # 速度对动画的影响因子
+@export var base_animation_speed = 1.0
+@export var max_animation_speed = 1.5
+@export var wall_slide_anim_scale = 0.7
+@export_range(0.0, 1.0) var speed_scale_factor = 0.5
 
 # 混合空间参数
 @export_group("Blend Space")
-@export var air_blend_threshold = 1.0 # 空中混合阈值，用于调整跳跃/下落动画的过渡
-
-# 道具收集参数
-@export_group("Collection")
-@export var collection_score = 100  # 每个道具的基础分数
-@export var combo_time_window = 2.0 # 连击时间窗口（秒）
-@export var max_combo = 5          # 最大连击数
+@export var air_blend_threshold = 1.0
 
 # 跳跃优化参数
 @export_group("Jump Feel")
 @export var coyote_time = 0.1      # 土狼时间窗口
-@export var jump_buffer_time = 0.1 # 跳跃输入缓冲时间
+# @export var jump_buffer_time = 0.1 # 跳跃输入缓冲时间
 @export var jump_cut_height = 0.5  # 跳跃高度控制系数
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
@@ -50,12 +44,6 @@ var pass_through_mask = 1 << 1
 var _wants_to_jump := false
 var _wants_to_jump_release := false
 
-# 道具收集状态
-var _collected_items = 0       # 收集的道具总数
-var _current_combo = 0        # 当前连击数
-var _combo_timer: float = 0.0 # 连击计时器
-var _total_score = 0          # 总分数
-
 # 预览模式标志
 var is_preview_mode := false
 
@@ -69,23 +57,6 @@ func _ready() -> void:
 		if child is CharacterController:
 			_connect_controller(child)
 
-func _connect_controller(controller: CharacterController) -> void:
-	# 连接控制器信号
-	controller.jump_requested.connect(func(): _wants_to_jump = true)
-	controller.jump_released.connect(func(): _wants_to_jump_release = true)
-
-## 是否想要跳跃
-func wants_to_jump() -> bool:
-	var wants = _wants_to_jump
-	_wants_to_jump = false  # 消费跳跃请求
-	return wants
-
-## 是否想要释放跳跃
-func wants_to_jump_release() -> bool:
-	var wants = _wants_to_jump_release
-	_wants_to_jump_release = false  # 消费释放请求
-	return wants
-
 func _exit_tree() -> void:
 	_animation_tree.active = false
 	CoreSystem.state_machine_manager.unregister_state_machine(&"character_%d" % get_instance_id())
@@ -96,20 +67,34 @@ func _physics_process(delta: float) -> void:
 		return
 		
 	# 应用重力
-	if not is_on_floor():
-		velocity.y += gravity * delta
+	_apply_gravity(delta)
 	
 	# 更新朝向
+	_update_facing_direction()
+	
+	# 应用地面摩擦力
+	_apply_ground_friction()
+	
+	# 应用最终移动
+	move_and_slide()
+
+	# 更新动画参数
+	_update_animation_parameters()
+
+## 应用重力
+func _apply_gravity(delta: float) -> void:
+	if not is_on_floor():
+		velocity.y += gravity * delta
+
+## 更新朝向
+func _update_facing_direction() -> void:
 	if signf(velocity.x) != 0:
 		_sprite.flip_h = velocity.x < 0
-	
-	# 应用摩擦力
+
+## 应用地面摩擦力
+func _apply_ground_friction() -> void:
 	if is_on_floor() and abs(velocity.x) > 0.1:
 		velocity.x *= (1 - friction)
-	
-	move_and_slide()
-	_update_animation_parameters()
-	_update_combo_timer(delta)
 
 ## 播放动画
 func play_animation(anim_name: String) -> void:
@@ -120,30 +105,6 @@ func play_animation(anim_name: String) -> void:
 ## 是否正在移动
 func is_moving() -> bool:
 	return abs(velocity.x) > 0.1
-
-## 收集道具
-func collect_item(item_type: String = "") -> void:
-	_collected_items += 1
-	
-	# 更新连击
-	_current_combo = min(_current_combo + 1, max_combo)
-	_combo_timer = combo_time_window
-	
-	# 计算分数
-	var combo_multiplier = 1.0 + (_current_combo - 1) * 0.5  # 每次连击增加50%分数
-	var score = roundi(collection_score * combo_multiplier)
-	_total_score += score
-	
-	# 发出信号
-	CoreSystem.event_bus.push_event("item_collected", {"item_type": item_type, "combo": _current_combo, "score": score})
-
-## 获取收集数据
-func get_collection_data() -> Dictionary:
-	return {
-		"collected_items": _collected_items,
-		"current_combo": _current_combo,
-		"total_score": _total_score
-	}
 
 ## 死亡
 func die() -> void:
@@ -161,6 +122,18 @@ func respawn(respawn_position: Vector2) -> void:
 	visible = true
 	set_physics_process(true)
 	set_process_input(true)
+
+## 是否想要跳跃
+func wants_to_jump() -> bool:
+	var wants = _wants_to_jump
+	_wants_to_jump = false  # 消费跳跃请求
+	return wants
+
+## 是否想要释放跳跃
+func wants_to_jump_release() -> bool:
+	var wants = _wants_to_jump_release
+	_wants_to_jump_release = false  # 消费释放请求
+	return wants
 
 ## 更新动画参数
 func _update_animation_parameters() -> void:
@@ -183,10 +156,7 @@ func _update_animation_parameters() -> void:
 			blend_pos = clampf(velocity.y / (JUMP_VELOCITY * air_blend_threshold), -1.0, 1.0)
 		_animation_tree["parameters/StateMachine/Move/blend_position"] = blend_pos
 
-## 更新连击计时器
-func _update_combo_timer(delta: float) -> void:
-	if _current_combo > 0:
-		_combo_timer -= delta
-		if _combo_timer <= 0:
-			CoreSystem.event_bus.push_event("combo_ended", {"final_combo": _current_combo})
-			_current_combo = 0
+func _connect_controller(controller: CharacterController) -> void:
+	# 连接控制器信号
+	controller.jump_requested.connect(func(): _wants_to_jump = true)
+	controller.jump_released.connect(func(): _wants_to_jump_release = true)

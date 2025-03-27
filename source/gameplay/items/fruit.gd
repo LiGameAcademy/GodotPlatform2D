@@ -2,22 +2,12 @@ extends Node2D
 class_name Fruit
 
 # 水果类型和对应的纹理
-const FRUIT_TYPES = {
-	"apple": ResourcePaths.ItemTextures.FRUITS["apple"],
-	"bananas": ResourcePaths.ItemTextures.FRUITS["bananas"],
-	"cherries": ResourcePaths.ItemTextures.FRUITS["cherries"],
-	"kiwi": ResourcePaths.ItemTextures.FRUITS["kiwi"],
-	"melon": ResourcePaths.ItemTextures.FRUITS["melon"],
-	"orange": ResourcePaths.ItemTextures.FRUITS["orange"],
-	"pineapple": ResourcePaths.ItemTextures.FRUITS["pineapple"],
-	"strawberry": ResourcePaths.ItemTextures.FRUITS["strawberry"]
-}
+const FRUIT_TYPES = ResourcePaths.ItemTextures.FRUITS
 
 # 水果参数
 @export_group("Fruit")
 @export var fruit_type: String = ""  # 水果类型，空字符串表示随机
 @export var score_multiplier = 1.0   # 分数倍率
-@export var collection_effect = true  # 是否显示收集特效
 
 @onready var sprite_2d: Sprite2D = $Sprite2D
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
@@ -43,25 +33,24 @@ func _ready() -> void:
 	animation_player.play("idle")
 
 
-func _on_area_2d_body_entered(body: Node2D) -> void:
-	if _collected or not body is Character:
+func _on_body_entered(body: Node2D) -> void:
+	if not body is Character or _collected:
 		return
-	
+		
 	_collected = true
 	
+	# 发送收集事件
+	GameEvents.CollectionEvent.push_fruit_collected(body, self, _current_type, global_position)
+	
 	# 播放收集动画
-	if collection_effect:
-		animation_player.play("collected")
-		await animation_player.animation_finished
-	
-	# 通知角色和其他监听者
-	if body and is_instance_valid(body):
-		body.collect_item(_current_type)
-		collected.emit(self)
-	
-	# 移除水果
-	queue_free()
+	_play_collect_animation()
+	collected.emit(self)
 
+
+func _play_collect_animation() -> void:
+	animation_player.play("collected")
+	await animation_player.animation_finished
+	queue_free()
 
 ## 获取水果数据
 func get_fruit_data() -> Dictionary:

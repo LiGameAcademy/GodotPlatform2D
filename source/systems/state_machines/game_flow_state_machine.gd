@@ -67,7 +67,7 @@ class LevelSelectState extends BaseState:
 # 游戏进行状态
 class PlayingState extends BaseState:
 	func _enter(_msg: Dictionary = {}) -> void:
-		CoreSystem.event_bus.subscribe("level_completed", _on_level_completed)
+		CoreSystem.event_bus.subscribe(GameEvents.LevelEvent.LEVEL_COMPLETED, _on_level_completed)
 		CoreSystem.event_bus.subscribe("level_previous_requested", _on_level_previous_requested)
 		CoreSystem.event_bus.subscribe("level_restart_requested", _on_level_restart_requested)
 		CoreSystem.event_bus.subscribe("level_next_requested", _on_level_next_requested)
@@ -79,16 +79,16 @@ class PlayingState extends BaseState:
 		CoreSystem.event_bus.unsubscribe("level_restart_requested", _on_level_restart_requested)
 		CoreSystem.event_bus.unsubscribe("level_next_requested", _on_level_next_requested)
 	
-	func _on_level_completed(level_index: int) -> void:
+	func _on_level_completed(event_data : GameEvents.LevelEvent.LevelCompletedData) -> void:
 		# 标记当前关卡为已完成
-		GameInstance.level_manager.completed_levels[level_index] = true
+		GameInstance.level_manager.completed_levels[event_data.level_index] = true
 		
 		# 检查是否是最后一关
-		if level_index + 1 < GameInstance.level_manager.get_level_count():
+		if event_data.level_index + 1 < GameInstance.level_manager.get_level_count():
 			# 解锁下一关
-			GameInstance.level_manager.unlocked_levels[level_index + 1] = true
+			GameInstance.level_manager.unlocked_levels[event_data.level_index + 1] = true
 			# 设置当前关卡并重新加载
-			GameInstance.current_level = level_index + 1
+			GameInstance.current_level = event_data.level_index + 1
 			switch_to(&"playing")
 		else:
 			# 如果是最后一关，返回关卡选择界面

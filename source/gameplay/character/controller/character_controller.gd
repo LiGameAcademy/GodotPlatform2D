@@ -64,18 +64,19 @@ func _reset_input_state() -> void:
 
 ## 应用移动
 func _apply_movement() -> void:
+	if not controlled_character:
+		return
+		
+	var target_velocity := Vector2.ZERO
+	
 	if _movement_input != Vector2.ZERO:
-		# 应用移动速度
-		controlled_character.velocity.x = _movement_input.x * controlled_character.SPEED
+		# 计算目标速度
+		target_velocity.x = _movement_input.x * controlled_character.SPEED
 		# 发送移动方向变化信号
 		movement_changed.emit(_movement_input.x)
-	else:
-		# 应用摩擦力减速
-		controlled_character.velocity.x = move_toward(
-			controlled_character.velocity.x,
-			0,
-			controlled_character.SPEED * controlled_character.friction
-		)
+	
+	# 直接设置速度，摩擦力的处理交给角色类
+	controlled_character.velocity.x = target_velocity.x
 
 ## 穿过单向平台
 func pass_through_platform() -> void:
