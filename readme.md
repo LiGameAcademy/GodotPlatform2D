@@ -110,8 +110,6 @@
 
 查看 [CHANGELOG.md](docs/changelogs/CHANGELOG.md) 了解完整更新历史。
 
-最新更新：[v0.2.0 更新说明](docs/changelogs/2025-03-17-character-and-items.md)
-
 ## 🤝 贡献指南
 
 1. Fork 本项目
