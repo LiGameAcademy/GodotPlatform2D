@@ -4,12 +4,12 @@
 
 [English](readme_en.md) | 简体中文
 
-![游戏标题](/docs/images/宣传图1.png)
+![游戏标题](/docs/images/示例demo.gif)
 
 [![GitHub stars](https://img.shields.io/github/stars/Liweimin0512/-GodotPlatform2D?style=flat-square)](https://github.com/Liweimin0512/-GodotPlatform2D/stargazers)
-[![GitHub license](https://img.shields.io/github/license/Liweimin0512/-GodotPlatform2D?style=flat-square)](https://github.com/Liweimin0512/-GodotPlatform2D/blob/main/LICENSE)
+[![GitHub license](https://img.shields.io/github/license/Liweimin0512/-GodotPlatform2D?style=flat-square)](https://github.com/LiGameAcademy/GodotPlatform2D/blob/master/LICENSE.md)
 [![Godot Engine](https://img.shields.io/badge/GODOT-4.4-blue?style=flat-square)](https://godotengine.org)
-[![GitHub release](https://img.shields.io/github/v/release/Liweimin0512/-GodotPlatform2D?style=flat-square)](https://github.com/Liweimin0512/-GodotPlatform2D/releases)
+[![GitHub release](https://img.shields.io/github/v/release/Liweimin0512/-GodotPlatform2D?style=flat-square)](https://github.com/LiGameAcademy/GodotPlatform2D/releases)
 
 </div>
 
