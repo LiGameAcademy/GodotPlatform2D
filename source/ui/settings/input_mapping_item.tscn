@@ -1,0 +1,22 @@
+[gd_scene load_steps=2 format=3 uid="uid://bsscgufw1bo5t"]
+
+[ext_resource type="Script" uid="uid://dk37tf6khqdly" path="res://source/ui/settings/input_mapping_item.gd" id="1_8k2bj"]
+
+[node name="InputMappingItem" type="HBoxContainer"]
+offset_right = 248.0
+offset_bottom = 22.0
+script = ExtResource("1_8k2bj")
+
+[node name="ActionLabel" type="Label" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 10
+text = "动作名称"
+
+[node name="RemapButton" type="Button" parent="."]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "按键"
+
+[connection signal="pressed" from="RemapButton" to="." method="_on_remap_button_pressed"]
