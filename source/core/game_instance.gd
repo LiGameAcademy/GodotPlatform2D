@@ -5,6 +5,8 @@ const MENU_SCENE : String = ResourcePaths.Scenes.MENU
 const CHARACTER_SELECT_SCENE : String = ResourcePaths.Scenes.CHARACTER_SELECT
 const LEVEL_SELECT_SCENE : String = ResourcePaths.Scenes.LEVEL_SELECT
 
+const SaveManager := preload("res://source/core/save_manager.gd")
+
 ## 当前总分数
 var score := 0:
 	set(value):
@@ -19,6 +21,7 @@ var selected_character_index := 0
 
 var level_manager : LevelManager
 var effect_manager : EffectManager
+var save_manager : SaveManager
 
 ## 角色相关
 var characters: Array[PackedScene] = ResourcePaths.Characters.get_all()
@@ -30,6 +33,9 @@ func _ready() -> void:
 	
 	effect_manager = EffectManager.new()
 	add_child(effect_manager)
+	
+	save_manager = SaveManager.new()
+	add_child(save_manager)
 
 ## 添加关卡分数到总分
 func add_level_score(level_score: int) -> void:
@@ -75,6 +81,16 @@ func create_character_preview(character_scene: PackedScene) -> Character:
 func setup() -> void:
 	var state_machine : GameFlowStateMachine = GameFlowStateMachine.new()
 	CoreSystem.state_machine_manager.register_state_machine("game_flow", state_machine, self, "launch")
+	# 加载存档
+	save_manager.load_game()
+
+## 保存游戏
+func save_game() -> void:
+	save_manager.save_game()
+
+## 删除存档
+func delete_save() -> void:
+	save_manager.delete_save()
 
 func show_menu_scene() -> void:
 	CoreSystem.scene_manager.change_scene_async(MENU_SCENE)

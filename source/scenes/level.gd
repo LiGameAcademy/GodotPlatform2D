@@ -33,6 +33,8 @@ func complete_level() -> void:
 	GameInstance.add_level_score(_score)
 	# 发送关卡完成事件
 	GameEvents.LevelEvent.push_level_completed(_level_index, _score)
+	# 自动保存游戏
+	GameInstance.save_game()
 
 ## 设置关卡索引
 func set_level_index(index: int) -> void:

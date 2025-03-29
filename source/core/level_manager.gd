@@ -85,10 +85,10 @@ func save_level_data() -> Dictionary:
 	}
 
 func load_level_data(data: Dictionary) -> void:
-	if "completed_levels" in data:
-		completed_levels = data.completed_levels
-	if "unlocked_levels" in data:
-		unlocked_levels = data.unlocked_levels
+	for completed in data.get("completed_levels", []):
+		completed_levels.append(completed)
+	for unlocked in data.get("unlocked_levels", []):
+		unlocked_levels.append(unlocked)
 	if "current_level_index" in data:
 		current_level_index = data.current_level_index
 

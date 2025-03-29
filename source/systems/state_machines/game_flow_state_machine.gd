@@ -21,13 +21,21 @@ class LaunchState extends BaseState:
 class MenuState extends BaseState:
 	func _enter(_msg: Dictionary = {}) -> void:
 		CoreSystem.event_bus.subscribe("game_start_requested", _on_game_start_requested)
+		CoreSystem.event_bus.subscribe("game_continue_requested", _on_game_continue_requested)
 		GameInstance.show_menu_scene()
 	
 	func _exit() -> void:
 		CoreSystem.event_bus.unsubscribe("game_start_requested", _on_game_start_requested)
+		CoreSystem.event_bus.unsubscribe("game_continue_requested", _on_game_continue_requested)
 	
 	func _on_game_start_requested() -> void:
 		switch_to(&"character_select")
+	
+	func _on_game_continue_requested() -> void:
+		# 加载存档
+		GameInstance.save_manager.load_game()
+		# 直接进入游戏状态
+		switch_to(&"playing")
 
 # 角色选择状态
 class CharacterSelectState extends BaseState:
@@ -71,13 +79,15 @@ class PlayingState extends BaseState:
 		CoreSystem.event_bus.subscribe("level_previous_requested", _on_level_previous_requested)
 		CoreSystem.event_bus.subscribe("level_restart_requested", _on_level_restart_requested)
 		CoreSystem.event_bus.subscribe("level_next_requested", _on_level_next_requested)
+		CoreSystem.event_bus.subscribe("game_exit_requested", _on_game_exit_requested)
 		GameInstance.load_current_level()
 	
 	func _exit() -> void:
-		CoreSystem.event_bus.unsubscribe("level_completed", _on_level_completed)
+		CoreSystem.event_bus.unsubscribe(GameEvents.LevelEvent.LEVEL_COMPLETED, _on_level_completed)
 		CoreSystem.event_bus.unsubscribe("level_previous_requested", _on_level_previous_requested)
 		CoreSystem.event_bus.unsubscribe("level_restart_requested", _on_level_restart_requested)
 		CoreSystem.event_bus.unsubscribe("level_next_requested", _on_level_next_requested)
+		CoreSystem.event_bus.unsubscribe("game_exit_requested", _on_game_exit_requested)
 	
 	func _on_level_completed(event_data : GameEvents.LevelEvent.LevelCompletedData) -> void:
 		# 标记当前关卡为已完成
@@ -102,3 +112,7 @@ class PlayingState extends BaseState:
 	
 	func _on_level_next_requested() -> void:
 		GameInstance.level_manager.load_next_level()
+	
+	func _on_game_exit_requested() -> void:
+		# 退出到主菜单
+		switch_to(&"menu")

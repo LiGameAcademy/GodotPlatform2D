@@ -1,0 +1,57 @@
+[gd_scene load_steps=2 format=3 uid="uid://xxxxxxx"]
+
+[ext_resource type="Script" path="res://source/ui/pause_menu.gd" id="1_xxxxx"]
+
+[node name="PauseMenu" type="Window"]
+title = "游戏菜单"
+initial_position = 2
+size = Vector2i(300, 400)
+transient = true
+exclusive = true
+unresizable = true
+script = ExtResource("1_xxxxx")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="SaveGame" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "保存游戏"
+
+[node name="LoadGame" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "加载游戏"
+
+[node name="Settings" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "设置"
+
+[node name="HSeparator" type="HSeparator" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="ExitLevel" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "退出关卡"
+
+[node name="ExitGame" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "退出游戏"
+
+[connection signal="close_requested" from="." to="." method="_on_close_requested"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/SaveGame" to="." method="_on_save_game_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/LoadGame" to="." method="_on_load_game_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Settings" to="." method="_on_settings_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ExitLevel" to="." method="_on_exit_level_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ExitGame" to="." method="_on_exit_game_pressed"]
