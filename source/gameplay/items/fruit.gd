@@ -52,6 +52,32 @@ func _play_collect_animation() -> void:
 	await animation_player.animation_finished
 	queue_free()
 
+
+## 保存水果状态
+func save_state() -> Dictionary:
+	return {
+		"type": _current_type,
+		"collected": _collected,
+		"position": {"x": position.x, "y": position.y}
+	}
+
+
+## 加载水果状态
+func load_state(state: Dictionary) -> void:
+	if "type" in state:
+		_current_type = state.type
+		sprite_2d.texture = FRUIT_TYPES[_current_type]
+	
+	if "collected" in state and state.collected:
+		_collected = true
+		# 如果已收集，则直接显示收集后的状态
+		sprite_2d.hide()
+		sprite_collected.show()
+		
+	if "position" in state:
+		position = Vector2(state.position.x, state.position.y)
+
+
 ## 获取水果数据
 func get_fruit_data() -> Dictionary:
 	return {
@@ -59,3 +85,13 @@ func get_fruit_data() -> Dictionary:
 		"score_multiplier": score_multiplier,
 		"collected": _collected
 	}
+
+
+## 获取当前水果类型
+func get_type() -> String:
+	return _current_type
+
+
+## 是否已被收集
+func is_collected() -> bool:
+	return _collected

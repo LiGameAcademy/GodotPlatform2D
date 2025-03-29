@@ -3,6 +3,7 @@ class_name Level
 
 @onready var start_point: StartPoint = $StartPoint
 @onready var end_point: EndPoint = $EndPoint
+@onready var fruits_node: Node2D = $Fruits
 
 var _level_index: int
 var _character : Character
@@ -19,10 +20,13 @@ func _exit_tree() -> void:
 
 func init_state(data: Dictionary) -> void:
 	_level_index = data.level_index
-	# _score = data.score
 	if not is_node_ready():
 		await ready
 	_setup_player()
+	
+	# 如果有保存的水果状态，加载它
+	if "fruits_state" in data:
+		load_fruits_state(data.fruits_state)
 
 func get_score() -> int:
 	return _score
@@ -44,6 +48,38 @@ func set_level_index(index: int) -> void:
 func reset() -> void:
 	_score = 0
 	GameEvents.UIEvent.push_level_score_changed(_score)
+
+## 保存水果状态
+func save_fruits_state() -> Array:
+	var fruits_state = []
+	if fruits_node:
+		for fruit in fruits_node.get_children():
+			if fruit is Fruit:
+				fruits_state.append({
+					"name": fruit.name,
+					"state": fruit.save_state()
+				})
+	return fruits_state
+
+## 加载水果状态
+func load_fruits_state(fruits_state: Array) -> void:
+	if not fruits_node:
+		return
+		
+	for fruit_data in fruits_state:
+		var fruit_name = fruit_data.name
+		var fruit_state = fruit_data.state
+		var fruit = fruits_node.get_node_or_null(fruit_name)
+		if fruit and fruit is Fruit:
+			fruit.load_state(fruit_state)
+
+## 获取关卡数据
+func get_level_data() -> Dictionary:
+	return {
+		"level_index": _level_index,
+		"score": _score,
+		"fruits_state": save_fruits_state()
+	}
 
 func _setup_player() -> void:
 	_character = GameInstance.create_player_character()

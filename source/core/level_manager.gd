@@ -35,7 +35,6 @@ func _ready() -> void:
 	unlocked_levels.resize(LEVELS.size())
 	unlocked_levels.fill(false)
 	unlocked_levels[0] = true  # 第一关默认解锁
-	unlocked_levels[1] = true  # 第一关默认解锁
 
 ## 创建关卡（用于预览）
 func create_level_preview(level_index: int) -> Level:
@@ -92,9 +91,6 @@ func load_level_data(data: Dictionary) -> void:
 	if "current_level_index" in data:
 		current_level_index = data.current_level_index
 
-func get_current_level() -> Level:
-	return _current_level
-
 ## 内部加载关卡方法
 func _load_level(level_path: String) -> void:
 	# 使用场景管理器异步切换场景
@@ -114,3 +110,6 @@ func _load_level(level_path: String) -> void:
 	
 	# 发送关卡开始信号
 	emit_signal("level_started", current_level_index)
+
+func get_current_level() -> Level:
+	return _current_level
