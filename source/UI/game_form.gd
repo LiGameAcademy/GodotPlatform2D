@@ -4,6 +4,7 @@ extends Control
 @onready var btn_restart := $MarginContainer/HBoxContainer/btn_restart
 @onready var btn_next := $MarginContainer/HBoxContainer/btn_next
 @onready var score_label: Label = $ScoreLabel
+@onready var pause_form := $PauseForm
 
 func _ready() -> void:
 	# 订阅关卡变化事件
@@ -21,6 +22,18 @@ func _exit_tree() -> void:
 	CoreSystem.event_bus.unsubscribe(GameEvents.UIEvent.LEVEL_SCORE_CHANGED, _on_level_score_changed)
 	CoreSystem.event_bus.unsubscribe(GameEvents.UIEvent.TOTAL_SCORE_CHANGED, _on_total_score_changed)
 
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("pause"):
+		_toggle_pause()
+
+func _toggle_pause() -> void:
+	if not get_tree().paused:
+		pause_form.show()
+		GameInstance.pause_game()
+	else:
+		pause_form.hide()
+		GameInstance.resume_game()
+
 func _update_button_states() -> void:
 	var current_index := GameInstance.level_manager.current_level_index
 	var level_count := GameInstance.level_manager.get_level_count()
@@ -37,7 +50,7 @@ func _update_button_states() -> void:
 
 func _update_score_display() -> void:
 	var level_score : int = 0
-	var current_level : Level= GameInstance.level_manager.get_current_level()
+	var current_level : Level = GameInstance.level_manager.get_current_level()
 	if current_level:
 		level_score = current_level.get_score()
 	var total_score : int = GameInstance.score
@@ -53,15 +66,14 @@ func _on_btn_next_pressed() -> void:
 	CoreSystem.event_bus.push_event("level_next_requested")
 
 func _on_btn_settings_pressed() -> void:
-	# CoreSystem.event_bus.push_event("settings_requested")
-	pass
+	_toggle_pause()
 
 ## 处理关卡分数变化
-func _on_level_score_changed(event_data: GameEvents.UIEvent.ScoreData) -> void:
+func _on_level_score_changed(_event_data: GameEvents.UIEvent.ScoreData) -> void:
 	_update_score_display()
 
 ## 处理总分数变化
-func _on_total_score_changed(event_data: GameEvents.UIEvent.ScoreData) -> void:
+func _on_total_score_changed(_event_data: GameEvents.UIEvent.ScoreData) -> void:
 	_update_score_display()
 
 func _on_level_changed(_old_level: int, _new_level: int) -> void:

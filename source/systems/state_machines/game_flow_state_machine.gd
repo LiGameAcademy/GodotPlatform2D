@@ -114,5 +114,5 @@ class PlayingState extends BaseState:
 		GameInstance.level_manager.load_next_level()
 	
 	func _on_game_exit_requested() -> void:
-		# 退出到主菜单
+		# 切换到菜单状态
 		switch_to(&"menu")

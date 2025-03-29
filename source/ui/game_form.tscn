@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://dabbj8o71fouq"]
+[gd_scene load_steps=7 format=3 uid="uid://dabbj8o71fouq"]
 
 [ext_resource type="Texture2D" uid="uid://pivkhmyarpgb" path="res://assets/textures/ui/texture_button_icon_previous.png" id="1_32rat"]
 [ext_resource type="Script" uid="uid://5dybnqmbjcd2" path="res://source/ui/game_form.gd" id="1_bgwvb"]
 [ext_resource type="Texture2D" uid="uid://c6pyud61bnf7f" path="res://assets/textures/ui/texture_button_icon_restart.png" id="2_7642x"]
 [ext_resource type="Texture2D" uid="uid://b6bxq8yvxs6xo" path="res://assets/textures/ui/texture_button_icon_next.png" id="3_v18rl"]
 [ext_resource type="Texture2D" uid="uid://cbb5hg2wpmuke" path="res://assets/textures/ui/texture_button_icon_settings.png" id="4_uiy3i"]
+[ext_resource type="PackedScene" uid="uid://c7sxmwe7aqtc0" path="res://source/ui/pause_form.tscn" id="6_lr4cm"]
 
 [node name="GameForm" type="Control"]
 layout_mode = 3
@@ -52,7 +53,6 @@ flat = true
 [node name="btn_settings" type="Button" parent="MarginContainer/HBoxContainer"]
 layout_mode = 2
 focus_mode = 0
-disabled = true
 icon = ExtResource("4_uiy3i")
 flat = true
 
@@ -66,6 +66,10 @@ theme_override_font_sizes/font_size = 10
 text = "分数： 0"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="PauseForm" parent="." instance=ExtResource("6_lr4cm")]
+visible = false
+layout_mode = 1
 
 [connection signal="pressed" from="MarginContainer/HBoxContainer/btn_previous" to="." method="_on_btn_previous_pressed"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer/btn_restart" to="." method="_on_btn_restart_pressed"]

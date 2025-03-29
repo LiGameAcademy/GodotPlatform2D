@@ -92,6 +92,23 @@ func save_game() -> void:
 func delete_save() -> void:
 	save_manager.delete_save()
 
+## 返回主菜单
+func return_to_menu() -> void:
+	# 发送退出游戏事件
+	CoreSystem.event_bus.push_event("game_exit_requested")
+	# 重置分数
+	reset_score()
+	# 切换到菜单场景
+	show_menu_scene()
+
+## 暂停游戏
+func pause_game() -> void:
+	get_tree().paused = true
+
+## 恢复游戏
+func resume_game() -> void:
+	get_tree().paused = false
+
 func show_menu_scene() -> void:
 	CoreSystem.scene_manager.change_scene_async(MENU_SCENE)
 
