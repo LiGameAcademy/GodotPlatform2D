@@ -7,19 +7,12 @@ class_name MenuForm
 var _settings_instance: Window
 
 func _ready() -> void:
-	# 创建设置弹窗实例
 	_settings_instance = settings_dialog.instantiate()
 	add_child(_settings_instance)
 	_settings_instance.hide()
 	
-	# 检查是否存在存档
-	_check_save_file()
-
-func _check_save_file() -> void:
-	# 检查存档文件是否存在
-	if FileAccess.file_exists("user://save_data.json"):
-		btn_continue.show()
-	else:
+	# 检查是否有存档，如果没有则隐藏继续按钮
+	if not GameInstance.save_manager.has_save():
 		btn_continue.hide()
 
 func _on_btn_new_game_pressed() -> void:

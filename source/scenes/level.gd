@@ -18,18 +18,31 @@ func _ready() -> void:
 func _exit_tree() -> void:
 	CoreSystem.event_bus.unsubscribe(GameEvents.CollectionEvent.SCORE_CHANGED, _on_score_changed)
 
+## 初始化关卡状态
 func init_state(data: Dictionary) -> void:
-	_level_index = data.level_index
 	if not is_node_ready():
 		await ready
-	_setup_player()
+	
+	_level_index = data.get("level_index", 0)
+	_score = data.get("score", 0)
 	
 	# 如果有保存的水果状态，加载它
 	if "fruits_state" in data:
 		load_fruits_state(data.fruits_state)
+	
+	# 更新UI显示
+	GameEvents.UIEvent.push_level_score_changed(_score)
+	
+	# 设置玩家
+	_setup_player()
 
-func get_score() -> int:
-	return _score
+## 获取关卡数据
+func get_level_data() -> Dictionary:
+	return {
+		"level_index": _level_index,
+		"score": _score,
+		"fruits_state": save_fruits_state()
+	}
 
 ## 完成关卡
 func complete_level() -> void:
@@ -39,10 +52,6 @@ func complete_level() -> void:
 	GameEvents.LevelEvent.push_level_completed(_level_index, _score)
 	# 自动保存游戏
 	GameInstance.save_game()
-
-## 设置关卡索引
-func set_level_index(index: int) -> void:
-	_level_index = index
 
 ## 重置关卡
 func reset() -> void:
@@ -69,17 +78,14 @@ func load_fruits_state(fruits_state: Array) -> void:
 	for fruit_data in fruits_state:
 		var fruit_name = fruit_data.name
 		var fruit_state = fruit_data.state
-		var fruit = fruits_node.get_node_or_null(fruit_name)
+		# 使用 find_child 来查找水果节点，这样可以处理子节点的情况
+		var fruit = fruits_node.find_child(fruit_name, true, false)
 		if fruit and fruit is Fruit:
 			fruit.load_state(fruit_state)
 
-## 获取关卡数据
-func get_level_data() -> Dictionary:
-	return {
-		"level_index": _level_index,
-		"score": _score,
-		"fruits_state": save_fruits_state()
-	}
+## 获取当前分数
+func get_score() -> int:
+	return _score
 
 func _setup_player() -> void:
 	_character = GameInstance.create_player_character()
@@ -110,5 +116,3 @@ func _on_death_animation_finished(_cha: Character) -> void:
 ## 关卡结束
 func _on_level_end() -> void:
 	complete_level()
-	# 添加关卡结束的处理方法
-	print("关卡结束")

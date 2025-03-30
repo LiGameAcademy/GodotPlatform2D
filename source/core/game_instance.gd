@@ -8,15 +8,14 @@ const LEVEL_SELECT_SCENE : String = ResourcePaths.Scenes.LEVEL_SELECT
 const SaveManager := preload("res://source/core/save_manager.gd")
 
 ## 当前总分数
-var score := 0:
+var score: int = 0:
 	set(value):
 		if score != value:
 			score = value
-			# 发送总分数更新事件
 			GameEvents.UIEvent.push_total_score_changed(score)
 
 # 游戏数据
-var current_level := 1
+var current_level := 0
 var selected_character_index := 0
 
 var level_manager : LevelManager
@@ -27,7 +26,6 @@ var save_manager : SaveManager
 var characters: Array[PackedScene] = ResourcePaths.Characters.get_all()
 
 func _ready() -> void:
-	#CoreSystem.event_bus.subscribe(GameEvents.LevelEvent.LEVEL_COMPLETED, _on_level_completed)
 	level_manager = LevelManager.new()
 	add_child(level_manager)
 	
@@ -37,13 +35,10 @@ func _ready() -> void:
 	save_manager = SaveManager.new()
 	add_child(save_manager)
 
-## 添加关卡分数到总分
-func add_level_score(level_score: int) -> void:
-	score += level_score
-
-## 重置分数
-func reset_score() -> void:
-	score = 0
+## 游戏启动
+func setup() -> void:
+	var state_machine : GameFlowStateMachine = GameFlowStateMachine.new()
+	CoreSystem.state_machine_manager.register_state_machine("game_flow", state_machine, self, "launch")
 
 ## 创建玩家角色
 func create_player_character() -> Character:
@@ -77,12 +72,38 @@ func create_character_preview(character_scene: PackedScene) -> Character:
 	character.is_preview_mode = true
 	return character
 
-## 游戏启动
-func setup() -> void:
-	var state_machine : GameFlowStateMachine = GameFlowStateMachine.new()
-	CoreSystem.state_machine_manager.register_state_machine("game_flow", state_machine, self, "launch")
+## 开始新游戏
+func start_new_game() -> void:
+	# 重置游戏数据
+	score = 0
+	current_level = 0
+	selected_character_index = 0
+	
+	# 重置关卡管理器数据
+	level_manager.reset_game_data()
+	
+	# 加载第一关
+	load_current_level()
+
+## 继续游戏
+func continue_game() -> void:
 	# 加载存档
 	save_manager.load_game()
+	
+	# 加载当前关卡
+	load_current_level()
+
+## 加载当前关卡
+func load_current_level() -> void:
+	level_manager.load_level(current_level)
+
+## 添加关卡分数到总分
+func add_level_score(level_score: int) -> void:
+	score += level_score
+
+## 重置分数
+func reset_score() -> void:
+	score = 0
 
 ## 保存游戏
 func save_game() -> void:
@@ -96,8 +117,6 @@ func delete_save() -> void:
 func return_to_menu() -> void:
 	# 发送退出游戏事件
 	CoreSystem.event_bus.push_event("game_exit_requested")
-	# 重置分数
-	reset_score()
 	# 切换到菜单场景
 	show_menu_scene()
 
@@ -109,6 +128,7 @@ func pause_game() -> void:
 func resume_game() -> void:
 	get_tree().paused = false
 
+## 场景切换
 func show_menu_scene() -> void:
 	CoreSystem.scene_manager.change_scene_async(MENU_SCENE)
 
@@ -118,11 +138,5 @@ func show_character_select_scene() -> void:
 func show_level_select_scene() -> void:
 	CoreSystem.scene_manager.change_scene_async(LEVEL_SELECT_SCENE)
 
-func load_current_level() -> void:
-	level_manager.load_level(current_level)
-
 func get_characters_count() -> int:
 	return characters.size()
-
-#func _on_level_completed(event_data: GameEvents.LevelEvent.LevelCompletedData) -> void:
-	#score += event_data.score

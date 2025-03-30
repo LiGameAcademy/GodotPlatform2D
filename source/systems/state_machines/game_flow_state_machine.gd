@@ -10,7 +10,6 @@ func _ready() -> void:
 	add_state(&"character_select", CharacterSelectState.new())
 	add_state(&"level_select", LevelSelectState.new())
 	add_state(&"playing", PlayingState.new())
-	
 
 # 启动状态
 class LaunchState extends BaseState:
@@ -29,12 +28,11 @@ class MenuState extends BaseState:
 		CoreSystem.event_bus.unsubscribe("game_continue_requested", _on_game_continue_requested)
 	
 	func _on_game_start_requested() -> void:
+		GameInstance.start_new_game()
 		switch_to(&"character_select")
 	
 	func _on_game_continue_requested() -> void:
-		# 加载存档
-		GameInstance.save_manager.load_game()
-		# 直接进入游戏状态
+		GameInstance.continue_game()
 		switch_to(&"playing")
 
 # 角色选择状态
@@ -93,6 +91,9 @@ class PlayingState extends BaseState:
 		# 标记当前关卡为已完成
 		GameInstance.level_manager.completed_levels[event_data.level_index] = true
 		
+		# 自动保存游戏
+		GameInstance.save_game()
+		
 		# 检查是否是最后一关
 		if event_data.level_index + 1 < GameInstance.level_manager.get_level_count():
 			# 解锁下一关
@@ -114,5 +115,7 @@ class PlayingState extends BaseState:
 		GameInstance.level_manager.load_next_level()
 	
 	func _on_game_exit_requested() -> void:
+		# 保存游戏
+		GameInstance.save_game()
 		# 切换到菜单状态
 		switch_to(&"menu")

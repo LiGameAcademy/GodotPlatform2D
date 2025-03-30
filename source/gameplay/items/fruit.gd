@@ -19,7 +19,6 @@ var _collected = false
 
 signal collected(fruit: Fruit)
 
-
 func _ready() -> void:
 	# 设置水果类型和纹理
 	if fruit_type.is_empty():
@@ -29,14 +28,18 @@ func _ready() -> void:
 		_current_type = fruit_type
 		sprite_2d.texture = FRUIT_TYPES[fruit_type]
 	
+	# 初始化显示状态
+	sprite_collected.hide()
+	sprite_2d.show()
+	
 	# 播放空闲动画
-	animation_player.play("idle")
-
+	if not _collected:
+		animation_player.play("idle")
 
 func _on_body_entered(body: Node2D) -> void:
 	if not body is Character or _collected:
 		return
-		
+	
 	_collected = true
 	
 	# 发送收集事件
@@ -46,12 +49,10 @@ func _on_body_entered(body: Node2D) -> void:
 	_play_collect_animation()
 	collected.emit(self)
 
-
 func _play_collect_animation() -> void:
 	animation_player.play("collected")
-	await animation_player.animation_finished
-	queue_free()
-
+	sprite_2d.hide()
+	sprite_collected.show()
 
 ## 保存水果状态
 func save_state() -> Dictionary:
@@ -61,22 +62,35 @@ func save_state() -> Dictionary:
 		"position": {"x": position.x, "y": position.y}
 	}
 
-
 ## 加载水果状态
 func load_state(state: Dictionary) -> void:
 	if "type" in state:
 		_current_type = state.type
 		sprite_2d.texture = FRUIT_TYPES[_current_type]
 	
-	if "collected" in state and state.collected:
-		_collected = true
-		# 如果已收集，则直接显示收集后的状态
-		sprite_2d.hide()
-		sprite_collected.show()
-		
 	if "position" in state:
 		position = Vector2(state.position.x, state.position.y)
+	
+	if "collected" in state:
+		_collected = state.collected
+		if _collected:
+			sprite_2d.hide()
+			sprite_collected.show()
+			# 停止动画
+			animation_player.stop()
+		else:
+			sprite_2d.show()
+			sprite_collected.hide()
+			# 播放空闲动画
+			animation_player.play("idle")
 
+## 获取当前水果类型
+func get_type() -> String:
+	return _current_type
+
+## 是否已被收集
+func is_collected() -> bool:
+	return _collected
 
 ## 获取水果数据
 func get_fruit_data() -> Dictionary:
@@ -85,13 +99,3 @@ func get_fruit_data() -> Dictionary:
 		"score_multiplier": score_multiplier,
 		"collected": _collected
 	}
-
-
-## 获取当前水果类型
-func get_type() -> String:
-	return _current_type
-
-
-## 是否已被收集
-func is_collected() -> bool:
-	return _collected
