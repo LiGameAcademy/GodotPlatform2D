@@ -11,7 +11,7 @@ class_name CollectionComponent
 @export_range(0.0, 1.0) var combo_bonus_factor := 0.5
 
 ## 收集数据
-var collection_data := CollectionData.create()
+var collection_data := CollectionData.new()
 
 ## 订阅事件
 func _ready() -> void:
@@ -28,12 +28,8 @@ func _update_combo_timer(delta: float) -> void:
 			GameEvents.CollectionEvent.push_combo_ended(collection_data.current_combo)
 			collection_data.current_combo = 0
 
-## 获取收集数据
-func get_collection_data() -> Dictionary:
-	return collection_data.to_dictionary()
-
 ## 处理水果收集事件
-func _on_fruit_collected(event_data) -> void:
+func _on_fruit_collected(event_data: GameEvents.CollectionEvent.FruitCollectedData) -> void:
 	# 检查是否是当前角色收集的
 	if event_data.collector != get_parent():
 		return

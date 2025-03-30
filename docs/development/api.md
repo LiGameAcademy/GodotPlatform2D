@@ -43,7 +43,6 @@ func update_animation_parameters() -> void
 
 # 道具收集
 func collect_item(item_type: String) -> void
-func get_collection_data() -> Dictionary
 ```
 
 #### 信号
