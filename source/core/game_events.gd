@@ -115,3 +115,53 @@ class UIEvent:
 	## 发送总分数改变事件
 	static func push_total_score_changed(score: int) -> void:
 		CoreSystem.event_bus.push_event(TOTAL_SCORE_CHANGED, ScoreData.new(score))
+
+## 游戏流程事件
+class GameFlowEvent:
+	const GAME_PAUSED := "game_paused"
+	const GAME_RESUMED := "game_resumed"
+	const EXIT_LEVEL := "exit_level"
+	const EXIT_GAME := "exit_game"
+	
+	## 发送游戏暂停事件
+	static func push_game_paused() -> void:
+		CoreSystem.event_bus.push_event(GAME_PAUSED)
+	
+	## 发送游戏恢复事件
+	static func push_game_resumed() -> void:
+		CoreSystem.event_bus.push_event(GAME_RESUMED)
+	
+	## 发送退出关卡事件
+	static func push_exit_level() -> void:
+		CoreSystem.event_bus.push_event(EXIT_LEVEL)
+	
+	## 发送退出游戏事件
+	static func push_exit_game() -> void:
+		CoreSystem.event_bus.push_event(EXIT_GAME)
+
+## 存档系统事件
+class SaveEvent:
+	const SAVE_CREATED := "save_created"
+	const SAVE_LOADED := "save_loaded"
+	const SAVE_DELETED := "save_deleted"
+	
+	## 存档事件数据
+	class SaveData:
+		var save_index: int
+		var save_name: String
+		
+		func _init(p_save_index: int, p_save_name: String = "") -> void:
+			save_index = p_save_index
+			save_name = p_save_name
+	
+	## 发送存档创建事件
+	static func push_save_created(save_index: int, save_name: String = "") -> void:
+		CoreSystem.event_bus.push_event(SAVE_CREATED, SaveData.new(save_index, save_name))
+	
+	## 发送存档加载事件
+	static func push_save_loaded(save_index: int) -> void:
+		CoreSystem.event_bus.push_event(SAVE_LOADED, SaveData.new(save_index))
+	
+	## 发送存档删除事件
+	static func push_save_deleted(save_index: int) -> void:
+		CoreSystem.event_bus.push_event(SAVE_DELETED, SaveData.new(save_index))
