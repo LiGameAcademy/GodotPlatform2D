@@ -95,9 +95,9 @@
 1. 确保已安装 [Godot 4.4](https://godotengine.org/download) 或更高版本
 2. 克隆项目仓库：
 
-	```bash
-	git clone https://github.com/Liweimin0512/-GodotPlatform2D.git
-	```
+```bash
+git clone https://github.com/Liweimin0512/-GodotPlatform2D.git
+```
 
 3. 使用 Godot 引擎打开项目
 4. 点击运行即可开始游戏
