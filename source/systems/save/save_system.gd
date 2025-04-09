@@ -8,7 +8,7 @@ signal auto_save_created(save_id: String)
 const SAVE_DIR = "user://saves/"
 const AUTO_SAVE_PREFIX = "auto_"
 const QUICK_SAVE_PREFIX = "quick_"
-const MAX_AUTO_SAVES = 3
+const MAX_AUTO_SAVES = 1
 const SAVE_EXTENSION = ".tres"
 
 var _current_save_id: String = ""
@@ -94,6 +94,9 @@ func load_save(save_id: String = "") -> bool:
 func create_auto_save() -> String:
 	var auto_save_id = AUTO_SAVE_PREFIX + _get_timestamp()
 	var save_id = create_save(auto_save_id)
+
+	# 清理旧的自动存档
+	_clean_old_auto_saves()
 
 	auto_save_created.emit(save_id)
 	return save_id
@@ -191,3 +194,19 @@ func _load_entity_states(save_data: SaveData) -> void:
 		else:
 			# 记录错误
 			CoreSystem.logger.error("无法加载实体状态: " + node_path)
+
+# 清理旧的自动存档
+func _clean_old_auto_saves() -> void:
+	var auto_saves = []
+	var saves = get_save_list()
+	
+	# 筛选出自动存档
+	for save in saves:
+		if save.id.begins_with(AUTO_SAVE_PREFIX):
+			auto_saves.append(save)
+	
+	# 如果自动存档数量超过限制，删除最旧的
+	if auto_saves.size() > MAX_AUTO_SAVES:
+		# 已经按时间戳排序，最旧的在最后
+		for i in range(MAX_AUTO_SAVES, auto_saves.size()):
+			delete_save(auto_saves[i].id)
