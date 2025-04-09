@@ -15,23 +15,23 @@ func _ready() -> void:
 	# 连接信号
 	CoreSystem.event_bus.subscribe("level_completed", _on_level_completed)
 	CoreSystem.event_bus.subscribe("quick_save_requested", _on_quick_save_requested)
-	CoreSystem.event_bus.subscribe("save_game_requested", _on_save_game_requested)
-	CoreSystem.event_bus.subscribe("load_game_requested", _on_load_game_requested)
+	# CoreSystem.event_bus.subscribe("save_game_requested", _on_save_game_requested)
+	# CoreSystem.event_bus.subscribe("load_game_requested", _on_load_game_requested)
 
 func _exit_tree() -> void:
 	CoreSystem.event_bus.unsubscribe("level_completed", _on_level_completed)
 	CoreSystem.event_bus.unsubscribe("quick_save_requested", _on_quick_save_requested)
-	CoreSystem.event_bus.unsubscribe("save_game_requested", _on_save_game_requested)
-	CoreSystem.event_bus.unsubscribe("load_game_requested", _on_load_game_requested)
+	# CoreSystem.event_bus.unsubscribe("save_game_requested", _on_save_game_requested)
+	# CoreSystem.event_bus.unsubscribe("load_game_requested", _on_load_game_requested)
 
 # 自动存档（关卡完成时）
 func _on_level_completed(_data) -> void:
-	var screenshot = screenshot_capture.capture_game_screen()
+	var screenshot = await screenshot_capture.capture_game_screen()
 	save_system.create_auto_save(screenshot)
 
 # 快速存档（直接保存）
 func _on_quick_save_requested() -> void:
-	var screenshot = screenshot_capture.capture_game_screen()
+	var screenshot = await screenshot_capture.capture_game_screen()
 	save_system.create_quick_save(screenshot)
 	
 	# 显示保存成功提示
@@ -39,7 +39,7 @@ func _on_quick_save_requested() -> void:
 
 # 保存游戏
 func save_game() -> void:
-	var screenshot = screenshot_capture.capture_game_screen()
+	var screenshot = await screenshot_capture.capture_game_screen()
 	save_system.create_quick_save(screenshot)
 
 # 加载游戏

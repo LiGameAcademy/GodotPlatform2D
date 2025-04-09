@@ -100,6 +100,7 @@ class UIEvent:
 	const FLOATING_SCORE_SPAWNED := "floating_score_spawned"
 	const LEVEL_SCORE_CHANGED := "level_score_changed"
 	const TOTAL_SCORE_CHANGED := "total_score_changed"
+	const NOTIFICATION := "notification"
 	
 	## 分数改变事件数据
 	class ScoreData:
@@ -115,6 +116,9 @@ class UIEvent:
 	## 发送总分数改变事件
 	static func push_total_score_changed(score: int) -> void:
 		CoreSystem.event_bus.push_event(TOTAL_SCORE_CHANGED, ScoreData.new(score))
+
+	static func push_notification(message: String) -> void:
+		CoreSystem.event_bus.push_event(NOTIFICATION, message)
 
 ## 游戏流程事件
 class GameFlowEvent:

@@ -34,23 +34,45 @@ func create_save(save_id: String = "", screenshot: Image = null) -> String:
     save_data.game_version = ProjectSettings.get_setting("application/config/version", "1.0.0")
     # save_data.level_index = GameInstance.current_level
     # save_data.total_score = GameInstance.score
-    save_data.playtime = GameStats.get_total_playtime() if "GameStats" in get_parent() else 0.0
-    
+
     if screenshot:
         # 调整截图大小以节省空间
         var small_screenshot = screenshot.duplicate()
         small_screenshot.resize(160, 90, Image.INTERPOLATE_BILINEAR)
         save_data.screenshot = small_screenshot
     
-    # 收集游戏状态
-    save_data.game_state = _collect_game_state()
+    # 创建游戏状态数据
+    var game_state_data := GameStateData.new()
+    game_state_data.score = GameInstance.score
+    game_state_data.current_level = GameInstance.current_level
+    game_state_data.selected_character_index = GameInstance.selected_character_index
     
-    # 收集关卡状态
-    save_data.level_state = _collect_level_state()
+    # 创建关卡状态数据
+    var level_state_data := LevelStateData.new()
+    if GameInstance.level_manager:
+        level_state_data.level_index = GameInstance.current_level
+        level_state_data.level_score = GameInstance.level_manager.get_current_level().get_score()
     
     # 收集实体状态
-    save_data.entities_state = _collect_entities_state()
+    var entity_states: Array[EntityStateData] = []
+    var saveables = get_tree().get_nodes_in_group("saveable")
+    for saveable in saveables:
+        var entity_state := EntityStateData.new()
+        entity_state.entity_type = str(saveable.get_class())
+        entity_state.node_path = str(saveable.get_path())
+        var saved_data = saveable.save()
+        if "position" in saved_data:
+            entity_state.position = saved_data["position"]
+        
+        # TODO: 收集其他属性
+        entity_state.properties = save_data
+        entity_states.append(entity_state)
     
+    # 设置存档数据
+    save_data.game_state = game_state_data
+    save_data.level_state = level_state_data
+    save_data.entities_state = entity_states
+
     # 保存数据到文件
     var save_path = _get_save_path(actual_id)
     var error = ResourceSaver.save(save_data, save_path)
