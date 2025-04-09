@@ -13,6 +13,6 @@ class_name SaveData
 # @export var total_score : int = 0
 
 # 游戏数据
-@export var game_state : GameStateData
+@export var game_state : GameState
 @export var level_state: LevelStateData
 @export var entities_state : Array[EntityStateData]

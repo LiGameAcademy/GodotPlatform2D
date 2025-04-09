@@ -5,8 +5,6 @@ const MENU_SCENE : String = ResourcePaths.Scenes.MENU
 const CHARACTER_SELECT_SCENE : String = ResourcePaths.Scenes.CHARACTER_SELECT
 const LEVEL_SELECT_SCENE : String = ResourcePaths.Scenes.LEVEL_SELECT
 
-const SaveManager := preload("res://source/core/save_manager.gd")
-
 ## 当前总分数
 var score: int = 0:
 	set(value):
@@ -81,7 +79,7 @@ func create_character_preview(character_scene: PackedScene) -> Character:
 	return character
 
 ## 开始新游戏
-func start_new_game(save_slot := -1) -> void:
+func start_new_game() -> void:
 	# 重置游戏数据
 	score = 0
 	current_level = 0
@@ -90,12 +88,6 @@ func start_new_game(save_slot := -1) -> void:
 	# 清空缓存数据
 	cached_character_data = {}
 	cached_level_data = {}
-	
-	# 设置当前存档槽
-	if save_slot > 0:
-		current_save_slot = save_slot
-	else:
-		current_save_slot = save_manager.get_empty_save_slot()
 	
 	# 重置关卡管理器数据
 	level_manager.reset_game_data()

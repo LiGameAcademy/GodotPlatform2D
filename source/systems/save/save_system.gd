@@ -42,7 +42,7 @@ func create_save(save_id: String = "", screenshot: Image = null) -> String:
         save_data.screenshot = small_screenshot
     
     # 创建游戏状态数据
-    var game_state_data := GameStateData.new()
+    var game_state_data := GameState.new()
     game_state_data.score = GameInstance.score
     game_state_data.current_level = GameInstance.current_level
     game_state_data.selected_character_index = GameInstance.selected_character_index

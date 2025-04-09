@@ -16,10 +16,10 @@ func _ready() -> void:
 		btn_continue.hide()
 
 func _on_btn_new_game_pressed() -> void:
-	CoreSystem.event_bus.push_event("game_start_requested")
+	GameEvents.GameFlowEvent.push_game_start_requested()
 
 func _on_btn_continue_pressed() -> void:
-	CoreSystem.event_bus.push_event("game_continue_requested")
+	GameEvents.GameFlowEvent.push_game_continue_requested()
 
 func _on_btn_settings_pressed() -> void:
 	_settings_instance.show()

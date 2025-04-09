@@ -1,5 +1,6 @@
 # source/core/save_manager.gd
 extends Node
+class_name SaveManager
 
 var save_system: SaveSystem
 var screenshot_capture: ScreenshotCapture
@@ -38,12 +39,12 @@ func _on_quick_save_requested() -> void:
 	GameEvents.UIEvent.push_notification("游戏已保存")
 
 # 保存游戏
-func save_game() -> void:
+func save_game(save_slot := -1) -> void:
 	var screenshot = await screenshot_capture.capture_game_screen()
 	save_system.create_quick_save(screenshot)
 
 # 加载游戏
-func load_game() -> void:
+func load_game(save_slot := -1) -> bool:
 	# 如果有当前存档，直接加载
 	if save_system.get_current_save_id():
 		save_system.load_save(save_system.get_current_save_id())
@@ -52,9 +53,10 @@ func load_game() -> void:
 		var saves = save_system.get_save_list()
 		if not saves.is_empty():
 			save_system.load_save(saves[0].id)
+	return true
 
 # 删除存档
-func delete_save() -> void:
+func delete_save(save_slot := -1) -> void:
 	var current_id = save_system.get_current_save_id()
 	if not current_id.is_empty():
 		save_system.delete_save(current_id)

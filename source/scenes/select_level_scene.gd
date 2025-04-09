@@ -32,8 +32,8 @@ func _init_level_widgets() -> void:
 func _on_level_clicked(index: int) -> void:
 	if not GameInstance.level_manager.is_level_unlocked(index):
 		return
-	CoreSystem.event_bus.push_event("level_selected", index)
+	CoreSystem.event_bus.push_event(GameEvents.LevelSelectEvent.LEVEL_SELECTED, index)
 
 
 func _on_btn_close_pressed() -> void:
-	CoreSystem.event_bus.push_event("level_select_cancelled")
+	CoreSystem.event_bus.push_event(GameEvents.LevelSelectEvent.LEVEL_SELECT_CANCELLED)
