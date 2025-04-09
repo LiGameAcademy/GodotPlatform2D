@@ -36,11 +36,12 @@ func _on_btn_prev_pressed() -> void:
 		_update_character_preview()
 
 func _on_btn_close_pressed() -> void:
-	CoreSystem.event_bus.push_event(GameEvents.CharacterSelectEvent.CHARACTER_SELECT_CANCELLED)
+	# CoreSystem.event_bus.push_event(GameEvents.CharacterSelectEvent.CHARACTER_SELECT_CANCELLED)
+	GameEvents.CharacterSelectEvent.push_character_select_cancelled()
 
 func _on_btn_enter_game_pressed() -> void:
 	var character_scene = ResourcePaths.Characters.get_by_index(current_character_index)
 	if character_scene:
 		# 创建新的角色实例，而不是使用预览实例
-		GameInstance.selected_character_index = current_character_index
-		CoreSystem.event_bus.push_event(GameEvents.CharacterSelectEvent.CHARACTER_SELECTED, current_character_index)
+		# CoreSystem.event_bus.push_event(GameEvents.CharacterSelectEvent.CHARACTER_SELECTED, current_character_index)
+		GameEvents.CharacterSelectEvent.push_character_selected(current_character_index)

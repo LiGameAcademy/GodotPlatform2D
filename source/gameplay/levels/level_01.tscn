@@ -6,34 +6,34 @@
 
 [node name="level_01" instance=ExtResource("1_1nq1n")]
 
-[node name="fruits#fruits" parent="Fruits" index="0" instance=ExtResource("2_mf2hf")]
+[node name="fruits" parent="Fruits" index="0" instance=ExtResource("2_mf2hf")]
 position = Vector2(192, 80)
 
-[node name="fruits#fruits2" parent="Fruits" index="1" instance=ExtResource("2_mf2hf")]
+[node name="fruits2" parent="Fruits" index="1" instance=ExtResource("2_mf2hf")]
 position = Vector2(256, 80)
 
-[node name="fruits#fruits3" parent="Fruits" index="2" instance=ExtResource("2_mf2hf")]
+[node name="fruits3" parent="Fruits" index="2" instance=ExtResource("2_mf2hf")]
 position = Vector2(320, 80)
 
-[node name="fruits#fruits4" parent="Fruits" index="3" instance=ExtResource("2_mf2hf")]
+[node name="fruits4" parent="Fruits" index="3" instance=ExtResource("2_mf2hf")]
 position = Vector2(384, 80)
 
-[node name="fruits#fruits5" parent="Fruits" index="4" instance=ExtResource("2_mf2hf")]
+[node name="fruits5" parent="Fruits" index="4" instance=ExtResource("2_mf2hf")]
 position = Vector2(448, 80)
 
-[node name="fruits#fruits6" parent="Fruits" index="5" instance=ExtResource("2_mf2hf")]
+[node name="fruits6" parent="Fruits" index="5" instance=ExtResource("2_mf2hf")]
 position = Vector2(160, 112)
 
-[node name="fruits#fruits7" parent="Fruits" index="6" instance=ExtResource("2_mf2hf")]
+[node name="fruits7" parent="Fruits" index="6" instance=ExtResource("2_mf2hf")]
 position = Vector2(224, 112)
 
-[node name="fruits#fruits8" parent="Fruits" index="7" instance=ExtResource("2_mf2hf")]
+[node name="fruits8" parent="Fruits" index="7" instance=ExtResource("2_mf2hf")]
 position = Vector2(288, 112)
 
-[node name="fruits#fruits9" parent="Fruits" index="8" instance=ExtResource("2_mf2hf")]
+[node name="fruits9" parent="Fruits" index="8" instance=ExtResource("2_mf2hf")]
 position = Vector2(352, 112)
 
-[node name="fruits#fruits10" parent="Fruits" index="9" instance=ExtResource("2_mf2hf")]
+[node name="fruits10" parent="Fruits" index="9" instance=ExtResource("2_mf2hf")]
 position = Vector2(416, 112)
 
 [node name="traps#falling_platforms5" parent="Traps" index="0" instance=ExtResource("3_hmbmy")]

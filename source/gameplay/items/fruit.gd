@@ -36,6 +36,46 @@ func _ready() -> void:
 	if not _collected:
 		animation_player.play("idle")
 
+	add_to_group("saveable")
+
+## 保存水果状态
+func save() -> FruitData:
+	var fruit_data := FruitData.new()
+	fruit_data.entity_type = "fruit"
+	fruit_data.fruit_type = _current_type
+	fruit_data.collected = _collected
+
+	return fruit_data
+
+## 加载水果状态
+func load_data(fruit_data: FruitData) -> void:
+	_current_type = fruit_data.fruit_type
+	sprite_2d.texture = FRUIT_TYPES[_current_type]
+	
+	_collected = fruit_data.collected
+	if _collected:
+		sprite_2d.hide()
+		# 停止动画
+		animation_player.stop()
+	else:
+		sprite_2d.show()
+		sprite_collected.hide()
+		# 播放空闲动画
+		animation_player.play("idle")
+
+## 获取当前水果类型
+func get_type() -> String:
+	return _current_type
+
+## 是否已被收集
+func is_collected() -> bool:
+	return _collected
+
+func _play_collect_animation() -> void:
+	animation_player.play("collected")
+	sprite_2d.hide()
+	sprite_collected.show()
+
 func _on_body_entered(body: Node2D) -> void:
 	if not body is Character or _collected:
 		return
@@ -48,54 +88,3 @@ func _on_body_entered(body: Node2D) -> void:
 	# 播放收集动画
 	_play_collect_animation()
 	collected.emit(self)
-
-func _play_collect_animation() -> void:
-	animation_player.play("collected")
-	sprite_2d.hide()
-	sprite_collected.show()
-
-## 保存水果状态
-func save_state() -> Dictionary:
-	return {
-		"type": _current_type,
-		"collected": _collected,
-		"position": {"x": position.x, "y": position.y}
-	}
-
-## 加载水果状态
-func load_state(state: Dictionary) -> void:
-	if "type" in state:
-		_current_type = state.type
-		sprite_2d.texture = FRUIT_TYPES[_current_type]
-	
-	if "position" in state:
-		position = Vector2(state.position.x, state.position.y)
-	
-	if "collected" in state:
-		_collected = state.collected
-		if _collected:
-			sprite_2d.hide()
-			sprite_collected.show()
-			# 停止动画
-			animation_player.stop()
-		else:
-			sprite_2d.show()
-			sprite_collected.hide()
-			# 播放空闲动画
-			animation_player.play("idle")
-
-## 获取当前水果类型
-func get_type() -> String:
-	return _current_type
-
-## 是否已被收集
-func is_collected() -> bool:
-	return _collected
-
-## 获取水果数据
-func get_fruit_data() -> Dictionary:
-	return {
-		"type": _current_type,
-		"score_multiplier": score_multiplier,
-		"collected": _collected
-	}

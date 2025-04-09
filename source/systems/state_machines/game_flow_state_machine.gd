@@ -46,7 +46,8 @@ class CharacterSelectState extends BaseState:
 		CoreSystem.event_bus.unsubscribe(GameEvents.CharacterSelectEvent.CHARACTER_SELECTED, _on_character_selected)
 		CoreSystem.event_bus.unsubscribe(GameEvents.CharacterSelectEvent.CHARACTER_SELECT_CANCELLED, _on_character_select_cancelled)
 	
-	func _on_character_selected() -> void:
+	func _on_character_selected(character_index: int) -> void:
+		GameInstance.selected_character_index = character_index
 		switch_to(&"level_select")
 	
 	func _on_character_select_cancelled() -> void:
@@ -115,7 +116,5 @@ class PlayingState extends BaseState:
 		GameInstance.level_manager.load_next_level()
 	
 	func _on_game_exit_requested() -> void:
-		# 保存游戏
-		GameInstance.save_game()
 		# 切换到菜单状态
 		switch_to(&"menu")

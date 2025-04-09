@@ -18,25 +18,23 @@ var selected_character_index := 0
 
 var level_manager : LevelManager
 var effect_manager : EffectManager
-var save_manager : SaveManager
+var save_manager : GameSaveManager
 
 ## 角色相关
 var characters: Array[PackedScene] = ResourcePaths.Characters.get_all()
 
-# 存档系统缓存
-var cached_character_data := {}
-var cached_level_data := {}
-var current_save_slot := 1
-
 func _ready() -> void:
 	level_manager = LevelManager.new()
 	add_child(level_manager)
+	level_manager.name = "level_manager"
 	
 	effect_manager = EffectManager.new()
 	add_child(effect_manager)
+	effect_manager.name = "effect_manager"
 	
-	save_manager = SaveManager.new()
+	save_manager = GameSaveManager.new()
 	add_child(save_manager)
+	save_manager.name = "save_manager"
 
 ## 游戏启动
 func setup() -> void:
@@ -65,9 +63,6 @@ func create_player_character() -> Character:
 	collection_component.name = "CollectionComponent"
 	character.add_child(collection_component)
 	
-	# 应用缓存的角色数据（如存在）
-	apply_cached_character_data(character)
-	
 	return character
 
 func create_character_preview(character_scene: PackedScene) -> Character:
@@ -85,53 +80,26 @@ func start_new_game() -> void:
 	current_level = 0
 	selected_character_index = 0
 	
-	# 清空缓存数据
-	cached_character_data = {}
-	cached_level_data = {}
-	
 	# 重置关卡管理器数据
-	level_manager.reset_game_data()
+	level_manager.reset()
 	
 	# 切换到角色选择场景
 	show_character_select_scene()
 
 ## 继续游戏
-func continue_game(save_slot := -1) -> void:
-	if save_slot > 0:
-		current_save_slot = save_slot
-	
+func continue_game() -> void:
 	# 加载存档
-	if save_manager.load_game(current_save_slot):
+	if save_manager.load_game():
 		# 直接加载当前关卡
 		load_current_level()
 	else:
-		push_error("无法加载存档 " + str(current_save_slot))
+		push_error("无法加载存档 ")
 		# 返回主菜单
 		show_menu_scene()
 
 ## 加载当前关卡
 func load_current_level() -> void:
 	level_manager.load_level(current_level)
-
-## 快速保存
-func quick_save() -> void:
-	save_manager.save_game(current_save_slot)
-
-## 应用角色数据（在角色创建后调用）
-func apply_cached_character_data(character: Character) -> void:
-	if cached_character_data.is_empty():
-		return
-		
-	if "position" in cached_character_data:
-		var pos = cached_character_data.position
-		character.global_position = Vector2(pos.x, pos.y)
-		
-	if "velocity" in cached_character_data:
-		var vel = cached_character_data.velocity
-		character.velocity = Vector2(vel.x, vel.y)
-	
-	# 清除缓存，防止重复应用
-	cached_character_data = {}
 
 ## 添加关卡分数到总分
 func add_level_score(level_score: int) -> void:
@@ -140,17 +108,6 @@ func add_level_score(level_score: int) -> void:
 ## 重置分数
 func reset_score() -> void:
 	score = 0
-
-## 保存游戏
-func save_game() -> void:
-	save_manager.save_game(current_save_slot)
-
-## 删除存档
-func delete_save(save_slot: int = -1) -> void:
-	if save_slot > 0:
-		save_manager.delete_save(save_slot)
-	else:
-		save_manager.delete_save(current_save_slot)
 
 ## 返回主菜单
 func return_to_menu() -> void:
@@ -179,3 +136,11 @@ func show_level_select_scene() -> void:
 
 func get_characters_count() -> int:
 	return characters.size()
+
+func save() -> GameData:
+	return GameData.new(score, current_level, selected_character_index)
+
+func load(data: GameData) -> void:
+	score = data.score
+	current_level = data.current_level
+	selected_character_index = data.selected_character_index

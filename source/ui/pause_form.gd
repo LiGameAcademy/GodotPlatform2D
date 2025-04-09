@@ -17,7 +17,7 @@ func _on_resume_button_pressed() -> void:
 
 func _on_save_button_pressed() -> void:
 	# 保存游戏
-	GameInstance.save_game()
+	GameInstance.save_manager.save_game()
 	# 显示保存成功提示
 	var label = $MarginContainer/MarginContainer/VBoxContainer/Label
 	label.text = "Game Saved!"

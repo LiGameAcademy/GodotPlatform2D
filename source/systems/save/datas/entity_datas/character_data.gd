@@ -1,6 +1,6 @@
 # source/systems/save/character_state_data.gd
-extends EntityStateData
-class_name CharacterStateData
+extends EntityData
+class_name CharacterData
 
 @export var velocity: Vector2
 @export var can_double_jump: bool = true

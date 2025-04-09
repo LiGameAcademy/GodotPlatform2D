@@ -1,6 +1,6 @@
 # source/systems/save/enemy_state_data.gd
-extends EntityStateData
-class_name EnemyStateData
+extends EntityData
+class_name EnemyData
 
 @export var enemy_type: String = ""
 @export var health: int = 1
