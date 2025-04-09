@@ -7,4 +7,3 @@ class_name PlatformData
 @export var end_position: Vector2
 @export var movement_progress: float = 0.0
 @export var is_active: bool = true
-@export var freeze: bool = true

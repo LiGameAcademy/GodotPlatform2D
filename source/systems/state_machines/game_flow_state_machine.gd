@@ -93,7 +93,7 @@ class PlayingState extends BaseState:
 		GameInstance.level_manager.completed_levels[event_data.level_index] = true
 		
 		# 自动保存游戏
-		GameInstance.save_manager.save_game()
+		GameInstance.save_game()
 		
 		# 检查是否是最后一关
 		if event_data.level_index + 1 < GameInstance.level_manager.get_level_count():
