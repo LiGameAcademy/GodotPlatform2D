@@ -57,6 +57,8 @@ func _ready() -> void:
 		if child is CharacterController:
 			_connect_controller(child)
 
+	add_to_group("saveable")
+
 func _exit_tree() -> void:
 	_animation_tree.active = false
 	CoreSystem.state_machine_manager.unregister_state_machine(&"character_%d" % get_instance_id())
@@ -81,20 +83,17 @@ func _physics_process(delta: float) -> void:
 	# 更新动画参数
 	_update_animation_parameters()
 
-## 应用重力
-func _apply_gravity(delta: float) -> void:
-	if not is_on_floor():
-		velocity.y += gravity * delta
+func save() -> CharacterData:
+	var character_data := CharacterData.new()
+	character_data.velocity = velocity
+	character_data.can_double_jump = can_double_jump
+	character_data.current_animation = current_animation
+	return character_data
 
-## 更新朝向
-func _update_facing_direction() -> void:
-	if signf(velocity.x) != 0:
-		_sprite.flip_h = velocity.x < 0
-
-## 应用地面摩擦力
-func _apply_ground_friction() -> void:
-	if is_on_floor() and abs(velocity.x) > 0.1:
-		velocity.x *= (1 - friction)
+func load_data(character_data: CharacterData) -> void:
+	velocity = character_data.velocity
+	can_double_jump = character_data.can_double_jump
+	current_animation = character_data.current_animation
 
 ## 播放动画
 func play_animation(anim_name: String) -> void:
@@ -160,3 +159,18 @@ func _connect_controller(controller: CharacterController) -> void:
 	# 连接控制器信号
 	controller.jump_requested.connect(func(): _wants_to_jump = true)
 	controller.jump_released.connect(func(): _wants_to_jump_release = true)
+
+## 应用重力
+func _apply_gravity(delta: float) -> void:
+	if not is_on_floor():
+		velocity.y += gravity * delta
+
+## 更新朝向
+func _update_facing_direction() -> void:
+	if signf(velocity.x) != 0:
+		_sprite.flip_h = velocity.x < 0
+
+## 应用地面摩擦力
+func _apply_ground_friction() -> void:
+	if is_on_floor() and abs(velocity.x) > 0.1:
+		velocity.x *= (1 - friction)

@@ -186,6 +186,7 @@ func _load_entity_states(save_data: SaveData) -> void:
 		var entity = get_node_or_null(node_path)
 		
 		if entity and entity.has_method("load_data"):
+			entity.global_position = entity_data.position
 			entity.load_data(entity_data)
 		else:
 			# 记录错误

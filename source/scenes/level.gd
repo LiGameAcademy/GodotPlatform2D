@@ -36,17 +36,12 @@ func init_state(data: Dictionary) -> void:
 	
 	_level_index = data.get("level_index", 0)
 
-	await get_tree().process_frame
-	_score = data.get("score", 0)
-	
-	## 如果有缓存的关卡数据，加载它
-	#if not GameInstance.cached_level_data.is_empty():
-		#load_level_data(GameInstance.cached_level_data)
-		#GameInstance.cached_level_data = {}  # 清空缓存
-	## 如果有保存的水果状态，加载它
-	
 	# 设置玩家
 	_setup_player()
+	
+	# 初始化分数
+	await get_tree().process_frame
+	_score = data.get("score", 0)
 
 ## 完成关卡
 func complete_level() -> void:
