@@ -1,0 +1,73 @@
+[gd_scene load_steps=6 format=3 uid="uid://dabbj8o71fouq"]
+
+[ext_resource type="Texture2D" uid="uid://pivkhmyarpgb" path="res://assets/textures/ui/texture_button_icon_previous.png" id="1_32rat"]
+[ext_resource type="Script" uid="uid://5dybnqmbjcd2" path="res://source/ui/game_form.gd" id="1_bgwvb"]
+[ext_resource type="Texture2D" uid="uid://c6pyud61bnf7f" path="res://assets/textures/ui/texture_button_icon_restart.png" id="2_7642x"]
+[ext_resource type="Texture2D" uid="uid://b6bxq8yvxs6xo" path="res://assets/textures/ui/texture_button_icon_next.png" id="3_v18rl"]
+[ext_resource type="Texture2D" uid="uid://cbb5hg2wpmuke" path="res://assets/textures/ui/texture_button_icon_settings.png" id="4_uiy3i"]
+
+[node name="GameForm" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_bgwvb")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+mouse_filter = 2
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+mouse_filter = 2
+alignment = 2
+
+[node name="btn_previous" type="Button" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+focus_mode = 0
+icon = ExtResource("1_32rat")
+flat = true
+
+[node name="btn_restart" type="Button" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+focus_mode = 0
+icon = ExtResource("2_7642x")
+flat = true
+
+[node name="btn_next" type="Button" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+focus_mode = 0
+icon = ExtResource("3_v18rl")
+flat = true
+
+[node name="btn_settings" type="Button" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+focus_mode = 0
+disabled = true
+icon = ExtResource("4_uiy3i")
+flat = true
+
+[node name="ScoreLabel" type="Label" parent="."]
+layout_mode = 1
+offset_right = 55.0
+offset_bottom = 20.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 10
+text = "分数： 0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="pressed" from="MarginContainer/HBoxContainer/btn_previous" to="." method="_on_btn_previous_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/btn_restart" to="." method="_on_btn_restart_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/btn_next" to="." method="_on_btn_next_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/btn_settings" to="." method="_on_btn_settings_pressed"]
