@@ -77,10 +77,10 @@ func load_save(save_id: String = "") -> bool:
 		return false
 	
 	# 加载游戏状态
-	GameInstance.load(save_data.game_state)
+	GameInstance.load_data(save_data.game_state)
 	
 	# 加载关卡状态
-	await GameInstance.level_manager.load(save_data.level_state)
+	await GameInstance.level_manager.load_data(save_data.level_state)
 	
 	# 加载实体状态
 	# 注意：实体状态通常在关卡加载后应用

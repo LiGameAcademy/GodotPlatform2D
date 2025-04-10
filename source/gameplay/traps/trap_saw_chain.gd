@@ -6,6 +6,9 @@ extends Path2D
 @export var chain_width : float = 10.0
 
 func _ready() -> void:
+	_draw_saw_chains()
+
+func _draw_saw_chains() -> void:
 	if not show_chain : return
 	var points = curve.get_baked_length() / chain_width
 	for point in points:
@@ -14,4 +17,3 @@ func _ready() -> void:
 		chain.texture = sprite
 		add_child(chain)
 		chain.position = sample_baked
-		
