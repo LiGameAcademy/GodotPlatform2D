@@ -93,7 +93,7 @@ func continue_game() -> void:
 		# 直接加载当前关卡
 		load_current_level()
 	else:
-		push_error("无法加载存档 ")
+		CoreSystem.logger.error("无法加载存档")
 		# 返回主菜单
 		show_menu_scene()
 
@@ -140,7 +140,7 @@ func get_characters_count() -> int:
 func save() -> GameData:
 	return GameData.new(score, current_level, selected_character_index)
 
-func load(data: GameData) -> void:
+func load_data(data: GameData) -> void:
 	score = data.score
 	current_level = data.current_level
 	selected_character_index = data.selected_character_index

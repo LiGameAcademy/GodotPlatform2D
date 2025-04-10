@@ -91,7 +91,7 @@ func save() -> LevelData:
 	level_data.level_score = _current_level.get_score()
 	return level_data
 
-func load(data: LevelData) -> void:
+func load_data(data: LevelData) -> void:
 	completed_levels = data.completed_levels
 	unlocked_levels = data.unlocked_levels
 	current_level_index = data.level_index

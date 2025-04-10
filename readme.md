@@ -131,16 +131,20 @@ git clone https://github.com/Liweimin0512/-GodotPlatform2D.git
 
 详细的许可证信息请查看 [LICENSE](LICENSE.md)。
 
-## 👨‍🏫 关于我们
+### 社区交流
 
-欢迎加入老李的知识付费平台：老李游戏学院（知识星球）
+- 加入我们的 [Discord 社区](https://discord.gg/V5nuzC2BcJ)
+- 关注我们的 [itch.io](https://godot-li.itch.io/) 主页
+- 为项目点亮 ⭐ 以示支持！
+
+## 🙏 致谢
+
+- 感谢所有为项目做出贡献的开发者！
+- 特别鸣谢[老李游戏学院-知识星球](https://wx.zsxq.com/group/28885154818841)的每一位同学！
+
+---
 
 <div align="center">
-
-![知识星球](/docs/images/知识星球-二维码.jpg)
-
-如果你觉得这个项目对你有帮助，也可以请我喝杯咖啡~
-
-![老李头像](/docs/images/老李头像.png)
-
+  <strong>由 老李游戏学院 用 ❤️ 构建</strong><br>
+  <sub>让游戏开发变得更简单</sub>
 </div>
