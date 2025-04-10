@@ -22,6 +22,11 @@ func _ready() -> void:
 		end_point.end.connect(_on_level_end)
 	CoreSystem.event_bus.subscribe(GameEvents.CollectionEvent.SCORE_CHANGED, _on_score_changed)
 
+	# 预加载背景音乐
+	CoreSystem.audio_manager.preload_audio(ResourcePaths.Audios.LEVEL_BGM, CoreSystem.AudioManager.AudioType.MUSIC)
+	CoreSystem.audio_manager.play_music(ResourcePaths.Audios.LEVEL_BGM, 0.5)
+
+
 func _exit_tree() -> void:
 	CoreSystem.event_bus.unsubscribe(GameEvents.CollectionEvent.SCORE_CHANGED, _on_score_changed)
 

@@ -108,3 +108,8 @@ class Characters:
 		if index >= 0 and index < scenes.size():
 			return scenes[index]
 		return null
+
+class Audios:
+
+	const LEVEL_BGM := "res://assets/audios/level_bgm.wav"
+	const MENU_BGM := "res://assets/audios/menu_bgm.wav"
