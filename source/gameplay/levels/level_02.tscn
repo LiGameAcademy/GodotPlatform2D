@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://brysy5j5sdv4w" path="res://source/scenes/level.tscn" id="1_88bcc"]
 [ext_resource type="Texture2D" uid="uid://dvx74c0as6mnr" path="res://assets/textures/bg/texture_bg_gray.png" id="2_f5xbr"]
 [ext_resource type="PackedScene" uid="uid://b083n53vcsaeg" path="res://source/gameplay/items/fruit.tscn" id="3_13wqc"]
-[ext_resource type="PackedScene" uid="uid://cbi53gi7x2hv4" path="res://source/gameplay/traps/trap_saw_chain.tscn" id="4_3bq3y"]
+[ext_resource type="PackedScene" uid="uid://cbi53gi7x2hv4" path="res://source/gameplay/traps/trap_saw_path.tscn" id="4_3bq3y"]
 [ext_resource type="PackedScene" uid="uid://1b14uwr13dsj" path="res://source/gameplay/traps/trap_saw.tscn" id="5_7ig34"]
 
 [sub_resource type="Curve2D" id="Curve2D_wb63d"]
@@ -110,16 +110,16 @@ position = Vector2(495, 272)
 fruit_type = null
 score_multiplier = null
 
-[node name="trap_saw_chain" parent="Traps" index="0" instance=ExtResource("4_3bq3y")]
+[node name="trap_saw_path" parent="Traps" index="0" instance=ExtResource("4_3bq3y")]
 show_chain = false
 
-[node name="trap_saw" parent="Traps/trap_saw_chain" index="0" instance=ExtResource("5_7ig34")]
+[node name="trap_saw" parent="Traps/trap_saw_path" index="0" instance=ExtResource("5_7ig34")]
 position = Vector2(224, 176)
 rotation = 1.5708
 progress = 144.0
 is_editor_hint = true
 
-[node name="trap_saw2" parent="Traps/trap_saw_chain" index="1" instance=ExtResource("5_7ig34")]
+[node name="trap_saw2" parent="Traps/trap_saw_path" index="1" instance=ExtResource("5_7ig34")]
 position = Vector2(128, 128)
 progress = 0.0
 is_editor_hint = true
