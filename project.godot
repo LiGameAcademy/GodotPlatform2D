@@ -22,6 +22,7 @@ CoreSystem="*res://addons/godot_core_system/source/core_system.gd"
 GameInstance="*res://source/core/game_instance.gd"
 TranslationLoader="*res://source/core/translation_loader.gd"
 GameEvents="*res://source/core/game_events.gd"
+SaveSystem="*res://source/systems/save/save_system.gd"
 
 [display]
 
@@ -33,7 +34,7 @@ window/stretch/mode="canvas_items"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/godot_core_system/plugin.cfg", "res://addons/godot_state_charts/plugin.cfg")
+enabled=PackedStringArray("res://addons/godot_core_system/plugin.cfg")
 
 [input]
 

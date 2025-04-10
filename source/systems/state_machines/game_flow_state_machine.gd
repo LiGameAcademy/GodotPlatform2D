@@ -19,13 +19,13 @@ class LaunchState extends BaseState:
 # 菜单状态
 class MenuState extends BaseState:
 	func _enter(_msg: Dictionary = {}) -> void:
-		CoreSystem.event_bus.subscribe("game_start_requested", _on_game_start_requested)
-		CoreSystem.event_bus.subscribe("game_continue_requested", _on_game_continue_requested)
+		CoreSystem.event_bus.subscribe(GameEvents.GameFlowEvent.GAME_START_REQUESTED, _on_game_start_requested)
+		CoreSystem.event_bus.subscribe(GameEvents.GameFlowEvent.GAME_CONTINUE_REQUESTED, _on_game_continue_requested)
 		GameInstance.show_menu_scene()
 	
 	func _exit() -> void:
-		CoreSystem.event_bus.unsubscribe("game_start_requested", _on_game_start_requested)
-		CoreSystem.event_bus.unsubscribe("game_continue_requested", _on_game_continue_requested)
+		CoreSystem.event_bus.unsubscribe(GameEvents.GameFlowEvent.GAME_START_REQUESTED, _on_game_start_requested)
+		CoreSystem.event_bus.unsubscribe(GameEvents.GameFlowEvent.GAME_CONTINUE_REQUESTED, _on_game_continue_requested)
 	
 	func _on_game_start_requested() -> void:
 		GameInstance.start_new_game()
@@ -38,15 +38,16 @@ class MenuState extends BaseState:
 # 角色选择状态
 class CharacterSelectState extends BaseState:
 	func _enter(_msg: Dictionary = {}) -> void:
-		CoreSystem.event_bus.subscribe("character_selected", _on_character_selected)
-		CoreSystem.event_bus.subscribe("character_select_cancelled", _on_character_select_cancelled)
+		CoreSystem.event_bus.subscribe(GameEvents.CharacterSelectEvent.CHARACTER_SELECTED, _on_character_selected)
+		CoreSystem.event_bus.subscribe(GameEvents.CharacterSelectEvent.CHARACTER_SELECT_CANCELLED, _on_character_select_cancelled)
 		GameInstance.show_character_select_scene()
 	
 	func _exit() -> void:
-		CoreSystem.event_bus.unsubscribe("character_selected", _on_character_selected)
-		CoreSystem.event_bus.unsubscribe("character_select_cancelled", _on_character_select_cancelled)
+		CoreSystem.event_bus.unsubscribe(GameEvents.CharacterSelectEvent.CHARACTER_SELECTED, _on_character_selected)
+		CoreSystem.event_bus.unsubscribe(GameEvents.CharacterSelectEvent.CHARACTER_SELECT_CANCELLED, _on_character_select_cancelled)
 	
-	func _on_character_selected() -> void:
+	func _on_character_selected(character_index: int) -> void:
+		GameInstance.selected_character_index = character_index
 		switch_to(&"level_select")
 	
 	func _on_character_select_cancelled() -> void:
@@ -55,13 +56,13 @@ class CharacterSelectState extends BaseState:
 # 关卡选择状态
 class LevelSelectState extends BaseState:
 	func _enter(_msg: Dictionary = {}) -> void:
-		CoreSystem.event_bus.subscribe("level_selected", _on_level_selected)
-		CoreSystem.event_bus.subscribe("level_select_cancelled", _on_level_select_cancelled)
+		CoreSystem.event_bus.subscribe(GameEvents.LevelSelectEvent.LEVEL_SELECTED, _on_level_selected)
+		CoreSystem.event_bus.subscribe(GameEvents.LevelSelectEvent.LEVEL_SELECT_CANCELLED, _on_level_select_cancelled)
 		GameInstance.show_level_select_scene()
 	
 	func _exit() -> void:
-		CoreSystem.event_bus.unsubscribe("level_selected", _on_level_selected)
-		CoreSystem.event_bus.unsubscribe("level_select_cancelled", _on_level_select_cancelled)
+		CoreSystem.event_bus.unsubscribe(GameEvents.LevelSelectEvent.LEVEL_SELECTED, _on_level_selected)
+		CoreSystem.event_bus.unsubscribe(GameEvents.LevelSelectEvent.LEVEL_SELECT_CANCELLED, _on_level_select_cancelled)
 	
 	func _on_level_selected(level_index: int) -> void:
 		GameInstance.current_level = level_index
@@ -92,7 +93,7 @@ class PlayingState extends BaseState:
 		GameInstance.level_manager.completed_levels[event_data.level_index] = true
 		
 		# 自动保存游戏
-		GameInstance.save_game()
+		GameInstance.save_manager.save_game()
 		
 		# 检查是否是最后一关
 		if event_data.level_index + 1 < GameInstance.level_manager.get_level_count():
@@ -115,7 +116,5 @@ class PlayingState extends BaseState:
 		GameInstance.level_manager.load_next_level()
 	
 	func _on_game_exit_requested() -> void:
-		# 保存游戏
-		GameInstance.save_game()
 		# 切换到菜单状态
 		switch_to(&"menu")

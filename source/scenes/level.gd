@@ -4,11 +4,18 @@ class_name Level
 @onready var start_point: StartPoint = $StartPoint
 @onready var end_point: EndPoint = $EndPoint
 @onready var fruits_node: Node2D = $Fruits
+@onready var traps_node: Node2D = $Traps
 
 var _level_index: int
 var _character : Character
-var _score: int
-	
+var _score: int:
+	set(value):
+		_score = value
+		GameEvents.UIEvent.push_level_score_changed(_score)
+var _level_time := 0.0
+var collected_fruits := []
+var passed_checkpoints := []
+
 func _ready() -> void:
 	# 连接结束点信号
 	if end_point:
@@ -18,31 +25,23 @@ func _ready() -> void:
 func _exit_tree() -> void:
 	CoreSystem.event_bus.unsubscribe(GameEvents.CollectionEvent.SCORE_CHANGED, _on_score_changed)
 
+func _process(delta: float) -> void:
+	if not get_tree().paused:
+		_level_time += delta
+
 ## 初始化关卡状态
 func init_state(data: Dictionary) -> void:
 	if not is_node_ready():
 		await ready
 	
 	_level_index = data.get("level_index", 0)
-	_score = data.get("score", 0)
-	
-	# 如果有保存的水果状态，加载它
-	if "fruits_state" in data:
-		load_fruits_state(data.fruits_state)
-	
-	# 更新UI显示
-	GameEvents.UIEvent.push_level_score_changed(_score)
-	
+
 	# 设置玩家
 	_setup_player()
-
-## 获取关卡数据
-func get_level_data() -> Dictionary:
-	return {
-		"level_index": _level_index,
-		"score": _score,
-		"fruits_state": save_fruits_state()
-	}
+	
+	# 初始化分数
+	await get_tree().process_frame
+	_score = data.get("score", 0)
 
 ## 完成关卡
 func complete_level() -> void:
@@ -50,38 +49,29 @@ func complete_level() -> void:
 	GameInstance.add_level_score(_score)
 	# 发送关卡完成事件
 	GameEvents.LevelEvent.push_level_completed(_level_index, _score)
-	# 自动保存游戏
-	GameInstance.save_game()
 
 ## 重置关卡
 func reset() -> void:
 	_score = 0
-	GameEvents.UIEvent.push_level_score_changed(_score)
+	_level_time = 0.0
+	collected_fruits.clear()
+	passed_checkpoints.clear()
 
-## 保存水果状态
-func save_fruits_state() -> Array:
-	var fruits_state = []
-	if fruits_node:
-		for fruit in fruits_node.get_children():
-			if fruit is Fruit:
-				fruits_state.append({
-					"name": fruit.name,
-					"state": fruit.save_state()
-				})
-	return fruits_state
-
-## 加载水果状态
-func load_fruits_state(fruits_state: Array) -> void:
-	if not fruits_node:
-		return
-		
-	for fruit_data in fruits_state:
-		var fruit_name = fruit_data.name
-		var fruit_state = fruit_data.state
-		# 使用 find_child 来查找水果节点，这样可以处理子节点的情况
-		var fruit = fruits_node.find_child(fruit_name, true, false)
-		if fruit and fruit is Fruit:
-			fruit.load_state(fruit_state)
+# 恢复检查点状态
+func _restore_checkpoint_state() -> void:
+	var last_checkpoint = null
+	var checkpoints = get_tree().get_nodes_in_group("checkpoints")
+	
+	for checkpoint in checkpoints:
+		if checkpoint.has_method("get_checkpoint_id"):
+			var cp_id = checkpoint.get_checkpoint_id()
+			if cp_id in passed_checkpoints:
+				checkpoint.activate()
+				last_checkpoint = checkpoint
+	
+	# 如果有通过的检查点，更新起始位置
+	if last_checkpoint:
+		start_point = last_checkpoint
 
 ## 获取当前分数
 func get_score() -> int:
@@ -106,8 +96,6 @@ func _setup_player() -> void:
 ## 处理分数改变事件
 func _on_score_changed(event_data: GameEvents.CollectionEvent.ScoreChangedData) -> void:
 	_score += event_data.score
-	# 通知UI更新关卡分数
-	GameEvents.UIEvent.push_level_score_changed(_score)
 
 ## 死亡动画完成后处理
 func _on_death_animation_finished(_cha: Character) -> void:
@@ -116,3 +104,10 @@ func _on_death_animation_finished(_cha: Character) -> void:
 ## 关卡结束
 func _on_level_end() -> void:
 	complete_level()
+
+## 记录检查点通过
+func record_checkpoint(checkpoint_id: String) -> void:
+	if not checkpoint_id in passed_checkpoints:
+		passed_checkpoints.append(checkpoint_id)
+		# 自动保存游戏，实现检查点功能
+		GameInstance.quick_save()

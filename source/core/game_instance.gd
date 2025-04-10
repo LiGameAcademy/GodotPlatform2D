@@ -5,8 +5,6 @@ const MENU_SCENE : String = ResourcePaths.Scenes.MENU
 const CHARACTER_SELECT_SCENE : String = ResourcePaths.Scenes.CHARACTER_SELECT
 const LEVEL_SELECT_SCENE : String = ResourcePaths.Scenes.LEVEL_SELECT
 
-const SaveManager := preload("res://source/core/save_manager.gd")
-
 ## 当前总分数
 var score: int = 0:
 	set(value):
@@ -20,7 +18,7 @@ var selected_character_index := 0
 
 var level_manager : LevelManager
 var effect_manager : EffectManager
-var save_manager : SaveManager
+var save_manager : GameSaveManager
 
 ## 角色相关
 var characters: Array[PackedScene] = ResourcePaths.Characters.get_all()
@@ -28,12 +26,15 @@ var characters: Array[PackedScene] = ResourcePaths.Characters.get_all()
 func _ready() -> void:
 	level_manager = LevelManager.new()
 	add_child(level_manager)
+	level_manager.name = "level_manager"
 	
 	effect_manager = EffectManager.new()
 	add_child(effect_manager)
+	effect_manager.name = "effect_manager"
 	
-	save_manager = SaveManager.new()
+	save_manager = GameSaveManager.new()
 	add_child(save_manager)
+	save_manager.name = "save_manager"
 
 ## 游戏启动
 func setup() -> void:
@@ -80,18 +81,21 @@ func start_new_game() -> void:
 	selected_character_index = 0
 	
 	# 重置关卡管理器数据
-	level_manager.reset_game_data()
+	level_manager.reset()
 	
-	# 加载第一关
-	load_current_level()
+	# 切换到角色选择场景
+	show_character_select_scene()
 
 ## 继续游戏
 func continue_game() -> void:
 	# 加载存档
-	save_manager.load_game()
-	
-	# 加载当前关卡
-	load_current_level()
+	if save_manager.load_game():
+		# 直接加载当前关卡
+		load_current_level()
+	else:
+		push_error("无法加载存档 ")
+		# 返回主菜单
+		show_menu_scene()
 
 ## 加载当前关卡
 func load_current_level() -> void:
@@ -104,14 +108,6 @@ func add_level_score(level_score: int) -> void:
 ## 重置分数
 func reset_score() -> void:
 	score = 0
-
-## 保存游戏
-func save_game() -> void:
-	save_manager.save_game()
-
-## 删除存档
-func delete_save() -> void:
-	save_manager.delete_save()
 
 ## 返回主菜单
 func return_to_menu() -> void:
@@ -140,3 +136,11 @@ func show_level_select_scene() -> void:
 
 func get_characters_count() -> int:
 	return characters.size()
+
+func save() -> GameData:
+	return GameData.new(score, current_level, selected_character_index)
+
+func load(data: GameData) -> void:
+	score = data.score
+	current_level = data.current_level
+	selected_character_index = data.selected_character_index
