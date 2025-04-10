@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://byvfeew05rum6"]
+[gd_scene load_steps=18 format=3 uid="uid://byvfeew05rum6"]
 
 [ext_resource type="Script" uid="uid://ioxrjfyksymf" path="res://source/gameplay/traps/trap_rock_head.gd" id="1_afcp0"]
 [ext_resource type="Texture2D" uid="uid://j7pem4fv38yc" path="res://assets/textures/traps/rock_head/texture_traps_rock_head_idle.png" id="1_e6gsp"]
@@ -7,10 +7,12 @@
 [ext_resource type="Texture2D" uid="uid://c4qrd54s0e07g" path="res://assets/textures/traps/rock_head/texture_traps_rock_head_left_hit (42x42).png" id="5_e5o4o"]
 [ext_resource type="Texture2D" uid="uid://c3uusfgwtdbex" path="res://assets/textures/traps/rock_head/texture_traps_rock_head_right_hit (42x42).png" id="6_20xyo"]
 [ext_resource type="Texture2D" uid="uid://blym2xypf0hp0" path="res://assets/textures/traps/rock_head/texture_traps_rock_head_top_hit (42x42).png" id="7_kkv58"]
-[ext_resource type="Script" uid="uid://cv4hnxepxtk2o" path="res://addons/godot_state_charts/state_chart.gd" id="8_ruhdp"]
-[ext_resource type="Script" uid="uid://bcdlb53vgl2i2" path="res://addons/godot_state_charts/compound_state.gd" id="9_32xy4"]
-[ext_resource type="Script" uid="uid://ekowniamo851" path="res://addons/godot_state_charts/atomic_state.gd" id="10_k6h2i"]
-[ext_resource type="Script" uid="uid://dm6pmupgejbij" path="res://addons/godot_state_charts/transition.gd" id="11_1x0ux"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_slxun"]
+size = Vector2(32, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bswos"]
+size = Vector2(8, 32)
 
 [sub_resource type="Animation" id="Animation_ouq3e"]
 length = 0.001
@@ -422,12 +424,6 @@ _data = {
 &"top_hit": SubResource("Animation_0s8i0")
 }
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_slxun"]
-size = Vector2(32, 32)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_bswos"]
-size = Vector2(8, 32)
-
 [node name="trap_rock_head" type="CharacterBody2D"]
 collision_layer = 8
 collision_mask = 2
@@ -435,12 +431,6 @@ script = ExtResource("1_afcp0")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_e6gsp")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_v33lt")
-}
-autoplay = "blink"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_slxun")
@@ -453,38 +443,8 @@ position = Vector2(-16, 0)
 shape = SubResource("RectangleShape2D_bswos")
 debug_color = Color(0.758979, 0.354971, 0.723876, 0.42)
 
-[node name="StateChart" type="Node" parent="."]
-script = ExtResource("8_ruhdp")
-
-[node name="CompoundState" type="Node" parent="StateChart"]
-script = ExtResource("9_32xy4")
-initial_state = NodePath("Idle")
-
-[node name="Idle" type="Node" parent="StateChart/CompoundState"]
-script = ExtResource("10_k6h2i")
-
-[node name="ToMove" type="Node" parent="StateChart/CompoundState/Idle"]
-script = ExtResource("11_1x0ux")
-to = NodePath("../../Move")
-delay_seconds = 0.5
-
-[node name="Move" type="Node" parent="StateChart/CompoundState"]
-script = ExtResource("10_k6h2i")
-
-[node name="ToHit" type="Node" parent="StateChart/CompoundState/Move"]
-script = ExtResource("11_1x0ux")
-to = NodePath("../../Hit")
-event = &"to_hit"
-
-[node name="Hit" type="Node" parent="StateChart/CompoundState"]
-script = ExtResource("10_k6h2i")
-
-[node name="ToIdle" type="Node" parent="StateChart/CompoundState/Hit"]
-script = ExtResource("11_1x0ux")
-to = NodePath("../../Idle")
-event = &"to_idle"
-
-[connection signal="state_entered" from="StateChart/CompoundState/Idle" to="." method="_on_idle_state_entered"]
-[connection signal="state_entered" from="StateChart/CompoundState/Move" to="." method="_on_move_state_entered"]
-[connection signal="state_exited" from="StateChart/CompoundState/Move" to="." method="_on_move_state_exited"]
-[connection signal="state_entered" from="StateChart/CompoundState/Hit" to="." method="_on_hit_state_entered"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_v33lt")
+}
+autoplay = "blink"

@@ -124,10 +124,10 @@ position = Vector2(128, 128)
 progress = 0.0
 is_editor_hint = true
 
-[node name="trap_saw_chain2" parent="Traps" index="1" instance=ExtResource("4_3bq3y")]
+[node name="trap_saw_path2" parent="Traps" index="1" instance=ExtResource("4_3bq3y")]
 curve = SubResource("Curve2D_wb63d")
 
-[node name="trap_saw" parent="Traps/trap_saw_chain2" index="0" instance=ExtResource("5_7ig34")]
+[node name="trap_saw" parent="Traps/trap_saw_path2" index="0" instance=ExtResource("5_7ig34")]
 z_index = 1
 position = Vector2(344, 64.0281)
 rotation = 1.5708
@@ -135,10 +135,10 @@ progress = 32.0483
 loop = false
 is_editor_hint = true
 
-[node name="trap_saw_chain3" parent="Traps" index="2" instance=ExtResource("4_3bq3y")]
+[node name="trap_saw_path3" parent="Traps" index="2" instance=ExtResource("4_3bq3y")]
 curve = SubResource("Curve2D_tf7e5")
 
-[node name="trap_saw" parent="Traps/trap_saw_chain3" index="0" instance=ExtResource("5_7ig34")]
+[node name="trap_saw" parent="Traps/trap_saw_path3" index="0" instance=ExtResource("5_7ig34")]
 z_index = 1
 position = Vector2(480.291, 168)
 progress = 96.2874

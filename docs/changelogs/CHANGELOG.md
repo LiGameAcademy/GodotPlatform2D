@@ -23,15 +23,21 @@
 - 新增积分系统功能实现，包括关卡分数和总分
   - 包括一个特效（得分显示的漂字效果）
   - 对事件总线的封装[`GameEvents`](/source/core/game_events.gd)
+- 新增快速存档功能
 
 ### 变更
 
+- 更改 `trap_rock_head.gd` 中的代码，使用状态机管理器
 
 ### 废弃
 
 ### 移除
 
+- 更改 `trap_rock_head.gd` 中的代码。不再使用`state_charts`插件
+
 ### 修复
+
+- 修复关卡2中的`trap_saw_path`不移动的问题
 
 ### 安全
 
