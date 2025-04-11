@@ -16,9 +16,7 @@ var current_level_index: int = 0:
 		if old_index != current_level_index:
 			level_changed.emit(old_index, current_level_index)
 
-var _current_level : Level:
-	get:
-		return get_tree().current_scene
+var _current_level : Level
 
 ## 关卡状态记录
 var completed_levels: Array[bool] = []
@@ -124,6 +122,7 @@ func _load_level(level_path: String, score: int = 0) -> void:
 		0.5,
 		func() -> void:
 			# 发送关卡开始信号
+			_current_level = get_tree().current_scene
 			level_started.emit(current_level_index),
 		"level_transition"
 	)
