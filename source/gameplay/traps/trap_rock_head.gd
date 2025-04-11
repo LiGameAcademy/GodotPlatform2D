@@ -146,13 +146,13 @@ class RockHeadStateMachine:
 		func _get_hit_animation(collision_type : COLLISION_TYPE) -> StringName:
 			match collision_type:
 				COLLISION_TYPE.TOP:
-					return "top_hit"
-				COLLISION_TYPE.BOTTOM:
 					return "bottom_hit"
+				COLLISION_TYPE.BOTTOM:
+					return "top_hit"
 				COLLISION_TYPE.LEFT:
-					return "left_hit"
-				COLLISION_TYPE.RIGHT:
 					return "right_hit"
+				COLLISION_TYPE.RIGHT:
+					return "left_hit"
 				_:
 					return ""
 
