@@ -57,7 +57,7 @@ func _ready() -> void:
 		if child is CharacterController:
 			_connect_controller(child)
 
-	add_to_group("saveable")
+	add_to_group(CoreSystem.save_manager.SAVE_GROUP)
 
 func _exit_tree() -> void:
 	_animation_tree.active = false
@@ -88,12 +88,14 @@ func save() -> CharacterData:
 	character_data.velocity = velocity
 	character_data.can_double_jump = can_double_jump
 	character_data.current_animation = current_animation
+	character_data.position = global_position
 	return character_data
 
 func load_data(character_data: CharacterData) -> void:
 	velocity = character_data.velocity
 	can_double_jump = character_data.can_double_jump
 	current_animation = character_data.current_animation
+	global_position = character_data.position
 
 ## 播放动画
 func play_animation(anim_name: String) -> void:

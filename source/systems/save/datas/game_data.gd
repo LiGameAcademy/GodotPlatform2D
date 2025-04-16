@@ -1,4 +1,4 @@
-extends Resource
+extends CoreSystem.GameStateData.NodeData
 class_name GameData
 
 @export var score: int = 0

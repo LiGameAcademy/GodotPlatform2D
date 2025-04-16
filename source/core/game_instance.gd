@@ -4,6 +4,7 @@ extends Node
 const MENU_SCENE : String = ResourcePaths.Scenes.MENU
 const CHARACTER_SELECT_SCENE : String = ResourcePaths.Scenes.CHARACTER_SELECT
 const LEVEL_SELECT_SCENE : String = ResourcePaths.Scenes.LEVEL_SELECT
+const SaveManager = preload("res://source/core/save_manager.gd")
 
 ## 当前总分数
 var score: int = 0:
@@ -18,7 +19,7 @@ var selected_character_index := 0
 
 var level_manager : LevelManager
 var effect_manager : EffectManager
-var save_manager : GameSaveManager
+var save_manager : SaveManager
 
 ## 角色相关
 var characters: Array[PackedScene] = ResourcePaths.Characters.get_all()
@@ -32,9 +33,11 @@ func _ready() -> void:
 	add_child(effect_manager)
 	effect_manager.name = "effect_manager"
 	
-	save_manager = GameSaveManager.new()
+	save_manager = SaveManager.new()
 	add_child(save_manager)
 	save_manager.name = "save_manager"
+
+	add_to_group(CoreSystem.SaveManager.SAVE_GROUP)
 
 ## 游戏启动
 func setup() -> void:
@@ -89,7 +92,7 @@ func start_new_game() -> void:
 ## 继续游戏
 func continue_game() -> void:
 	# 加载存档
-	if save_manager.load_game():
+	if await save_manager.load_game():
 		# 直接加载当前关卡
 		load_current_level()
 	else:

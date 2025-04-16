@@ -1,5 +1,5 @@
 # source/systems/save/level_state_data.gd
-extends Resource
+extends CoreSystem.GameStateData.NodeData
 class_name LevelData
 
 ## 完成状态

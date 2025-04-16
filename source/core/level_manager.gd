@@ -37,6 +37,8 @@ func _ready() -> void:
 	unlocked_levels.fill(false)
 	unlocked_levels[0] = true  # 第一关默认解锁
 
+	add_to_group(CoreSystem.SaveManager.SAVE_GROUP)
+
 ## 创建关卡（用于预览）
 func create_level_preview(level_index: int) -> Level:
 	var level_scene : PackedScene = load(LEVELS[level_index])

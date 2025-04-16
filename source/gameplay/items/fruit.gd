@@ -36,22 +36,21 @@ func _ready() -> void:
 	if not _collected:
 		animation_player.play("idle")
 
-	add_to_group("saveable")
+	add_to_group(CoreSystem.save_manager.SAVE_GROUP)
 
 ## 保存水果状态
 func save() -> FruitData:
 	var fruit_data := FruitData.new()
-	fruit_data.entity_type = "fruit"
 	fruit_data.fruit_type = _current_type
 	fruit_data.collected = _collected
-
+	fruit_data.position = global_position
 	return fruit_data
 
 ## 加载水果状态
 func load_data(fruit_data: FruitData) -> void:
 	_current_type = fruit_data.fruit_type
 	sprite_2d.texture = FRUIT_TYPES[_current_type]
-	
+	global_position = fruit_data.position
 	_collected = fruit_data.collected
 	if _collected:
 		sprite_2d.hide()
