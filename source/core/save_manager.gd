@@ -6,6 +6,7 @@ var _current_save_id: String = ""
 func _ready() -> void:	
 	# 连接信号
 	CoreSystem.event_bus.subscribe(GameEvents.LevelEvent.LEVEL_COMPLETED, _on_level_completed)
+	# 使用Resource策略
 	CoreSystem.save_manager.set_save_format("resource")
 
 func _exit_tree() -> void:

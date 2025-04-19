@@ -1,4 +1,3 @@
-# source/systems/save/character_state_data.gd
 extends EntityData
 class_name CharacterData
 

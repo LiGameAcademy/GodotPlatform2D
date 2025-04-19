@@ -1,6 +1,8 @@
 extends CharacterBody2D
 class_name Character
 
+signal damaged(damage : int)
+
 @onready var _sprite: Sprite2D = $Sprite2D
 @onready var _animation_tree: AnimationTree = $AnimationTree
 @onready var _animation_state_machine: AnimationNodeStateMachinePlayback = _animation_tree.get("parameters/StateMachine/playback")
@@ -58,6 +60,8 @@ func _ready() -> void:
 			_connect_controller(child)
 
 	add_to_group(CoreSystem.save_manager.SAVE_GROUP)
+	var cha = get_tree().get_nodes_in_group("Character")
+	get_tree().call_group("enemies", "die")
 
 func _exit_tree() -> void:
 	_animation_tree.active = false

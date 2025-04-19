@@ -1,4 +1,3 @@
-# source/systems/save/fruit_state_data.gd
 extends EntityData
 class_name FruitData
 

@@ -35,6 +35,10 @@ window/stretch/mode="canvas_items"
 
 enabled=PackedStringArray("res://addons/godot_core_system/plugin.cfg")
 
+[global_group]
+
+test_global="test_des"
+
 [input]
 
 ui_left={
