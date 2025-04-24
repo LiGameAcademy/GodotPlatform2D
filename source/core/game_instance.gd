@@ -140,10 +140,14 @@ func show_level_select_scene() -> void:
 func get_characters_count() -> int:
 	return characters.size()
 
-func save() -> GameData:
-	return GameData.new(score, current_level, selected_character_index)
+func save() -> Dictionary:
+	return {
+		"score": score,
+		"current_level": current_level,
+		"selected_character_index": selected_character_index,
+	}
 
-func load_data(data: GameData) -> void:
-	score = data.score
-	current_level = data.current_level
-	selected_character_index = data.selected_character_index
+func load_data(data: Dictionary) -> void:
+	score = data.get("score", 0)
+	current_level = data.get("current_level", 0)
+	selected_character_index = data.get("selected_character_index", 0)

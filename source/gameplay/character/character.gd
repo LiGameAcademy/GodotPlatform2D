@@ -59,9 +59,7 @@ func _ready() -> void:
 		if child is CharacterController:
 			_connect_controller(child)
 
-	add_to_group(CoreSystem.save_manager.SAVE_GROUP)
-	var cha = get_tree().get_nodes_in_group("Character")
-	get_tree().call_group("enemies", "die")
+	CoreSystem.save_manager.register_saveable_node(self)
 
 func _exit_tree() -> void:
 	_animation_tree.active = false
@@ -87,19 +85,19 @@ func _physics_process(delta: float) -> void:
 	# 更新动画参数
 	_update_animation_parameters()
 
-func save() -> CharacterData:
-	var character_data := CharacterData.new()
-	character_data.velocity = velocity
-	character_data.can_double_jump = can_double_jump
-	character_data.current_animation = current_animation
-	character_data.position = global_position
-	return character_data
+func save() -> Dictionary:
+	return {
+		"velocity": velocity,
+		"can_double_jump": can_double_jump,
+		"current_animation": current_animation,
+		"position": global_position,
+	}
 
-func load_data(character_data: CharacterData) -> void:
-	velocity = character_data.velocity
-	can_double_jump = character_data.can_double_jump
-	current_animation = character_data.current_animation
-	global_position = character_data.position
+func load_data(character_data: Dictionary) -> void:
+	velocity = character_data.get("velocity", Vector2.ZERO)
+	can_double_jump = character_data.get("can_double_jump", true)
+	current_animation = character_data.get("current_animation", "idle")
+	global_position = character_data.get("position", Vector2.ZERO)
 
 ## 播放动画
 func play_animation(anim_name: String) -> void:

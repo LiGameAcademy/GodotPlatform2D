@@ -82,20 +82,19 @@ func get_current_level() -> Level:
 	return _current_level
 
 ## 数据持久化
-func save() -> LevelData:
-	var level_data := LevelData.new()
-	
-	level_data.completed_levels = completed_levels
-	level_data.unlocked_levels = unlocked_levels
-	level_data.level_index = current_level_index
-	level_data.level_score = _current_level.get_score()
-	return level_data
+func save() -> Dictionary:
+	return {
+		"completed_levels": completed_levels,
+		"unlocked_levels": unlocked_levels,
+		"level_index": current_level_index,
+		"level_score": _current_level.get_score(),
+	}
 
-func load_data(data: LevelData) -> void:
-	completed_levels = data.completed_levels
-	unlocked_levels = data.unlocked_levels
-	current_level_index = data.level_index
-	_load_level(LEVELS[current_level_index], data.level_score)
+func load_data(data: Dictionary) -> void:
+	completed_levels = data.get("completed_levels", [])
+	unlocked_levels = data.get("unlocked_levels", [])
+	current_level_index = data.get("level_index", 0)
+	_load_level(LEVELS[current_level_index])
 	await level_started
 
 ## 重置游戏数据（新游戏时调用）
