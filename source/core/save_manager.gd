@@ -6,14 +6,12 @@ var _current_save_id: String = ""
 func _ready() -> void:	
 	# 连接信号
 	CoreSystem.event_bus.subscribe(GameEvents.LevelEvent.LEVEL_COMPLETED, _on_level_completed)
-	# 使用Resource策略
-	CoreSystem.save_manager.set_save_format("resource")
 
 func _exit_tree() -> void:
 	CoreSystem.event_bus.unsubscribe(GameEvents.LevelEvent.LEVEL_COMPLETED, _on_level_completed)
 
 func save_game() -> void:
-	_current_save_id = save_manager.create_auto_save()
+	_current_save_id = await save_manager.create_auto_save()
 
 # 加载游戏
 func load_game() -> bool:
@@ -35,4 +33,4 @@ func has_save() -> bool:
 
 # 自动存档（关卡完成时）
 func _on_level_completed(_data) -> void:
-	_current_save_id = save_manager.create_auto_save()
+	_current_save_id = await save_manager.create_auto_save()

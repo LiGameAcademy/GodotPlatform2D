@@ -37,7 +37,7 @@ func _ready() -> void:
 	add_child(save_manager)
 	save_manager.name = "save_manager"
 
-	add_to_group(CoreSystem.SaveManager.SAVE_GROUP)
+	CoreSystem.save_manager.register_saveable_node(self)
 
 ## 游戏启动
 func setup() -> void:
