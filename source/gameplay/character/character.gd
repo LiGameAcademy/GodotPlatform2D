@@ -1,7 +1,7 @@
 extends CharacterBody2D
 class_name Character
 
-signal damaged(damage : int)
+#signal damaged(damage : int)
 
 @onready var _sprite: Sprite2D = $Sprite2D
 @onready var _animation_tree: AnimationTree = $AnimationTree

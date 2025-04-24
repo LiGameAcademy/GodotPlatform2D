@@ -34,8 +34,9 @@ func set_level_info(p_level_index: int, unlocked: bool = false, completed: bool 
 	is_completed = completed
 	# 根据状态设置外观
 	modulate = Color.WHITE if unlocked else Color(0.5, 0.5, 0.5, 1.0)
-	var level_preview := GameInstance.level_manager.create_level_preview(level_index)
-	sub_viewport.add_child(level_preview)
+	if has_node(^"/root/GameInstance"):
+		var level_preview = get_node(^"/root/GameInstance").level_manager.create_level_preview(level_index)
+		sub_viewport.add_child(level_preview)
 	texture_rect.texture = level_count_texture[level_index]
 
 func _on_gui_input(event: InputEvent) -> void:

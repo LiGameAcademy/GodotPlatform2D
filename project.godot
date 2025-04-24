@@ -39,6 +39,10 @@ enabled=PackedStringArray("res://addons/godot_core_system/plugin.cfg", "res://ad
 
 test_global="test_des"
 
+[godot_core_system]
+
+save_system/defaults/serialization_format="json"
+
 [input]
 
 ui_left={

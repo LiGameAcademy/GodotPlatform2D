@@ -37,8 +37,6 @@ func _ready() -> void:
 	unlocked_levels.fill(false)
 	unlocked_levels[0] = true  # 第一关默认解锁
 
-	CoreSystem.save_manager.register_saveable_node(self)
-
 ## 创建关卡（用于预览）
 func create_level_preview(level_index: int) -> Level:
 	var level_scene : PackedScene = load(LEVELS[level_index])
@@ -58,10 +56,10 @@ func load_previous_level() -> void:
 		_load_level(LEVELS[current_level_index])
 
 ## 加载指定关卡
-func load_level(level_index: int) -> void:
+func load_level(level_index: int, score: int = 0) -> void:
 	if level_index >= 0 and level_index < LEVELS.size() and is_level_unlocked(level_index):
 		current_level_index = level_index
-		_load_level(LEVELS[level_index])
+		_load_level(LEVELS[level_index], score)
 
 ## 关卡状态查询
 func is_level_completed(level_index: int) -> bool:
@@ -80,22 +78,6 @@ func get_level_path(level_index: int) -> String:
 
 func get_current_level() -> Level:
 	return _current_level
-
-## 数据持久化
-func save() -> Dictionary:
-	return {
-		"completed_levels": completed_levels,
-		"unlocked_levels": unlocked_levels,
-		"level_index": current_level_index,
-		"level_score": _current_level.get_score(),
-	}
-
-func load_data(data: Dictionary) -> void:
-	completed_levels = data.get("completed_levels", [])
-	unlocked_levels = data.get("unlocked_levels", [])
-	current_level_index = data.get("level_index", 0)
-	_load_level(LEVELS[current_level_index])
-	await level_started
 
 ## 重置游戏数据（新游戏时调用）
 func reset() -> void:
@@ -127,4 +109,3 @@ func _load_level(level_path: String, score: int = 0) -> void:
 			level_started.emit(current_level_index),
 		"level_transition"
 	)
-	

@@ -145,9 +145,23 @@ func save() -> Dictionary:
 		"score": score,
 		"current_level": current_level,
 		"selected_character_index": selected_character_index,
+		"completed_levels": level_manager.completed_levels,
+		"unlocked_levels": level_manager.unlocked_levels,
+		"level_index": level_manager.current_level_index,
+		"level_score": level_manager.get_current_level().get_score(),
 	}
 
 func load_data(data: Dictionary) -> void:
 	score = data.get("score", 0)
 	current_level = data.get("current_level", 0)
 	selected_character_index = data.get("selected_character_index", 0)
+	var index := 0
+	for completed in data.get("completed_levels", [] as Array[bool]):
+		level_manager.completed_levels[index] = completed
+		index += 1
+	index = 0
+	for unlocked in data.get("unlocked_levels", [] as Array[bool]):
+		level_manager.unlocked_levels[index] = unlocked
+		index += 1
+	level_manager.current_level_index = data.get("level_index", 0)
+	level_manager.load_level(level_manager.current_level_index, data.get("level_score", 0))
