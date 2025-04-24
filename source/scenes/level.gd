@@ -26,7 +26,6 @@ func _ready() -> void:
 	CoreSystem.audio_manager.preload_audio(ResourcePaths.Audios.LEVEL_BGM, CoreSystem.AudioManager.AudioType.MUSIC)
 	CoreSystem.audio_manager.play_music(ResourcePaths.Audios.LEVEL_BGM, 0.5)
 
-
 func _exit_tree() -> void:
 	CoreSystem.event_bus.unsubscribe(GameEvents.CollectionEvent.SCORE_CHANGED, _on_score_changed)
 
@@ -88,8 +87,8 @@ func _setup_player() -> void:
 		CoreSystem.logger.error("Failed to create player character")
 		return
 		
-	add_child(_character)
 	_character.global_position = start_point.global_position
+	add_child(_character)
 	
 	# 订阅角色相关事件
 	CoreSystem.event_bus.subscribe("character_death_animation_finished", _on_death_animation_finished, CoreSystem.event_bus.Priority.NORMAL,

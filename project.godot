@@ -41,7 +41,7 @@ test_global="test_des"
 
 [godot_core_system]
 
-save_system/defaults/serialization_format="json"
+save_system/defaults/serialization_format="binary"
 
 [input]
 
