@@ -7,15 +7,16 @@
 ![Game Title](/docs/images/示例demo.gif)
 
 [![GitHub stars](https://img.shields.io/github/stars/Liweimin0512/-GodotPlatform2D?style=flat-square)](https://github.com/Liweimin0512/-GodotPlatform2D/stargazers)
-[![GitHub license](https://img.shields.io/github/license/Liweimin0512/-GodotPlatform2D?style=flat-square)](https://github.com/LiGameAcademy/GodotPlatform2D/blob/master/LICENSE.md)
+[![GitHub license](https://img.shields.io/github/license/LiGameAcademy/GodotPlatform2D?style=flat-square)](https://github.com/LiGameAcademy/GodotPlatform2D/blob/master/LICENSE.md)
 [![Godot Engine](https://img.shields.io/badge/GODOT-4.4-blue?style=flat-square)](https://godotengine.org)
-[![GitHub release](https://img.shields.io/github/v/release/Liweimin0512/-GodotPlatform2D?style=flat-square)](https://github.com/LiGameAcademy/GodotPlatform2D/releases)
+[![GitHub release](https://img.shields.io/github/v/release/LiGameAcademy/GodotPlatform2D?style=flat-square)](https://github.com/LiGameAcademy/GodotPlatform2D/releases)
+
 
 </div>
 
 ## Introduction
 
-A 2D platform game tutorial project developed with Godot 4.4. This project aims to help developers quickly master the core features of the Godot engine while providing a complete game development case study.
+A 2D platform game tutorial project developed with Godot 4.4. This project aims to help developers quickly master the core features of the Godot engine while providing a complete game development case study. It is also an example project for the [godot_core_system](https://github.com/LiGameAcademy/godot_core_system) plugin.
 
 ### Play Online
 

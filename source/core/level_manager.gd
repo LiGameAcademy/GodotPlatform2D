@@ -15,6 +15,7 @@ var current_level_index: int = 0:
 		current_level_index = clampi(value, 0, LEVELS.size() - 1)
 		if old_index != current_level_index:
 			level_changed.emit(old_index, current_level_index)
+
 var _current_level : Level
 
 ## 关卡状态记录
@@ -27,7 +28,7 @@ func _ready() -> void:
 		LevelTransition.new(), 
 		"level_transition"
 	)
-
+	
 	# 初始化关卡状态数组
 	completed_levels.resize(LEVELS.size())
 	completed_levels.fill(false)
@@ -35,7 +36,6 @@ func _ready() -> void:
 	unlocked_levels.resize(LEVELS.size())
 	unlocked_levels.fill(false)
 	unlocked_levels[0] = true  # 第一关默认解锁
-	unlocked_levels[1] = true  # 第一关默认解锁
 
 ## 创建关卡（用于预览）
 func create_level_preview(level_index: int) -> Level:
@@ -56,10 +56,10 @@ func load_previous_level() -> void:
 		_load_level(LEVELS[current_level_index])
 
 ## 加载指定关卡
-func load_level(level_index: int) -> void:
+func load_level(level_index: int, score: int = 0) -> void:
 	if level_index >= 0 and level_index < LEVELS.size() and is_level_unlocked(level_index):
 		current_level_index = level_index
-		_load_level(LEVELS[level_index])
+		_load_level(LEVELS[level_index], score)
 
 ## 关卡状态查询
 func is_level_completed(level_index: int) -> bool:
@@ -76,41 +76,36 @@ func get_level_path(level_index: int) -> String:
 		return LEVELS[level_index]
 	return ""
 
-## 数据持久化
-func save_level_data() -> Dictionary:
-	return {
-		"completed_levels": completed_levels,
-		"unlocked_levels": unlocked_levels,
-		"current_level_index": current_level_index
-	}
-
-func load_level_data(data: Dictionary) -> void:
-	if "completed_levels" in data:
-		completed_levels = data.completed_levels
-	if "unlocked_levels" in data:
-		unlocked_levels = data.unlocked_levels
-	if "current_level_index" in data:
-		current_level_index = data.current_level_index
-
 func get_current_level() -> Level:
 	return _current_level
 
+## 重置游戏数据（新游戏时调用）
+func reset() -> void:
+	current_level_index = 0
+	
+	# 重置关卡状态
+	completed_levels.fill(false)
+	unlocked_levels.fill(false)
+	unlocked_levels[0] = true  # 第一关默认解锁
+
 ## 内部加载关卡方法
-func _load_level(level_path: String) -> void:
+func _load_level(level_path: String, score: int = 0) -> void:
+	# 准备关卡初始化数据
+	var init_data = {
+		"level_index": current_level_index,
+		"score": score
+	}
+	
 	# 使用场景管理器异步切换场景
 	CoreSystem.scene_manager.change_scene_async(
 		level_path, 
-		{
-			"level_index": current_level_index,
-			# "score": GameInstance.score
-		}, 
+		init_data,
 		false, 
-		CoreSystem.scene_manager.TransitionEffect.CUSTOM,  # 自定义过渡效果
-		0.5,  # 过渡时间
+		CoreSystem.scene_manager.TransitionEffect.CUSTOM,
+		0.5,
 		func() -> void:
-			_current_level = CoreSystem.scene_manager.get_current_scene(),
-		"level_transition"  # 过渡效果实例
+			# 发送关卡开始信号
+			_current_level = get_tree().current_scene
+			level_started.emit(current_level_index),
+		"level_transition"
 	)
-	
-	# 发送关卡开始信号
-	emit_signal("level_started", current_level_index)

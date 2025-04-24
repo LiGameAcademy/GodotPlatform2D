@@ -100,6 +100,7 @@ class UIEvent:
 	const FLOATING_SCORE_SPAWNED := "floating_score_spawned"
 	const LEVEL_SCORE_CHANGED := "level_score_changed"
 	const TOTAL_SCORE_CHANGED := "total_score_changed"
+	const NOTIFICATION := "notification"
 	
 	## 分数改变事件数据
 	class ScoreData:
@@ -115,3 +116,92 @@ class UIEvent:
 	## 发送总分数改变事件
 	static func push_total_score_changed(score: int) -> void:
 		CoreSystem.event_bus.push_event(TOTAL_SCORE_CHANGED, ScoreData.new(score))
+
+	static func push_notification(message: String) -> void:
+		CoreSystem.event_bus.push_event(NOTIFICATION, message)
+
+## 游戏流程事件
+class GameFlowEvent:
+	const GAME_PAUSED := "game_paused"
+	const GAME_RESUMED := "game_resumed"
+	const EXIT_LEVEL := "exit_level"
+	const EXIT_GAME := "exit_game"
+	const GAME_START_REQUESTED := "game_start_requested"
+	const GAME_CONTINUE_REQUESTED := "game_continue_requested"
+	
+	## 发送游戏暂停事件
+	static func push_game_paused() -> void:
+		CoreSystem.event_bus.push_event(GAME_PAUSED)
+	
+	## 发送游戏恢复事件
+	static func push_game_resumed() -> void:
+		CoreSystem.event_bus.push_event(GAME_RESUMED)
+	
+	## 发送退出关卡事件
+	static func push_exit_level() -> void:
+		CoreSystem.event_bus.push_event(EXIT_LEVEL)
+	
+	## 发送退出游戏事件
+	static func push_exit_game() -> void:
+		CoreSystem.event_bus.push_event(EXIT_GAME)
+
+	## 发送开始新游戏请求事件
+	static func push_game_start_requested() -> void:
+		CoreSystem.event_bus.push_event(GAME_START_REQUESTED)
+	
+	## 发送继续游戏请求事件
+	static func push_game_continue_requested() -> void:
+		CoreSystem.event_bus.push_event(GAME_CONTINUE_REQUESTED)
+
+## 角色选择事件
+class CharacterSelectEvent:
+	const CHARACTER_SELECTED := "character_selected"
+	const CHARACTER_SELECT_CANCELLED := "character_select_cancelled"
+	
+	## 发送角色选择事件
+	static func push_character_selected(character_index: int) -> void:
+		CoreSystem.event_bus.push_event(CHARACTER_SELECTED, character_index)
+	
+	## 发送角色选择取消事件
+	static func push_character_select_cancelled() -> void:
+		CoreSystem.event_bus.push_event(CHARACTER_SELECT_CANCELLED)
+
+## 关卡选择事件
+class LevelSelectEvent:
+	const LEVEL_SELECTED := "level_selected"
+	const LEVEL_SELECT_CANCELLED := "level_select_cancelled"
+	
+	## 发送关卡选择事件
+	static func push_level_selected(level_index: int) -> void:
+		CoreSystem.event_bus.push_event(LEVEL_SELECTED, level_index)
+	
+	## 发送关卡选择取消事件
+	static func push_level_select_cancelled() -> void:
+		CoreSystem.event_bus.push_event(LEVEL_SELECT_CANCELLED)
+
+## 存档系统事件
+class SaveEvent:
+	const SAVE_CREATED := "save_created"
+	const SAVE_LOADED := "save_loaded"
+	const SAVE_DELETED := "save_deleted"
+	
+	## 存档事件数据
+	class SaveDataEvent:
+		var save_index: int
+		var save_name: String
+		
+		func _init(p_save_index: int, p_save_name: String = "") -> void:
+			save_index = p_save_index
+			save_name = p_save_name
+	
+	## 发送存档创建事件
+	static func push_save_created(save_index: int, save_name: String = "") -> void:
+		CoreSystem.event_bus.push_event(SAVE_CREATED, SaveDataEvent.new(save_index, save_name))
+	
+	## 发送存档加载事件
+	static func push_save_loaded(save_index: int) -> void:
+		CoreSystem.event_bus.push_event(SAVE_LOADED, SaveDataEvent.new(save_index))
+	
+	## 发送存档删除事件
+	static func push_save_deleted(save_index: int) -> void:
+		CoreSystem.event_bus.push_event(SAVE_DELETED, SaveDataEvent.new(save_index))

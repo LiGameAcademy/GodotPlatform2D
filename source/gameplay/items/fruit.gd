@@ -19,7 +19,6 @@ var _collected = false
 
 signal collected(fruit: Fruit)
 
-
 func _ready() -> void:
 	# 设置水果类型和纹理
 	if fruit_type.is_empty():
@@ -29,14 +28,57 @@ func _ready() -> void:
 		_current_type = fruit_type
 		sprite_2d.texture = FRUIT_TYPES[fruit_type]
 	
+	# 初始化显示状态
+	sprite_collected.hide()
+	sprite_2d.show()
+	
 	# 播放空闲动画
-	animation_player.play("idle")
+	if not _collected:
+		animation_player.play("idle")
 
+	CoreSystem.save_manager.register_saveable_node(self)
+
+## 保存水果状态
+func save() -> Dictionary:
+	return {
+		"fruit_type": _current_type,
+		"collected": _collected,
+		"position": global_position,
+	}
+
+## 加载水果状态
+func load_data(fruit_data: Dictionary) -> void:
+	_current_type = fruit_data.get("fruit_type", "")
+	sprite_2d.texture = FRUIT_TYPES[_current_type]
+	global_position = fruit_data.get("position", Vector2.ZERO)
+	_collected = fruit_data.get("collected", false)
+	if _collected:
+		sprite_2d.hide()
+		# 停止动画
+		animation_player.stop()
+	else:
+		sprite_2d.show()
+		sprite_collected.hide()
+		# 播放空闲动画
+		animation_player.play("idle")
+
+## 获取当前水果类型
+func get_type() -> String:
+	return _current_type
+
+## 是否已被收集
+func is_collected() -> bool:
+	return _collected
+
+func _play_collect_animation() -> void:
+	animation_player.play("collected")
+	sprite_2d.hide()
+	sprite_collected.show()
 
 func _on_body_entered(body: Node2D) -> void:
 	if not body is Character or _collected:
 		return
-		
+	
 	_collected = true
 	
 	# 发送收集事件
@@ -45,17 +87,3 @@ func _on_body_entered(body: Node2D) -> void:
 	# 播放收集动画
 	_play_collect_animation()
 	collected.emit(self)
-
-
-func _play_collect_animation() -> void:
-	animation_player.play("collected")
-	await animation_player.animation_finished
-	queue_free()
-
-## 获取水果数据
-func get_fruit_data() -> Dictionary:
-	return {
-		"type": _current_type,
-		"score_multiplier": score_multiplier,
-		"collected": _collected
-	}

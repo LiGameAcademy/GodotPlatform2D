@@ -16,11 +16,12 @@ const SUPPORTED_LOCALES = ["zh", "en"]
 
 func _ready() -> void:
 	# 从配置中读取语言设置
-	var config = CoreSystem.config_manager.get_section("system")
-	var locale = config.get("language", DEFAULT_LOCALE) if config else DEFAULT_LOCALE
+	#var config = CoreSystem.config_manager.get_section("system")
+	#var locale = config.get("language", DEFAULT_LOCALE) if config else DEFAULT_LOCALE
 	
 	# 设置当前语言
-	set_locale(locale)
+	#set_locale(locale)
+	pass
 
 ## 设置当前语言
 ## [param locale] 语言代码

@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://1b14uwr13dsj"]
+[gd_scene load_steps=14 format=3 uid="uid://1b14uwr13dsj"]
 
 [ext_resource type="Script" uid="uid://coulsx6imrdlx" path="res://source/gameplay/traps/trap_saw.gd" id="1_b5wbe"]
 [ext_resource type="Texture2D" uid="uid://btiun2qpsrwkr" path="res://assets/textures/traps/Saw/Off.png" id="1_masfi"]
@@ -73,24 +73,23 @@ animations = [{
 }],
 "loop": true,
 "name": &"on",
-"speed": 5.0
+"speed": 16.0
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_d58me"]
 radius = 17.0
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_fv83l"]
-radius = 16.0
-
 [node name="trap_saw" type="PathFollow2D"]
+progress = 8063.08
 script = ExtResource("1_b5wbe")
 speed = 70.0
+is_editor_hint = null
 
 [node name="Sprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_gp60f")
 animation = &"on"
 autoplay = "on"
-frame_progress = 0.0985169
+frame_progress = 0.924612
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 2
@@ -98,10 +97,5 @@ collision_layer = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("CircleShape2D_d58me")
 debug_color = Color(0.574749, 0.00525285, 0.519454, 0.42)
-
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-shape = SubResource("CircleShape2D_fv83l")
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

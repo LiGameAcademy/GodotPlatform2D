@@ -15,7 +15,7 @@
 
 ## 📖 项目简介
 
-一个使用 Godot 4.4 开发的 2D 平台跳跃游戏教程项目。本项目旨在帮助开发者快速掌握 Godot 引擎的核心功能，同时提供一个完整的游戏开发实践案例。
+一个使用 Godot 4.4 开发的 2D 平台跳跃游戏教程项目。本项目旨在帮助开发者快速掌握 Godot 引擎的核心功能，提供一个完整的游戏开发实践案例，同时也是[godot_core_system插件](https://github.com/LiGameAcademy/godot_core_system)的示例项目。
 
 ### ✨ 在线试玩
 
@@ -95,9 +95,9 @@
 1. 确保已安装 [Godot 4.4](https://godotengine.org/download) 或更高版本
 2. 克隆项目仓库：
 
-	```bash
-	git clone https://github.com/Liweimin0512/-GodotPlatform2D.git
-	```
+```bash
+git clone https://github.com/Liweimin0512/-GodotPlatform2D.git
+```
 
 3. 使用 Godot 引擎打开项目
 4. 点击运行即可开始游戏
@@ -109,8 +109,6 @@
 ## 📝 更新日志
 
 查看 [CHANGELOG.md](docs/changelogs/CHANGELOG.md) 了解完整更新历史。
-
-最新更新：[v0.2.0 更新说明](docs/changelogs/2025-03-17-character-and-items.md)
 
 ## 🤝 贡献指南
 
@@ -133,16 +131,20 @@
 
 详细的许可证信息请查看 [LICENSE](LICENSE.md)。
 
-## 👨‍🏫 关于我们
+### 社区交流
 
-欢迎加入老李的知识付费平台：老李游戏学院（知识星球）
+- 加入我们的 [Discord 社区](https://discord.gg/V5nuzC2BcJ)
+- 关注我们的 [itch.io](https://godot-li.itch.io/) 主页
+- 为项目点亮 ⭐ 以示支持！
+
+## 🙏 致谢
+
+- 感谢所有为项目做出贡献的开发者！
+- 特别鸣谢[老李游戏学院-知识星球](https://wx.zsxq.com/group/28885154818841)的每一位同学！
+
+---
 
 <div align="center">
-
-![知识星球](/docs/images/知识星球-二维码.jpg)
-
-如果你觉得这个项目对你有帮助，也可以请我喝杯咖啡~
-
-![老李头像](/docs/images/老李头像.png)
-
+  <strong>由 老李游戏学院 用 ❤️ 构建</strong><br>
+  <sub>让游戏开发变得更简单</sub>
 </div>
