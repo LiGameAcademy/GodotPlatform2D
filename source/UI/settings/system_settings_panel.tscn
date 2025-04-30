@@ -1,0 +1,19 @@
+[gd_scene load_steps=2 format=3 uid="uid://your_unique_scene_id"] ; Replace with actual unique ID
+
+[ext_resource type="Script" path="res://source/ui/settings/system_settings_panel.gd" id="1_abcde"] ; Replace with actual resource ID if needed
+
+[node name="SystemSettingsPanel" type="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_abcde")
+
+[node name="Description" type="Label" parent="."]
+layout_mode = 2
+text = "SETTINGS_SYSTEM_DESC"
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="."]
+layout_mode = 2
+
+; Note: The LanguageOption node will be added dynamically by the script. 
