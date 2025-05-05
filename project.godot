@@ -19,9 +19,9 @@ config/icon="res://icon.png"
 [autoload]
 
 GameInstance="*res://source/core/game_instance.gd"
-TranslationLoader="*res://source/core/translation_loader.gd"
 GameEvents="*res://source/core/game_events.gd"
 CoreSystem="*res://addons/godot_core_system/source/core_system.gd"
+TranslationLoader="*res://source/core/translation_loader.gd"
 
 [display]
 
@@ -33,7 +33,7 @@ window/stretch/mode="canvas_items"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/godot_core_system/plugin.cfg", "res://addons/script-ide/plugin.cfg")
+enabled=PackedStringArray("res://addons/godot_core_system/plugin.cfg")
 
 [global_group]
 
@@ -41,7 +41,7 @@ test_global="test_des"
 
 [godot_core_system]
 
-save_system/defaults/serialization_format="binary"
+save_system/defaults/serialization_format="resource"
 
 [input]
 
