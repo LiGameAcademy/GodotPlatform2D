@@ -1,4 +1,5 @@
 extends HBoxContainer
+class_name VolumeSliderItem
 
 ## 音量滑块控件
 

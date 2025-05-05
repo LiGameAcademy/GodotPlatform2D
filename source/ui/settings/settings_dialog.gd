@@ -1,4 +1,5 @@
 extends Window
+class_name SettingsDialog
 
 ## 设置弹窗
 

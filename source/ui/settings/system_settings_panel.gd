@@ -30,6 +30,7 @@ func _ready() -> void:
 	# 如果需要加载当前语言设置，可以在这里添加
 	# 例如: language_option.set_current_language(config_manager.get_value("system", "locale", TranslationServer.get_locale()))
 
+
 func _on_language_changed(locale: String) -> void:
 	TranslationServer.set_locale(locale)
 	config_manager.set_value("system", "locale", locale)

@@ -1,9 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://your_unique_scene_id"] ; Replace with actual unique ID
+[gd_scene load_steps=3 format=3 uid="uid://c1rcxebqiy5g4"]
 
-[ext_resource type="Script" path="res://source/ui/settings/system_settings_panel.gd" id="1_abcde"] ; Replace with actual resource ID if needed
+[ext_resource type="Script" uid="uid://qtp8fu1cfd32" path="res://source/ui/settings/system_settings_panel.gd" id="1_abcde"]
+[ext_resource type="Script" uid="uid://r5o25tplqyf1" path="res://source/ui/settings/language_option.gd" id="2_nox0x"]
 
 [node name="SystemSettingsPanel" type="VBoxContainer"]
-layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("1_abcde")
@@ -16,4 +16,94 @@ horizontal_alignment = 1
 [node name="HSeparator" type="HSeparator" parent="."]
 layout_mode = 2
 
-; Note: The LanguageOption node will be added dynamically by the script. 
+[node name="MarginContainer5" type="MarginContainer" parent="."]
+layout_mode = 2
+
+[node name="LanguageOption" type="HBoxContainer" parent="MarginContainer5"]
+layout_mode = 2
+script = ExtResource("2_nox0x")
+
+[node name="Label" type="Label" parent="MarginContainer5/LanguageOption"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 10
+text = "语言"
+
+[node name="OptionButton" type="OptionButton" parent="MarginContainer5/LanguageOption"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+item_count = 2
+popup/item_0/text = "简体中文"
+popup/item_0/id = 0
+popup/item_1/text = "English"
+popup/item_1/id = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "UI缩放比例"
+
+[node name="HSlider" type="HSlider" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MarginContainer2" type="MarginContainer" parent="."]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer2"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="MarginContainer2/HBoxContainer"]
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "屏幕震动强度"
+
+[node name="HSlider" type="HSlider" parent="MarginContainer2/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MarginContainer3" type="MarginContainer" parent="."]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer3"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="MarginContainer3/HBoxContainer"]
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "字幕开关"
+
+[node name="CheckButton" type="CheckButton" parent="MarginContainer3/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 10
+theme_override_font_sizes/font_size = 10
+
+[node name="MarginContainer4" type="MarginContainer" parent="."]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer4"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="MarginContainer4/HBoxContainer"]
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "手柄震动开关"
+
+[node name="CheckButton" type="CheckButton" parent="MarginContainer4/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 10
+theme_override_font_sizes/font_size = 10
