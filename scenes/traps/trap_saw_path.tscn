@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://cbi53gi7x2hv4"]
+
+[ext_resource type="Script" uid="uid://bqtep58o7hqxb" path="res://scenes/traps/trap_saw_path.gd" id="1_p6uoa"]
+[ext_resource type="Texture2D" uid="uid://dgawegpyf8shp" path="res://assets/textures/traps/Saw/Chain.png" id="2_ppn6x"]
+
+[sub_resource type="Curve2D" id="Curve2D_rc7wf"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 128, 128, 0, 0, 0, 0, 224, 128, 0, 0, 0, 0, 224, 176, 0, 0, 0, 0, 128, 176, 0, 0, 0, 0, 128, 128)
+}
+point_count = 5
+
+[node name="trap_saw_path" type="Path2D"]
+curve = SubResource("Curve2D_rc7wf")
+script = ExtResource("1_p6uoa")
+sprite = ExtResource("2_ppn6x")

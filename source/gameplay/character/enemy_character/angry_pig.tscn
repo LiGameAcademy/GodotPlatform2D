@@ -1,5 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://b6d7ur3xt60mb"]
-
-[ext_resource type="PackedScene" uid="uid://ci17gpi18k7sw" path="res://source/gameplay/character/enemy_character.tscn" id="1_layvm"]
-
-[node name="AngryPig" instance=ExtResource("1_layvm")]
