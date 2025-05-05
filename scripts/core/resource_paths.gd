@@ -66,12 +66,6 @@ class UI:
 	const SETTINGS_DIALOG := "res://scenes/ui/settings/settings_dialog.tscn"
 	## 输入映射项
 	const INPUT_MAPPING_ITEM := "res://scenes/ui/settings/input_mapping_item.tscn"
-	## 音量滑块项
-	const VOLUME_SLIDER_ITEM := "res://scenes/ui/settings/volume_slider_item.tscn"
-	## 图形选项项
-	const GRAPHICS_OPTION_ITEM := "res://scenes/ui/settings/graphics_option_item.tscn"
-	## 语言选项预制场景
-	const LANGUAGE_OPTION := "res://scenes/ui/settings/language_option.tscn"
 
 ## UI效果路径
 class Effects:

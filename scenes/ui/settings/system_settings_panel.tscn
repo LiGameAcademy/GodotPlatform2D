@@ -21,6 +21,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Description" type="Label" parent="ScrollContainer/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 text = "SETTINGS_SYSTEM_DESC"
 horizontal_alignment = 1
@@ -35,68 +36,77 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/MarginContainer5/LanguageOption"]
+custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 10
-text = "语言"
+text = "SETTINGS_LANGUAGE"
 
-[node name="OptionButton" type="OptionButton" parent="ScrollContainer/VBoxContainer/MarginContainer5/LanguageOption"]
+[node name="LanguageOptionButton" type="OptionButton" parent="ScrollContainer/VBoxContainer/MarginContainer5/LanguageOption"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
+size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 10
-item_count = 2
-popup/item_0/text = "简体中文"
-popup/item_0/id = 0
-popup/item_1/text = "English"
-popup/item_1/id = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="ScrollContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/MarginContainer"]
+[node name="UIScaleOption" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/MarginContainer"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/MarginContainer/HBoxContainer"]
-custom_minimum_size = Vector2(60, 0)
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/MarginContainer/UIScaleOption"]
+custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 10
-text = "UI缩放比例"
+text = "SETTINGS_UI_SCALE"
 
-[node name="HSlider" type="HSlider" parent="ScrollContainer/VBoxContainer/MarginContainer/HBoxContainer"]
+[node name="UIScaleSlider" type="HSlider" parent="ScrollContainer/VBoxContainer/MarginContainer/UIScaleOption"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
+min_value = 0.5
+max_value = 2.0
+step = 0.1
+value = 0.5
 
 [node name="MarginContainer2" type="MarginContainer" parent="ScrollContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/MarginContainer2"]
+[node name="ScreenShakeOption" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/MarginContainer2"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/MarginContainer2/HBoxContainer"]
-custom_minimum_size = Vector2(60, 0)
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/MarginContainer2/ScreenShakeOption"]
+custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 10
-text = "屏幕震动强度"
+text = "SETTINGS_SCREEN_SHAKE"
 
-[node name="HSlider" type="HSlider" parent="ScrollContainer/VBoxContainer/MarginContainer2/HBoxContainer"]
+[node name="ScreenShakeSlider" type="HSlider" parent="ScrollContainer/VBoxContainer/MarginContainer2/ScreenShakeOption"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
+min_value = 0.0
+max_value = 1.0
+step = 0.05
 
 [node name="MarginContainer3" type="MarginContainer" parent="ScrollContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/MarginContainer3"]
+[node name="SubtitlesOption" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/MarginContainer3"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/MarginContainer3/HBoxContainer"]
-custom_minimum_size = Vector2(60, 0)
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/MarginContainer3/SubtitlesOption"]
+custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 10
-text = "字幕开关"
+text = "SETTINGS_SUBTITLES"
 
-[node name="CheckButton" type="CheckButton" parent="ScrollContainer/VBoxContainer/MarginContainer3/HBoxContainer"]
+[node name="SubtitlesCheckButton" type="CheckButton" parent="ScrollContainer/VBoxContainer/MarginContainer3/SubtitlesOption"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 10
 theme_override_font_sizes/font_size = 10
@@ -104,17 +114,18 @@ theme_override_font_sizes/font_size = 10
 [node name="MarginContainer4" type="MarginContainer" parent="ScrollContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/MarginContainer4"]
+[node name="VibrationOption" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/MarginContainer4"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/MarginContainer4/HBoxContainer"]
-custom_minimum_size = Vector2(60, 0)
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/MarginContainer4/VibrationOption"]
+custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 10
-text = "手柄震动开关"
+text = "SETTINGS_VIBRATION"
 
-[node name="CheckButton" type="CheckButton" parent="ScrollContainer/VBoxContainer/MarginContainer4/HBoxContainer"]
+[node name="VibrationCheckButton" type="CheckButton" parent="ScrollContainer/VBoxContainer/MarginContainer4/VibrationOption"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 10
 theme_override_font_sizes/font_size = 10

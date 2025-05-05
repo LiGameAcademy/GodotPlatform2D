@@ -1,38 +1,66 @@
-extends Container
+extends MarginContainer
 
 ## 系统设置面板
 
-# 节点引用 (如果需要直接引用子节点，可以在这里添加)
-# @onready var description_label: Label = $Description 
+# 节点引用 (移除了 %)
+@onready var language_option_instance: HBoxContainer = %LanguageOptionInstance
+@onready var ui_scale_slider: HSlider = %UIScaleSlider
+@onready var screen_shake_slider: HSlider = %ScreenShakeSlider
+@onready var subtitles_check_button: CheckButton = %SubtitlesCheckButton
+@onready var vibration_check_button: CheckButton = %VibrationCheckButton
 
 # 系统引用
-@onready var config_manager: CoreSystem.ConfigManager = CoreSystem.config_manager
-
-# 预制场景
-const LanguageOption = preload(ResourcePaths.UI.LANGUAGE_OPTION)
+var settings_manager: SettingsManager = GameInstance.settings_manager
+var _logger : CoreSystem.Logger = CoreSystem.logger
 
 func _ready() -> void:
-	# 清除现有的动态添加的设置项 (如果需要重置的话)
-	# 这确保在场景树中重新添加节点时不会重复
-	# 但在此场景中，如果 LanguageOption 是唯一动态添加的，
-	# 并且 _ready 只运行一次，可能不需要清除。
-	# 暂时保留注释，以备后用。
-	# for child in get_children():
-	#	 if child.name == "LanguageOptionInstance": # 给实例一个名字以便查找
-	#		 child.queue_free()
-			
-	# 添加语言选择
-	var language_option = LanguageOption.instantiate()
-	language_option.name = "LanguageOptionInstance" # 给实例一个名字
-	add_child(language_option)
-	language_option.language_changed.connect(_on_language_changed)
-	
-	# 如果需要加载当前语言设置，可以在这里添加
-	# 例如: language_option.set_current_language(config_manager.get_value("system", "locale", TranslationServer.get_locale()))
+	# -- 初始化语言选项 --
+	# LanguageOption 实例应该在它自己的 _ready 中初始化
+	# 我们只需要连接它的信号
+	if language_option_instance and language_option_instance.has_signal("language_changed"):
+		language_option_instance.language_changed.connect(_on_language_option_language_changed)
+	else:
+		_logger.error("LanguageOptionInstance node not found or does not have 'language_changed' signal.")
+
+	# -- 初始化其他设置 (使用 settings_manager 实例) --
+	# UI 缩放
+	ui_scale_slider.value = settings_manager.get_setting("system", "ui_scale")
+	ui_scale_slider.value_changed.connect(_on_ui_scale_slider_value_changed)
+
+	# 屏幕震动强度
+	screen_shake_slider.value = settings_manager.get_setting("system", "screen_shake_intensity")
+	screen_shake_slider.value_changed.connect(_on_screen_shake_slider_value_changed)
+
+	# 字幕开关
+	subtitles_check_button.button_pressed = settings_manager.get_setting("system", "subtitles_enabled")
+	subtitles_check_button.toggled.connect(_on_subtitles_check_button_toggled)
+
+	# 手柄震动开关
+	vibration_check_button.button_pressed = settings_manager.get_setting("system", "vibration_enabled")
+	vibration_check_button.toggled.connect(_on_vibration_check_button_toggled)
+
+# -- 移除了旧的 _on_language_option_item_selected --
+
+# 新的处理 LanguageOptionInstance 信号的回调
+func _on_language_option_language_changed(locale: String) -> void:
+	_logger.info("SystemSettingsPanel: Language changed signal received: %s" % locale)
+	settings_manager.update_setting("system", "locale", locale)
 
 
-func _on_language_changed(locale: String) -> void:
-	TranslationServer.set_locale(locale)
-	config_manager.set_value("system", "locale", locale)
-	# 注意：保存配置的操作现在由 SettingsDialog 的保存按钮统一处理
-	# config_manager.save_config() # 不应在此处单独保存 
+func _on_ui_scale_slider_value_changed(value: float) -> void:
+	settings_manager.update_setting("system", "ui_scale", value)
+
+
+func _on_screen_shake_slider_value_changed(value: float) -> void:
+	settings_manager.update_setting("system", "screen_shake_intensity", value)
+
+
+func _on_subtitles_check_button_toggled(button_pressed: bool) -> void:
+	settings_manager.update_setting("system", "subtitles_enabled", button_pressed)
+
+
+func _on_vibration_check_button_toggled(button_pressed: bool) -> void:
+	settings_manager.update_setting("system", "vibration_enabled", button_pressed)
+
+
+# 注意：应用设置的逻辑仍在 SettingsManager 中。

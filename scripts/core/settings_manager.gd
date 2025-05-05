@@ -28,7 +28,9 @@ const DEFAULT_SETTINGS = {
 		"master_volume_db": 0.0,
 		"music_volume_db": -6.0,
 		"sfx_volume_db": -3.0,
-		"master_mute": false # 主静音 (bool)
+		"master_mute": false, 				# 主音量静音 (bool)
+		"music_mute": false, 				# 音乐音量静音 (bool)
+		"sfx_mute": false, 					# 音效音量静音 (bool)
 	},
 	"graphics": {
 		"fullscreen": false,         # 全屏模式 (bool)
