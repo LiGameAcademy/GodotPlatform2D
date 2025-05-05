@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://b1r2jvs6181rx"]
+[gd_scene load_steps=4 format=3 uid="uid://b1r2jvs6181rx"]
 
-[ext_resource type="Script" uid="uid://t4ih6057g2td" path="res://source/ui/settings/settings_dialog.gd" id="1_yl8n4"]
+[ext_resource type="Script" uid="uid://djeokpwcmpok7" path="res://source/ui/settings/settings_dialog.gd" id="1_yl8n4"]
+[ext_resource type="PackedScene" path="res://source/ui/settings/system_settings_panel.tscn" id="2_u5ije"]
+[ext_resource type="PackedScene" path="res://source/ui/settings/audio_settings_panel.tscn" id="3_wjp1a"]
 
 [node name="SettingsDialog" type="Window"]
 title = "SETTINGS_TITLE"
@@ -35,19 +37,8 @@ current_tab = 0
 layout_mode = 2
 metadata/_tab_index = 0
 
-[node name="SystemSettings" type="VBoxContainer" parent="MarginContainer/VBoxContainer/SettingsTabs/System"]
+[node name="SystemSettings" parent="MarginContainer/VBoxContainer/SettingsTabs/System" instance=ExtResource("2_u5ije")]
 unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="Description" type="Label" parent="MarginContainer/VBoxContainer/SettingsTabs/System/SystemSettings"]
-layout_mode = 2
-text = "SETTINGS_SYSTEM_DESC"
-horizontal_alignment = 1
-
-[node name="HSeparator" type="HSeparator" parent="MarginContainer/VBoxContainer/SettingsTabs/System/SystemSettings"]
-layout_mode = 2
 
 [node name="Input" type="ScrollContainer" parent="MarginContainer/VBoxContainer/SettingsTabs"]
 visible = false
@@ -73,19 +64,8 @@ visible = false
 layout_mode = 2
 metadata/_tab_index = 2
 
-[node name="AudioSettings" type="VBoxContainer" parent="MarginContainer/VBoxContainer/SettingsTabs/Audio"]
+[node name="AudioSettings" parent="MarginContainer/VBoxContainer/SettingsTabs/Audio" instance=ExtResource("3_wjp1a")]
 unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="Description" type="Label" parent="MarginContainer/VBoxContainer/SettingsTabs/Audio/AudioSettings"]
-layout_mode = 2
-text = "SETTINGS_AUDIO_DESC"
-horizontal_alignment = 1
-
-[node name="HSeparator" type="HSeparator" parent="MarginContainer/VBoxContainer/SettingsTabs/Audio/AudioSettings"]
-layout_mode = 2
 
 [node name="Graphics" type="ScrollContainer" parent="MarginContainer/VBoxContainer/SettingsTabs"]
 visible = false

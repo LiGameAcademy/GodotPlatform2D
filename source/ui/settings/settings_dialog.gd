@@ -1,10 +1,10 @@
 extends Window
+class_name SettingsDialog
 
 ## 设置弹窗
 
 # 节点引用
 @onready var settings_tabs: TabContainer = %SettingsTabs
-@onready var system_settings: VBoxContainer = %SystemSettings
 @onready var input_settings: VBoxContainer = %InputSettings
 @onready var audio_settings: VBoxContainer = %AudioSettings
 @onready var graphics_settings: VBoxContainer = %GraphicsSettings
@@ -19,7 +19,6 @@ extends Window
 const InputMappingItem = preload(ResourcePaths.UI.INPUT_MAPPING_ITEM)
 const VolumeSliderItem = preload(ResourcePaths.UI.VOLUME_SLIDER_ITEM)
 const GraphicsOptionItem = preload(ResourcePaths.UI.GRAPHICS_OPTION_ITEM)
-const LanguageOption = preload(ResourcePaths.UI.LANGUAGE_OPTION)
 
 # 音频设置配置项
 const VOLUME_SETTINGS = {
@@ -57,24 +56,12 @@ func _ready() -> void:
 	reset_button.text = tr("SETTINGS_RESET")
 	
 	# 初始化设置UI
-	#_init_system_settings()
 	#_init_input_settings()
 	#_init_audio_settings()
 	#_init_graphics_settings()
 	
 	# 加载当前配置
 	#_load_current_settings()
-
-func _init_system_settings() -> void:
-	# 清除现有的系统设置
-	for child in system_settings.get_children():
-		if child.name != "Description" and child.name != "HSeparator":
-			child.queue_free()
-	
-	# 添加语言选择
-	var language_option = LanguageOption.instantiate()
-	system_settings.add_child(language_option)
-	language_option.language_changed.connect(_on_language_changed)
 
 func _init_input_settings() -> void:
 	# 清除现有的映射UI
@@ -239,7 +226,3 @@ func _on_save_button_pressed() -> void:
 func _on_reset_button_pressed() -> void:
 	config_manager.reset_config()
 	_load_current_settings()
-
-func _on_language_changed(locale: String) -> void:
-	TranslationServer.set_locale(locale)
-	config_manager.set_value("system", "locale", locale)

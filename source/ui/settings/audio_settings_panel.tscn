@@ -1,0 +1,77 @@
+[gd_scene load_steps=3 format=3 uid="uid://c44jp275twe4i"]
+
+[ext_resource type="Script" uid="uid://y2qc7ghspg2w" path="res://source/ui/settings/audio_settings_panel.gd" id="1_wxyz"]
+[ext_resource type="Script" uid="uid://chvwbgvk4q37k" path="res://source/ui/settings/volume_slider_item.gd" id="2_1hqyh"]
+
+[node name="AudioSettingsPanel" type="VBoxContainer"]
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_wxyz")
+
+[node name="Description" type="Label" parent="."]
+layout_mode = 2
+text = "SETTINGS_AUDIO_DESC"
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="."]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+
+[node name="VolumeSliderItem" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+script = ExtResource("2_1hqyh")
+
+[node name="Label" type="CheckButton" parent="MarginContainer/VolumeSliderItem"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 10
+text = "主音量"
+
+[node name="HSlider" type="HSlider" parent="MarginContainer/VolumeSliderItem"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_vertical = 4
+value = 100.0
+
+[node name="MarginContainer2" type="MarginContainer" parent="."]
+layout_mode = 2
+
+[node name="VolumeSliderItem" type="HBoxContainer" parent="MarginContainer2"]
+layout_mode = 2
+script = ExtResource("2_1hqyh")
+
+[node name="Label" type="CheckButton" parent="MarginContainer2/VolumeSliderItem"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 10
+text = "音乐"
+
+[node name="HSlider" type="HSlider" parent="MarginContainer2/VolumeSliderItem"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_vertical = 4
+value = 100.0
+
+[node name="MarginContainer3" type="MarginContainer" parent="."]
+layout_mode = 2
+
+[node name="VolumeSliderItem" type="HBoxContainer" parent="MarginContainer3"]
+layout_mode = 2
+script = ExtResource("2_1hqyh")
+
+[node name="Label" type="CheckButton" parent="MarginContainer3/VolumeSliderItem"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 10
+text = "音效"
+
+[node name="HSlider" type="HSlider" parent="MarginContainer3/VolumeSliderItem"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_vertical = 4
+value = 100.0

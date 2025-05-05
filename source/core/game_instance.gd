@@ -20,6 +20,7 @@ var selected_character_index := 0
 var level_manager : LevelManager
 var effect_manager : EffectManager
 var save_manager : SaveManager
+var settings_manager : SettingsManager
 
 ## 角色相关
 var characters: Array[PackedScene] = ResourcePaths.Characters.get_all()
@@ -36,6 +37,10 @@ func _ready() -> void:
 	save_manager = SaveManager.new()
 	add_child(save_manager)
 	save_manager.name = "save_manager"
+
+	settings_manager = SettingsManager.new()
+	add_child(settings_manager)
+	settings_manager.name = "settings_manager"
 
 	CoreSystem.save_manager.register_saveable_node(self)
 
